@@ -30,14 +30,6 @@ public class CharacterMovementIsometric : MonoBehaviour
     public static bool overclock = false;
     public static bool overclockTransition = false;
 
-    //variables for stun
-    public GameObject stunPart;
-    private float stunCDTime = 10f;
-
-    //player variables - consider moving things about the player that aren't movement to their own script, e.g. PlayerInfo
-    public float health = 20f;
-    public float maxHealth = 50f;
-
     public Camera mainCam;
 
     private void Start()
@@ -129,15 +121,7 @@ public class CharacterMovementIsometric : MonoBehaviour
             Debug.Log("Fixed Delta Time: " + Time.fixedDeltaTime + "\nFixed Unscaled Delta Time: " + Time.fixedUnscaledDeltaTime);
         }
 
-        //activate stun spell
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (stunCDTime <= 0f)
-            {
-                stunCDTime = 10f;
-                Instantiate(stunPart, pointToLook, Quaternion.identity);
-            }
-        }
+
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
@@ -183,10 +167,6 @@ public class CharacterMovementIsometric : MonoBehaviour
         //playerVelocity.y += (gravityValue * Time.fixedUnscaledDeltaTime);
         Vector3 finalMovementVector = new Vector3(move.x * playerSpeed, playerVelocity.y, move.z * playerSpeed);
         controller.Move(finalMovementVector * Time.fixedUnscaledDeltaTime);
-
-        //decrement stun time
-        if (stunCDTime > 0) stunCDTime -= Time.fixedUnscaledDeltaTime;
-        else stunCDTime = 0;
 
         //decrement overclock time
         if (overclock)

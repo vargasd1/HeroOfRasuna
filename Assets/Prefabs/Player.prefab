@@ -638,7 +638,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: d70f56d46ed14ef40b022073d26267b3, type: 3}
+  - {fileID: 2100000, guid: 6c8de17a872a6a3459c0a76d373d7a57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -906,10 +906,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overlay: {fileID: 0}
   overclockCD: {fileID: 0}
-  stunPart: {fileID: 8344548248336078949, guid: 85ac5c2308f4d5c4886c655f1fa5df29,
-    type: 3}
-  health: 100
-  maxHealth: 100
   mainCam: {fileID: 0}
 --- !u!114 &919132148106517197
 MonoBehaviour:
@@ -928,9 +924,13 @@ MonoBehaviour:
     type: 3}
   healthUI: {fileID: 0}
   healCD: {fileID: 0}
+  playerHealth: 100
+  playerTargetHealth: 100
   projectile: {fileID: 1352447834921957360, guid: 558570228c94c9a488655ee620d30eda,
     type: 3}
   spellSpawnLoc: {fileID: 4077812842594532560}
+  stunPart: {fileID: 0}
+  stunCD: {fileID: 0}
 --- !u!114 &919132148106517196
 MonoBehaviour:
   m_ObjectHideFlags: 0

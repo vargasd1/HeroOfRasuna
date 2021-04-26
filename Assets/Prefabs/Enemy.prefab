@@ -411,11 +411,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   player: {fileID: 0}
-  lookRadius: 10
-  waitTime: 0
-  wonderTime: 0
-  startWaitTime: 0
-  wonderRadius: 50
   health: 100
   stunnedTimer: 0
 --- !u!136 &5572717238330933966
@@ -837,7 +832,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: d70f56d46ed14ef40b022073d26267b3, type: 3}
+  - {fileID: 2100000, guid: 54b29afd86c792840a5e61d8921e8b49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

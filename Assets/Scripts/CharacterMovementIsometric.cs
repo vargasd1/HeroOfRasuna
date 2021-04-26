@@ -13,6 +13,9 @@ public class CharacterMovementIsometric : MonoBehaviour
     private bool groundedPlayer;
     private bool doOnce = true;
 
+    // bool for animation activation 
+    public bool isMoving = false;
+
     private float playerSpeed = 5.0f;
     private int attackNum = 0;
 
@@ -47,7 +50,7 @@ public class CharacterMovementIsometric : MonoBehaviour
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         float rayLength;
 
-        if (groundPlane.Raycast(cameraRay, out rayLength))
+        if (groundPlane.Raycast(cameraRay, out rayLength) && !isMoving)
         {
             pointToLook = cameraRay.GetPoint(rayLength);
             transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
@@ -98,14 +101,19 @@ public class CharacterMovementIsometric : MonoBehaviour
             Vector3 upMovement = northSouthDir * playerSpeed * Input.GetAxis("Vertical");
 
             move = Vector3.Normalize(rightMovement + upMovement);
+            
 
             if (move != Vector3.zero)
             {
+                anim.SetBool("isMoving", true);
+                isMoving = true;
                 gameObject.transform.forward = move;
             }
         }
         else
         {
+            anim.SetBool("isMoving", false);
+            isMoving = false;
             move = Vector3.zero;
         }
 

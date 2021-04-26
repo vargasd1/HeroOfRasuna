@@ -5,7 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
+    // player variables
     public GameObject player;
+    private Animator anim;
+
+    // variables for melee attack
+    int attackNum = 0;
+    public bool isAttacking = false;
 
     // variables for heal
     public ParticleSystem healParticles;
@@ -28,12 +34,24 @@ public class PlayerManager : MonoBehaviour
     private float rayLength;
     public Image stunCD;
 
-    void Start() { }
+    void Start()
+    {
+        anim = gameObject.GetComponent<Animator>();
+    }
 
     void Update()
     {
         // player dies
         if (playerHealth <= 0) Destroy(gameObject);
+
+        // resets player to idle when not trying to swing anymore
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            anim.SetBool("isSwinging", false);
+            anim.SetInteger("swingCount", 0);
+            attackNum = 0;
+            isAttacking = false;
+        }
 
         // Lerps health
         if (playerTargetHealth < playerHealth) playerHealth--;
@@ -41,24 +59,38 @@ public class PlayerManager : MonoBehaviour
         else playerHealth = playerTargetHealth;
 
         // activate heal
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !isAttacking)
         {
             if (healCDTime <= 0f && playerHealth != playerMaxHealth) Heal();
         }
 
         // activate stun spell
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !isAttacking)
         {
             if (stunCDTime <= 0f) Stun();
         }
 
         // spawn attack spell
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !isAttacking)
         {
             GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, player.transform.rotation, null) as GameObject;
             Rigidbody rb = lightBlast.GetComponent<Rigidbody>();
             rb.velocity = player.transform.forward * 20;
             lightBlast.GetComponent<SpellInteraction>().spellType = "attack";
+        }
+
+        // swing attack
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking)
+        {
+            anim.SetBool("isSwinging", true);
+            isAttacking = true;
+            Attack();
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && isAttacking)
+        {
+            if (attackNum <= 2) attackNum++;
+            anim.SetInteger("swingCount", attackNum);
+            Attack();
         }
     }
 
@@ -97,7 +129,22 @@ public class PlayerManager : MonoBehaviour
 
         // spawning the stun and resetting CD
         stunCDTime = 30f;
-        GameObject stun = Instantiate(stunPart, pointToLook, Quaternion.identity) as GameObject;
+        pointToLook = new Vector3(pointToLook.x, pointToLook.y + .5f, pointToLook.z);
+        GameObject stun = Instantiate(stunPart, pointToLook, Quaternion.Euler(-90, 0, 0)) as GameObject;
         stun.GetComponent<SpellInteraction>().spellType = "stun";
+    }
+
+    void Attack()
+    {
+        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1.5f))
+        {
+            if (hit.collider.gameObject.tag == "Enemy")
+            {
+                hit.collider.gameObject.GetComponent<EnemyAI>().health -= 25;
+            }
+        }
     }
 }

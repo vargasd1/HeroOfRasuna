@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpellInteraction : MonoBehaviour
 {
+    public Transform player;
     public GameObject collisionFlash;
     public GameObject stunnedPart;
     public Rigidbody rb;

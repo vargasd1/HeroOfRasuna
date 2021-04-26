@@ -20,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     // Navigation Variables
     public Transform player;
     private NavMeshAgent agent;
+    private Animator anim;
 
     // Health Variables
     public float health = 100f;
@@ -32,6 +33,7 @@ public class EnemyAI : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         state = State.Spawning;
     }
 
@@ -47,12 +49,14 @@ public class EnemyAI : MonoBehaviour
                 // Play spawn animation
                 // When completed, goes to Idle state
                 spawnTimer -= Time.fixedDeltaTime;
+                anim.SetBool("isMoving", false);
                 if (spawnTimer <= 0) state = State.Idle;
                 break;
             case State.Idle:
                 // Reset navMesh && state
                 agent.speed = 3.5f;
                 agent.acceleration = 8f;
+                anim.SetBool("isMoving", false);
                 if (player) state = State.Chasing;
                 break;
             case State.Chasing:
@@ -65,6 +69,7 @@ public class EnemyAI : MonoBehaviour
                 // Stops moving instantly
                 agent.speed = 0f;
                 agent.acceleration = 1000f;
+                anim.SetBool("isMoving", false);
                 // Decrement stun timer
                 stunnedTimer -= Time.fixedDeltaTime;
                 if (stunnedTimer <= 0) state = State.Idle;
@@ -72,6 +77,7 @@ public class EnemyAI : MonoBehaviour
             case State.Dead:
                 // Play death animation
                 // Destroy or just remove collider
+                anim.SetBool("isMoving", false);
                 Destroy(gameObject);
                 break;
         }
@@ -79,26 +85,44 @@ public class EnemyAI : MonoBehaviour
 
     void ChasePlayer()
     {
-        agent.SetDestination(player.position);
-        transform.LookAt(player);
-        if (agent.remainingDistance <= agent.stoppingDistance) state = State.Attacking;
+        if (player)
+        {
+            anim.SetBool("isMoving", true);
+            agent.SetDestination(player.position);
+            transform.LookAt(player);
+            if (agent.remainingDistance <= agent.stoppingDistance) state = State.Attacking;
+        }
+        else
+        {
+            state = State.Idle;
+        }
     }
 
     void AttackPlayer()
     {
-        if (timeBetweenAttacks <= 0)
+        if (player)
         {
-            if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 2f)
+            if (timeBetweenAttacks <= 0)
             {
-                player.gameObject.GetComponent<PlayerManager>().playerTargetHealth -= 20f;
-                timeBetweenAttacks = 3f;
+                anim.SetBool("isMoving", false);
+                anim.ResetTrigger("Attack");
+                if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 2f)
+                {
+                    anim.SetTrigger("Attack");
+                    player.gameObject.GetComponent<PlayerManager>().playerTargetHealth -= 20f;
+                    timeBetweenAttacks = 3f;
+                }
+                else
+                {
+                    state = State.Chasing;
+                }
             }
-            else
-            {
-                state = State.Chasing;
-            }
-        }
 
-        if (timeBetweenAttacks >= 0) timeBetweenAttacks -= Time.fixedDeltaTime;
+            if (timeBetweenAttacks >= 0) timeBetweenAttacks -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            state = State.Idle;
+        }
     }
 }

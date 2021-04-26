@@ -6,9 +6,8 @@ using UnityEngine.UI;
 public class CharacterMovementIsometric : MonoBehaviour
 {
     private CharacterController controller;
-    private MeleeManager meleeManager;
     private Animator anim;
-
+    private PlayerManager playerMan;
 
     private bool groundedPlayer;
     private bool doOnce = true;
@@ -17,7 +16,6 @@ public class CharacterMovementIsometric : MonoBehaviour
     public bool isMoving = false;
 
     private float playerSpeed = 5.0f;
-    private int attackNum = 0;
 
     private Vector3 northSouthDir, eastWestDir, playerVelocity;
     private Vector3 move;
@@ -39,8 +37,8 @@ public class CharacterMovementIsometric : MonoBehaviour
     {
         //////////////////////////////////////////////////////////// Get Character Controller Off the Player
         controller = gameObject.GetComponent<CharacterController>();
-        meleeManager = gameObject.GetComponent<MeleeManager>();
         anim = gameObject.GetComponent<Animator>();
+        playerMan = gameObject.GetComponent<PlayerManager>();
     }
 
     void Update()
@@ -84,9 +82,13 @@ public class CharacterMovementIsometric : MonoBehaviour
             playerSpeed = 5.0f;
         }
 
+        // If isAttacking DONT FUCKING MOVE
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || anim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || anim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
+        {
+            playerSpeed = 0f;
+        }
+
         //////////////////////////////////////////////////////////// Player Movement X & Z
-
-
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
         {
             northSouthDir = Camera.main.transform.forward;
@@ -101,7 +103,7 @@ public class CharacterMovementIsometric : MonoBehaviour
             Vector3 upMovement = northSouthDir * playerSpeed * Input.GetAxis("Vertical");
 
             move = Vector3.Normalize(rightMovement + upMovement);
-            
+
 
             if (move != Vector3.zero)
             {
@@ -117,6 +119,7 @@ public class CharacterMovementIsometric : MonoBehaviour
             move = Vector3.zero;
         }
 
+
         //activate overclock
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -128,42 +131,6 @@ public class CharacterMovementIsometric : MonoBehaviour
         {
             Debug.Log("Fixed Delta Time: " + Time.fixedDeltaTime + "\nFixed Unscaled Delta Time: " + Time.fixedUnscaledDeltaTime);
         }
-
-
-
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            anim.SetBool("isSwinging", false);
-            anim.SetInteger("swingCount", 0);
-            attackNum = 0;
-        }
-
-        // swing attack
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            // meleeManager.startAttack = true;
-            anim.SetBool("isSwinging", true);
-            if (attackNum <= 2) attackNum++;
-            anim.SetInteger("swingCount", attackNum);
-        }
-
-
-
-        //////////////////////////////////////////////////////////// Player Movement Y
-        /*if (Input.GetButtonDown("Jump") && jumpCount < 2)
-        {
-            if (jumpCount == 0 && groundedPlayer)
-            {
-                //////////////////////////////////////////////////////////// 1st Jump
-                playerVelocity.y = Mathf.Sqrt(jumpHeight * -5f * gravityValue);
-            }
-            else if (jumpCount == 1)
-            {
-                //////////////////////////////////////////////////////////// 2nd Jump
-                playerVelocity.y = Mathf.Sqrt(jumpHeight * -5f * gravityValue);
-            }
-            jumpCount++;
-        }*/
     }//Update()
 
 

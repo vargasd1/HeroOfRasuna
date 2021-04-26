@@ -8,6 +8,7 @@ public class CameraFollow : MonoBehaviour
 {
     public float cameraMoveSpeed = 120.0f;
     public GameObject CameraFollowObject;
+    Transform target;
     Vector3 FollowPOS;
     public float clampAngle = 80.0f;
     public float inputSensitivity = 150.0f;
@@ -67,10 +68,13 @@ public class CameraFollow : MonoBehaviour
     private void CameraUpdater()
     {
         //Sets camera follow target
-        Transform target = CameraFollowObject.transform;
+        if (CameraFollowObject)
+        {
+            target = CameraFollowObject.transform;
 
-        //Moves the camera around the object based on speed (step)
-        float step = cameraMoveSpeed * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+            //Moves the camera around the object based on speed (step)
+            float step = cameraMoveSpeed * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        }
     }
 }

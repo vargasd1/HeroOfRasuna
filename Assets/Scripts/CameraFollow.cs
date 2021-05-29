@@ -32,6 +32,7 @@ public class CameraFollow : MonoBehaviour
     private Quaternion targetRotation4 = Quaternion.Euler(0, -22, 0);
     private Quaternion targetRotation5 = Quaternion.Euler(0, 50, 0);
     private Quaternion targetRotation6 = Quaternion.Euler(0, 12, 0);
+    private List<GameObject> hitObjs = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +76,43 @@ public class CameraFollow : MonoBehaviour
             //Moves the camera around the object based on speed (step)
             float step = cameraMoveSpeed * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+
+            //Cast Ray from camera to player and check collision between the two
+            RaycastHit hit;
+            if (Physics.Raycast(target.transform.position + new Vector3(0, 1, 0), Camera.main.transform.position, out hit))
+            {
+                if (hit.collider.gameObject.tag == "Wall")
+                {
+                    if (hitObjs.Count > 0)
+                    {
+                        foreach (GameObject obj in hitObjs)
+                        {
+                            if (hit.collider.gameObject != obj)
+                            {
+                                hit.collider.gameObject.GetComponent<WallFade>().SetMaterialTransparent();
+                                hitObjs.Add(hit.collider.gameObject);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        hit.collider.gameObject.GetComponent<WallFade>().SetMaterialTransparent();
+                        hitObjs.Add(hit.collider.gameObject);
+                    }
+                }
+            }
+            else
+            {
+                if (hitObjs.Count > 0)
+                {
+                    for (int i = 0; i < hitObjs.Count; i++)
+                    {
+                        hitObjs[i].gameObject.GetComponent<WallFade>().fadeOut = false;
+                        hitObjs[i].gameObject.GetComponent<WallFade>().fadeIn = true;
+                        hitObjs.Remove(hitObjs[i]);
+                    }
+                }
+            }
         }
     }
 }

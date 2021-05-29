@@ -22,12 +22,6 @@ public static class AnimMath
             if (p > 1) p = 1;
         }
         return (max - min) * p + min;
-        //return (max - min) * p + min;
-
-       // float x = Lerp(min.x, max.x, p);
-       // float y = Lerp(min.y, max.y, p);
-       // float z = Lerp(min.z, max.z, p);
-       // return new Vector3(x, y, z);
     }
 
     public static Quaternion Lerp(Quaternion min, Quaternion max, float p, bool allowExtrapolation = true)
@@ -61,5 +55,4 @@ public static class AnimMath
         float p = 1 - Mathf.Pow(percentLeftAfter1Second, Time.deltaTime);
         return AnimMath.Lerp(current, target, p);
     }
-
 }

@@ -83,6 +83,7 @@ public class CameraFollow : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Wall")
                 {
+                    PlayerObject.GetComponentInChildren<Outline>().enabled = true;
                     if (hitObjs.Count > 0)
                     {
                         foreach (GameObject obj in hitObjs)
@@ -105,6 +106,7 @@ public class CameraFollow : MonoBehaviour
             {
                 if (hitObjs.Count > 0)
                 {
+                    PlayerObject.GetComponentInChildren<Outline>().enabled = false;
                     for (int i = 0; i < hitObjs.Count; i++)
                     {
                         hitObjs[i].gameObject.GetComponent<WallFade>().fadeOut = false;

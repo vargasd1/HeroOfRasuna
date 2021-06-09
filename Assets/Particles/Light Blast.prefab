@@ -4709,7 +4709,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4838,6 +4838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef52c2403a062846ab47a0a48a16ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   collisionFlash: {fileID: 6145135010310999906, guid: ceb2f4af5b7563244a7b67ad473429bc,
     type: 3}
   stunnedPart: {fileID: 0}

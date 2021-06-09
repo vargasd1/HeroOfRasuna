@@ -50,11 +50,11 @@ public class WallFade : MonoBehaviour
     {
         foreach (Material m in mats)
         {
-            alpha = AnimMath.Slide(alpha, .001f, 0.001f);
+            alpha = AnimMath.Slide(alpha, .25f, 0.001f);
             byte alpha2 = (byte)(alpha * 255);
             m.color = new Color32(81, 81, 81, alpha2);
         }
-        if (alpha <= 0.0011f)
+        if (alpha <= 0.24f)
         {
             fadeOut = false;
         }

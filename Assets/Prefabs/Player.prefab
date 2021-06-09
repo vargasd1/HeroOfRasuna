@@ -718,7 +718,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6c8de17a872a6a3459c0a76d373d7a57, type: 2}
+  - {fileID: 2100000, guid: 125f61db95e71d44eb909890ec5952a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1010,7 +1010,8 @@ MonoBehaviour:
   projectile: {fileID: 1352447834921957360, guid: 558570228c94c9a488655ee620d30eda,
     type: 3}
   spellSpawnLoc: {fileID: 4077812842594532560}
-  stunPart: {fileID: 0}
+  stunPart: {fileID: 8344548248336078949, guid: 85ac5c2308f4d5c4886c655f1fa5df29,
+    type: 3}
   stunCD: {fileID: 0}
 --- !u!1 &8087999547953815294
 GameObject:

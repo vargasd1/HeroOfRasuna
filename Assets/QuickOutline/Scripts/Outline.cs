@@ -81,6 +81,8 @@ public class Outline : MonoBehaviour {
   private bool needsUpdate;
 
   void Awake() {
+    // Hopeful Fix
+    precomputeOutline = true;
 
     // Cache renderers
     renderers = GetComponentsInChildren<Renderer>();

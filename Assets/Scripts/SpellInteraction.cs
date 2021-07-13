@@ -42,7 +42,7 @@ public class SpellInteraction : MonoBehaviour
                     hit.gameObject.GetComponent<EnemyAI>().health -= 25;
                 }
 
-                if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground")
+                if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera")
                 {
                     Destroy(gameObject);
                     Instantiate(collisionFlash, transform.position, transform.rotation);

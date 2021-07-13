@@ -11,7 +11,8 @@ public class PlayerManager : MonoBehaviour
 
     // variables for melee attack
     int attackNum = 0;
-    public bool isAttacking = false;
+    //public bool isAttacking = false;
+    bool canAttack;
 
     // variables for heal
     public ParticleSystem healParticles;
@@ -37,6 +38,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        canAttack = true;
     }
 
     void Update()
@@ -44,14 +46,7 @@ public class PlayerManager : MonoBehaviour
         // player dies
         if (playerHealth <= 0) Destroy(gameObject);
 
-        // resets player to idle when not trying to swing anymore
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            anim.SetBool("isSwinging", false);
-            anim.SetInteger("swingCount", 0);
-            attackNum = 0;
-            isAttacking = false;
-        }
+        
 
         // Lerps health
         if (playerTargetHealth < playerHealth) playerHealth--;
@@ -59,19 +54,19 @@ public class PlayerManager : MonoBehaviour
         else playerHealth = playerTargetHealth;
 
         // activate heal
-        if (Input.GetKeyDown(KeyCode.E) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.E) && canAttack)
         {
             if (healCDTime <= 0f && playerHealth != playerMaxHealth) Heal();
         }
 
         // activate stun spell
-        if (Input.GetKeyDown(KeyCode.Q) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.Q) && canAttack)
         {
             if (stunCDTime <= 0f) Stun();
         }
 
         // spawn attack spell
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !isAttacking)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
         {
             GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, player.transform.rotation, null) as GameObject;
             Rigidbody rb = lightBlast.GetComponent<Rigidbody>();
@@ -80,18 +75,55 @@ public class PlayerManager : MonoBehaviour
         }
 
         // swing attack
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isAttacking)
+        if (Input.GetMouseButtonDown(0)) { startCombo(); }
+    }
+
+    void startCombo()
+    {
+        if (canAttack)
         {
-            anim.SetBool("isSwinging", true);
-            isAttacking = true;
-            Attack();
+            attackNum++;
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && isAttacking)
+
+        if (attackNum == 1)
         {
-            if (attackNum <= 2) attackNum++;
-            anim.SetInteger("swingCount", attackNum);
-            Attack();
+            anim.SetInteger("swingCount", 1);
         }
+    }
+
+    public void checkCombo()
+    {
+        canAttack = false;
+
+        if(anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum == 1)
+        {
+            anim.SetInteger("swingCount", 0);
+            canAttack = true;
+            attackNum = 0;
+        }
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum >= 2)
+        {
+            anim.SetInteger("swingCount", 2);
+            canAttack = true;
+        }
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwing") && attackNum == 2)
+        {
+            anim.SetInteger("swingCount", 0);
+            canAttack = true;
+            attackNum = 0;
+        }
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName ("secondSwing") && attackNum >= 3)
+        {
+            anim.SetInteger("swingCount", 3);
+            canAttack = true;
+        }
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName ("finalSwing"))
+        {
+            anim.SetInteger("swingCount", 0);
+            canAttack = true;
+            attackNum = 0;
+        }
+        print(attackNum);
     }
 
     void FixedUpdate()

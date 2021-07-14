@@ -46,7 +46,15 @@ public class PlayerManager : MonoBehaviour
         // player dies
         if (playerHealth <= 0) Destroy(gameObject);
 
-        
+        if (player.GetComponent<CharacterMovementIsometric>().isMoving)
+        {
+            canAttack = false;
+            attackNum = 0;
+        }
+        else
+        {
+            canAttack = true;
+        }
 
         // Lerps health
         if (playerTargetHealth < playerHealth) playerHealth--;
@@ -54,76 +62,110 @@ public class PlayerManager : MonoBehaviour
         else playerHealth = playerTargetHealth;
 
         // activate heal
-        if (Input.GetKeyDown(KeyCode.E) && canAttack)
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (healCDTime <= 0f && playerHealth != playerMaxHealth) Heal();
         }
 
         // activate stun spell
-        if (Input.GetKeyDown(KeyCode.Q) && canAttack)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (stunCDTime <= 0f) Stun();
+            if (stunCDTime <= 0f)
+            {
+                if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+                Stun();
+            }
         }
 
         // spawn attack spell
         if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
         {
-            GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, player.transform.rotation, null) as GameObject;
-            Rigidbody rb = lightBlast.GetComponent<Rigidbody>();
-            rb.velocity = player.transform.forward * 20;
-            lightBlast.GetComponent<SpellInteraction>().spellType = "attack";
+            if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+            StartCoroutine(spellAttack());
         }
 
         // swing attack
-        if (Input.GetMouseButtonDown(0)) { startCombo(); }
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+            player.GetComponent<CharacterMovementIsometric>().isAttacking = true;
+            StartCoroutine(startCombo());
+        }
     }
 
-    void startCombo()
+    IEnumerator spellAttack()
     {
-        if (canAttack)
+        yield return new WaitForSecondsRealtime(0.01f);
+
+        GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, player.transform.rotation, null) as GameObject;
+        Rigidbody rb = lightBlast.GetComponent<Rigidbody>();
+        rb.velocity = player.transform.forward * 20;
+        lightBlast.GetComponent<SpellInteraction>().spellType = "attack";
+
+        StopAllCoroutines();
+    }
+
+    IEnumerator startCombo()
+    {
+        yield return new WaitForSecondsRealtime(0.01f);
+
+        if (canAttack && attackNum == 0)
         {
             attackNum++;
+        }
+        else if (canAttack && attackNum == 1)
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing")) attackNum++;
+        }
+        else if (canAttack && attackNum == 2)
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger")) attackNum++;
         }
 
         if (attackNum == 1)
         {
             anim.SetInteger("swingCount", 1);
         }
+
+        StopAllCoroutines();
     }
 
     public void checkCombo()
     {
         canAttack = false;
 
-        if(anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum == 1)
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum == 1)
         {
             anim.SetInteger("swingCount", 0);
             canAttack = true;
             attackNum = 0;
+            player.GetComponent<CharacterMovementIsometric>().isAttacking = false;
         }
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum >= 2)
         {
             anim.SetInteger("swingCount", 2);
             canAttack = true;
         }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwing") && attackNum == 2)
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") && attackNum == 2)
         {
             anim.SetInteger("swingCount", 0);
             canAttack = true;
             attackNum = 0;
+            player.GetComponent<CharacterMovementIsometric>().isAttacking = false;
+
         }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName ("secondSwing") && attackNum >= 3)
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") && attackNum >= 3)
         {
             anim.SetInteger("swingCount", 3);
             canAttack = true;
         }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName ("finalSwing"))
+        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("finalSwing"))
         {
             anim.SetInteger("swingCount", 0);
             canAttack = true;
             attackNum = 0;
+            player.GetComponent<CharacterMovementIsometric>().isAttacking = false;
         }
-        print(attackNum);
     }
 
     void FixedUpdate()

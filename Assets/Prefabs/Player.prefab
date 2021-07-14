@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 7073225388319002956}
   - component: {fileID: 4822299249877730658}
   - component: {fileID: 3667594662253739038}
+  - component: {fileID: 144811780654395804}
   m_Layer: 0
   m_Name: SwordObject
   m_TagString: Player
@@ -357,6 +358,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &144811780654395804
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729204758438473509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000005, y: 1.0000004, z: 1.0000002}
+  m_Center: {x: -0.0000009536743, y: 0, z: -0.00000047683716}
 --- !u!1 &3206014787823278030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +1014,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7956242243108525122}
-  isAttacking: 0
   healParticles: {fileID: 7865477803590536380, guid: e2591f20e877165429968d5cafedd746,
     type: 3}
   healthUI: {fileID: 0}

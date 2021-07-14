@@ -14,12 +14,18 @@ public class CharacterMovementIsometric : MonoBehaviour
 
     // bool for animation activation 
     public bool isMoving = false;
+    public bool isAttacking = false;
 
-    private float playerSpeed = 5.0f;
+    public float playerSpeed = 5.0f;
 
     private Vector3 northSouthDir, eastWestDir, playerVelocity;
     private Vector3 move;
     private Vector3 pointToLook;
+    private float targetRotationX;
+    private float targetRotationZ;
+    private float tempRotationX;
+    private float tempRotationZ;
+    private bool doRotation = false;
 
     //variables for overclock
     public GameObject overlay;
@@ -44,19 +50,17 @@ public class CharacterMovementIsometric : MonoBehaviour
 
     void Update()
     {
-
-        Ray cameraRay = mainCam.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-        float rayLength;
-
-        if (groundPlane.Raycast(cameraRay, out rayLength) && !isMoving)
-        {
-            pointToLook = cameraRay.GetPoint(rayLength);
-            transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
-        }
-
         //////////////////////////////////////////////////////////// Player Grounded & Speed
         groundedPlayer = controller.isGrounded;
+
+        if (doRotation)
+        {
+            //tempRotationX = AnimMath.Slide(0, targetRotationX, .01f);
+            //tempRotationZ = AnimMath.Slide(0, targetRotationZ, .01f);
+
+            transform.LookAt(new Vector3(targetRotationX, transform.position.y, targetRotationZ));
+            doRotation = false;
+        }
 
         if (groundedPlayer)
         {
@@ -83,8 +87,13 @@ public class CharacterMovementIsometric : MonoBehaviour
             playerSpeed = 5.0f;
         }
 
-        // If isAttacking DONT FUCKING MOVE
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || anim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || anim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
+        // If isAttacking don't move
+        if (isAttacking)
+        {
+            playerSpeed = 0f;
+        }
+        // If attack animations are still playing, don't move
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") || anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") || anim.GetCurrentAnimatorStateInfo(0).IsName("finalSwing"))
         {
             playerSpeed = 0f;
         }
@@ -201,4 +210,22 @@ public class CharacterMovementIsometric : MonoBehaviour
 
         //slowing down decrease pitches of sounds - adjust for later
     }//SlowTime()
+
+    public void lookAtMouse()
+    {
+        //////////////////////////////////////////////////////////// This makes player look at mouse cursor
+        Ray cameraRay = mainCam.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        float rayLength;
+
+        if (groundPlane.Raycast(cameraRay, out rayLength))
+        {
+            pointToLook = cameraRay.GetPoint(rayLength);
+
+            targetRotationX = pointToLook.x;
+            targetRotationZ = pointToLook.z;
+
+            doRotation = true;
+        }
+    }
 }

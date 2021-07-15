@@ -17,8 +17,11 @@ public class CameraCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        PlayerObject.GetComponentInChildren<Outline>().enabled = false;
-        other.gameObject.GetComponent<WallFade>().fadeOut = false;
-        other.gameObject.GetComponent<WallFade>().fadeIn = true;
+        if (other.gameObject.tag == "Wall")
+        {
+            PlayerObject.GetComponentInChildren<Outline>().enabled = false;
+            other.gameObject.GetComponent<WallFade>().fadeOut = false;
+            other.gameObject.GetComponent<WallFade>().fadeIn = true;
+        }
     }
 }

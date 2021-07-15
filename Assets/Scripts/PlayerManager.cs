@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     float playerMaxHealth = 100f;
     float healAmount = 20f;
     float healCDTime = 0f;
+    public bool isDead;
 
     // variables for attack spell
     public GameObject projectile;
@@ -44,55 +45,51 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         // player dies
-        if (playerHealth <= 0) Destroy(gameObject);
-
-        if (player.GetComponent<CharacterMovementIsometric>().isMoving)
+        if (playerHealth <= 0)
         {
-            canAttack = false;
-            attackNum = 0;
-        }
-        else
-        {
-            canAttack = true;
+            isDead = true;
+            anim.SetTrigger("Died");
         }
 
-        // Lerps health
-        if (playerTargetHealth < playerHealth) playerHealth--;
-        else if (playerTargetHealth > playerHealth) playerHealth++;
-        else playerHealth = playerTargetHealth;
-
-        // activate heal
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!isDead)
         {
-            if (healCDTime <= 0f && playerHealth != playerMaxHealth) Heal();
-        }
+            // Lerps health
+            if (playerTargetHealth < playerHealth) playerHealth--;
+            else if (playerTargetHealth > playerHealth) playerHealth++;
+            else playerHealth = playerTargetHealth;
 
-        // activate stun spell
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (stunCDTime <= 0f)
+            // activate heal
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (healCDTime <= 0f && playerHealth != playerMaxHealth) Heal();
+            }
+
+            // activate stun spell
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (stunCDTime <= 0f)
+                {
+                    if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+                    Stun();
+                }
+            }
+
+            // spawn attack spell
+            if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
             {
                 if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
-                Stun();
+                StartCoroutine(spellAttack());
+            }
+
+            // swing attack
+            if (Input.GetMouseButtonDown(0))
+            {
+                player.GetComponent<CharacterMovementIsometric>().isAttacking = true;
+                if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+                startCombo();
             }
         }
-
-        // spawn attack spell
-        if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
-        {
-            if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
-            StartCoroutine(spellAttack());
-        }
-
-        // swing attack
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
-            player.GetComponent<CharacterMovementIsometric>().isAttacking = true;
-            StartCoroutine(startCombo());
-        }
     }
-
     IEnumerator spellAttack()
     {
         yield return new WaitForSecondsRealtime(0.01f);
@@ -105,10 +102,8 @@ public class PlayerManager : MonoBehaviour
         StopAllCoroutines();
     }
 
-    IEnumerator startCombo()
+    void startCombo()
     {
-        yield return new WaitForSecondsRealtime(0.01f);
-
         if (canAttack && attackNum == 0)
         {
             attackNum++;

@@ -15,6 +15,7 @@ public class CharacterMovementIsometric : MonoBehaviour
     // bool for animation activation 
     public bool isMoving = false;
     public bool isAttacking = false;
+    public bool isDead = false;
 
     public float playerSpeed = 5.0f;
 
@@ -50,100 +51,107 @@ public class CharacterMovementIsometric : MonoBehaviour
 
     void Update()
     {
-        //////////////////////////////////////////////////////////// Player Grounded & Speed
-        groundedPlayer = controller.isGrounded;
+        isDead = playerMan.isDead;
 
-        if (doRotation)
+        if (!isDead)
         {
-            //tempRotationX = AnimMath.Slide(0, targetRotationX, .01f);
-            //tempRotationZ = AnimMath.Slide(0, targetRotationZ, .01f);
+            //////////////////////////////////////////////////////////// Player Grounded & Speed
+            groundedPlayer = controller.isGrounded;
 
-            transform.LookAt(new Vector3(targetRotationX, transform.position.y, targetRotationZ));
-            doRotation = false;
-        }
-
-        if (groundedPlayer)
-        {
-            //////////////////////////////////////////////////////////// Sprinting Speed
-            playerVelocity.y = 0f;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (doRotation)
             {
-                if (doOnce)
+                //tempRotationX = AnimMath.Slide(0, targetRotationX, .01f);
+                //tempRotationZ = AnimMath.Slide(0, targetRotationZ, .01f);
+
+                transform.LookAt(new Vector3(targetRotationX, transform.position.y, targetRotationZ));
+                doRotation = false;
+            }
+
+            if (groundedPlayer)
+            {
+                //////////////////////////////////////////////////////////// Sprinting Speed
+                playerVelocity.y = 0f;
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    doOnce = false;
+                    if (doOnce)
+                    {
+                        doOnce = false;
+                    }
+                    playerSpeed = 15.0f;
                 }
-                playerSpeed = 15.0f;
+                else
+                {
+                    //////////////////////////////////////////////////////////// Walking Speed
+                    doOnce = true;
+                    playerSpeed = 8.0f;
+                }
             }
             else
             {
-                //////////////////////////////////////////////////////////// Walking Speed
-                doOnce = true;
-                playerSpeed = 8.0f;
+                //////////////////////////////////////////////////////////// In air Speed
+                playerSpeed = 5.0f;
             }
-        }
-        else
-        {
-            //////////////////////////////////////////////////////////// In air Speed
-            playerSpeed = 5.0f;
-        }
 
-        // If isAttacking don't move
-        if (isAttacking)
-        {
-            playerSpeed = 0f;
-        }
-        // If attack animations are still playing, don't move
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") || anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") || anim.GetCurrentAnimatorStateInfo(0).IsName("finalSwing"))
-        {
-            playerSpeed = 0f;
-        }
-
-        //////////////////////////////////////////////////////////// Player Movement X & Z
-        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
-        {
-            northSouthDir = Camera.main.transform.forward;
-            northSouthDir += new Vector3(0, .7f, 0);
-            northSouthDir = Vector3.Normalize(northSouthDir);
-            eastWestDir = Quaternion.Euler(new Vector3(0, 90, 0)) * northSouthDir;
-            move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-            move = Quaternion.Euler(new Vector3(0, 90, 0)) * northSouthDir;
-
-            Vector3 rightMovement = eastWestDir * playerSpeed * Input.GetAxis("Horizontal");
-            Vector3 upMovement = northSouthDir * playerSpeed * Input.GetAxis("Vertical");
-
-            move = Vector3.Normalize(rightMovement + upMovement);
-
-
-            if (move != Vector3.zero)
+            // If isAttacking don't move
+            if (isAttacking)
             {
-                anim.SetBool("isMoving", true);
-                isMoving = true;
-                gameObject.transform.forward = move;
+                playerSpeed = 0f;
+            }
+            // If attack animations are still playing, don't move
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") || anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") || anim.GetCurrentAnimatorStateInfo(0).IsName("finalSwing"))
+            {
+                playerSpeed = 0f;
+            }
+
+            //////////////////////////////////////////////////////////// Player Movement X & Z
+            if (Input.GetButton("Horizontal") || Input.GetButton("Vertical") && !isDead)
+            {
+                northSouthDir = Camera.main.transform.forward;
+                northSouthDir += new Vector3(0, .7f, 0);
+                northSouthDir = Vector3.Normalize(northSouthDir);
+                eastWestDir = Quaternion.Euler(new Vector3(0, 90, 0)) * northSouthDir;
+                move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+                move = Quaternion.Euler(new Vector3(0, 90, 0)) * northSouthDir;
+
+                Vector3 rightMovement = eastWestDir * playerSpeed * Input.GetAxis("Horizontal");
+                Vector3 upMovement = northSouthDir * playerSpeed * Input.GetAxis("Vertical");
+
+                move = Vector3.Normalize(rightMovement + upMovement);
+
+
+                if (move != Vector3.zero)
+                {
+                    anim.SetBool("isMoving", true);
+                    isMoving = true;
+                    gameObject.transform.forward = move;
+                }
+            }
+            else
+            {
+                anim.SetBool("isMoving", false);
+                isMoving = false;
+                move = Vector3.zero;
+            }
+
+
+            //activate overclock
+            if (Input.GetKeyDown(KeyCode.R) && !isDead)
+            {
+                if (!overclock && overclockCDTime <= 0f) SlowTime();
+            }
+
+            //display time
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Debug.Log("Fixed Delta Time: " + Time.fixedDeltaTime + "\nFixed Unscaled Delta Time: " + Time.fixedUnscaledDeltaTime);
             }
         }
         else
         {
-            anim.SetBool("isMoving", false);
-            isMoving = false;
-            move = Vector3.zero;
-        }
-
-
-        //activate overclock
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (!overclock && overclockCDTime <= 0f) SlowTime();
-        }
-
-        //display time
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("Fixed Delta Time: " + Time.fixedDeltaTime + "\nFixed Unscaled Delta Time: " + Time.fixedUnscaledDeltaTime);
+            playerSpeed = 0;
         }
     }//Update()
-
-
 
     void FixedUpdate()
     {
@@ -151,7 +159,7 @@ public class CharacterMovementIsometric : MonoBehaviour
         if (playerVelocity.y >= 15) playerVelocity.y = 15;
         //playerVelocity.y += (gravityValue * Time.fixedUnscaledDeltaTime);
         Vector3 finalMovementVector = new Vector3(move.x * playerSpeed, playerVelocity.y, move.z * playerSpeed);
-        controller.Move(finalMovementVector * Time.fixedUnscaledDeltaTime);
+        if (!isDead) controller.Move(finalMovementVector * Time.fixedUnscaledDeltaTime);
 
         //decrement overclock time
         if (overclock)
@@ -195,8 +203,6 @@ public class CharacterMovementIsometric : MonoBehaviour
             overclockCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, overclockCDTime / 10f));
         }
     }//FixedUpdate()
-
-
 
     public void SlowTime()
     {

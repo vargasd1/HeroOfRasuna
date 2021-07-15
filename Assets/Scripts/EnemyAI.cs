@@ -42,6 +42,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         if (health <= 0) state = State.Dead;
+        if (player && player.GetComponent<PlayerManager>().isDead) player = null;
 
         switch (state)
         {
@@ -75,17 +76,20 @@ public class EnemyAI : MonoBehaviour
                 if (stunnedTimer <= 0) state = State.Idle;
                 break;
             case State.Dead:
-                // Play death animation
-                // Destroy or just remove collider
-                anim.SetBool("isMoving", false);
-                Destroy(gameObject);
+                // Play Death Animation
+                anim.SetTrigger("Died");
+                // STOP MOVING
+                agent.speed = 0f;
+                agent.acceleration = 1000f;
+                // Remove Collider
+                GetComponent<CapsuleCollider>().enabled = false;
                 break;
         }
     }
 
     void ChasePlayer()
     {
-        if (player)
+        if (player && health > 0)
         {
             anim.SetBool("isMoving", true);
             agent.SetDestination(player.position);

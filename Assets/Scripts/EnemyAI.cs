@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     // Navigation Variables
     public Transform player;
     private NavMeshAgent agent;
-    private Animator anim;
+    public Animator anim;
 
     // Health Variables
     public float health = 100f;
@@ -29,6 +29,8 @@ public class EnemyAI : MonoBehaviour
 
     // Attack Variables
     private float timeBetweenAttacks = 0f;
+    public bool alreadyHitPlayer = false;
+    public bool alreadyHitByPlayer = false;
 
     void Awake()
     {
@@ -83,6 +85,7 @@ public class EnemyAI : MonoBehaviour
                 agent.acceleration = 1000f;
                 // Remove Collider
                 GetComponent<CapsuleCollider>().enabled = false;
+                GetComponentInChildren<BoxCollider>().enabled = false;
                 break;
         }
     }
@@ -110,10 +113,10 @@ public class EnemyAI : MonoBehaviour
             {
                 anim.SetBool("isMoving", false);
                 anim.ResetTrigger("Attack");
-                if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 2f)
+                alreadyHitPlayer = false;
+                if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 1f)
                 {
                     anim.SetTrigger("Attack");
-                    player.gameObject.GetComponent<PlayerManager>().playerTargetHealth -= 20f;
                     timeBetweenAttacks = 3f;
                 }
                 else
@@ -121,6 +124,8 @@ public class EnemyAI : MonoBehaviour
                     state = State.Chasing;
                 }
             }
+
+            transform.LookAt(player);
 
             if (timeBetweenAttacks >= 0) timeBetweenAttacks -= Time.fixedDeltaTime;
         }

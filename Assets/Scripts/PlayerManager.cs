@@ -10,9 +10,10 @@ public class PlayerManager : MonoBehaviour
     private Animator anim;
 
     // variables for melee attack
-    int attackNum = 0;
+    public int attackNum = 0;
     //public bool isAttacking = false;
     bool canAttack;
+    public bool alreadyHit = false;
 
     // variables for heal
     public ParticleSystem healParticles;
@@ -161,6 +162,13 @@ public class PlayerManager : MonoBehaviour
             attackNum = 0;
             player.GetComponent<CharacterMovementIsometric>().isAttacking = false;
         }
+
+        EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].alreadyHitByPlayer = false;
+        }
     }
 
     void FixedUpdate()
@@ -205,15 +213,6 @@ public class PlayerManager : MonoBehaviour
 
     void Attack()
     {
-        Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.forward);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1.5f))
-        {
-            if (hit.collider.gameObject.tag == "Enemy")
-            {
-                hit.collider.gameObject.GetComponent<EnemyAI>().health -= 25;
-            }
-        }
     }
 }

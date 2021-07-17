@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 4822299249877730658}
   - component: {fileID: 3667594662253739038}
   - component: {fileID: 144811780654395804}
+  - component: {fileID: 2661470472701077565}
   m_Layer: 0
   m_Name: SwordObject
   m_TagString: Player
@@ -337,7 +338,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: d70f56d46ed14ef40b022073d26267b3, type: 3}
+  - {fileID: 2100000, guid: f99d21f47838081499b560af34712e25, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -369,8 +370,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000005, y: 1.0000004, z: 1.0000002}
-  m_Center: {x: -0.0000009536743, y: 0, z: -0.00000047683716}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: -0.0000009536743, y: 0, z: 0}
+--- !u!114 &2661470472701077565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729204758438473509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd190e52db054d04792209940059f048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3206014787823278030
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1111821911214796492}
   - component: {fileID: 8044543663264741029}
+  - component: {fileID: 2448832369120344862}
   m_Layer: 0
   m_Name: MESH
   m_TagString: Player
@@ -732,7 +746,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 125f61db95e71d44eb909890ec5952a0, type: 2}
+  - {fileID: 2100000, guid: 6c8de17a872a6a3459c0a76d373d7a57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -787,6 +801,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000106841326, y: 0.13406765, z: 0.063652545}
     m_Extent: {x: 0.7049569, y: 1.0250095, z: 0.28262904}
   m_DirtyAABB: 0
+--- !u!114 &2448832369120344862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524141161630447540}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0.988956, a: 1}
+  outlineWidth: 1
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6686271833861742815
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1030,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
+  isAttacking: 0
+  isDead: 0
+  playerSpeed: 5
   overlay: {fileID: 0}
   overclockCD: {fileID: 0}
   mainCam: {fileID: 0}
@@ -1014,12 +1049,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 7956242243108525122}
+  attackNum: 0
   healParticles: {fileID: 7865477803590536380, guid: e2591f20e877165429968d5cafedd746,
     type: 3}
   healthUI: {fileID: 0}
   healCD: {fileID: 0}
   playerHealth: 100
   playerTargetHealth: 100
+  isDead: 0
   projectile: {fileID: 1352447834921957360, guid: 558570228c94c9a488655ee620d30eda,
     type: 3}
   spellSpawnLoc: {fileID: 4077812842594532560}

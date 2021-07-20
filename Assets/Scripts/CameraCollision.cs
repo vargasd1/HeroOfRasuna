@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class CameraCollision : MonoBehaviour
 {
-    public GameObject PlayerObject;
+    private GameObject playerObject;
+    private Outline playerOutline;
+
+    private void Start()
+    {
+        playerObject = FindObjectOfType<CharacterMovementIsometric>().gameObject;
+        playerOutline = playerObject.GetComponentInChildren<Outline>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Wall")
         {
-            PlayerObject.GetComponentInChildren<Outline>().enabled = true;
+            playerOutline.enabled = true;
             other.gameObject.GetComponent<WallFade>().SetMaterialTransparent();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        WallFade walls = other.gameObject.GetComponent<WallFade>();
         if (other.gameObject.tag == "Wall")
         {
-            PlayerObject.GetComponentInChildren<Outline>().enabled = false;
-            other.gameObject.GetComponent<WallFade>().fadeOut = false;
-            other.gameObject.GetComponent<WallFade>().fadeIn = true;
+            playerOutline.enabled = false;
+            walls.fadeOut = false;
+            walls.fadeIn = true;
         }
     }
 }

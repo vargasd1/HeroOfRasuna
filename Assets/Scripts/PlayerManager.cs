@@ -7,7 +7,8 @@ public class PlayerManager : MonoBehaviour
 {
     // player variables
     public GameObject player;
-    private Animator anim;
+    public Animator anim;
+    public CharacterMovementIsometric playerMove;
 
     // variables for melee attack
     public int attackNum = 0;
@@ -40,6 +41,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        playerMove = gameObject.GetComponent<CharacterMovementIsometric>();
         canAttack = true;
     }
 
@@ -55,8 +57,8 @@ public class PlayerManager : MonoBehaviour
         if (!isDead)
         {
             // Lerps health
-            if (playerTargetHealth < playerHealth) playerHealth--;
-            else if (playerTargetHealth > playerHealth) playerHealth++;
+            if (playerTargetHealth < playerHealth) playerHealth -= Time.fixedUnscaledDeltaTime * 30;
+            else if (playerTargetHealth > playerHealth) playerHealth += Time.fixedUnscaledDeltaTime * 30;
             else playerHealth = playerTargetHealth;
 
             // activate heal
@@ -70,7 +72,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (stunCDTime <= 0f)
                 {
-                    if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+                    if (attackNum == 0) playerMove.lookAtMouse();
                     Stun();
                 }
             }
@@ -78,15 +80,15 @@ public class PlayerManager : MonoBehaviour
             // spawn attack spell
             if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
             {
-                if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+                if (attackNum == 0) playerMove.lookAtMouse();
                 StartCoroutine(spellAttack());
             }
 
             // swing attack
             if (Input.GetMouseButtonDown(0))
             {
-                player.GetComponent<CharacterMovementIsometric>().isAttacking = true;
-                if (attackNum == 0) player.GetComponent<CharacterMovementIsometric>().lookAtMouse();
+                playerMove.isAttacking = true;
+                if (attackNum == 0) playerMove.lookAtMouse();
                 startCombo();
             }
         }
@@ -135,7 +137,6 @@ public class PlayerManager : MonoBehaviour
             anim.SetInteger("swingCount", 0);
             canAttack = true;
             attackNum = 0;
-            player.GetComponent<CharacterMovementIsometric>().isAttacking = false;
         }
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum >= 2)
         {
@@ -147,7 +148,6 @@ public class PlayerManager : MonoBehaviour
             anim.SetInteger("swingCount", 0);
             canAttack = true;
             attackNum = 0;
-            player.GetComponent<CharacterMovementIsometric>().isAttacking = false;
 
         }
         else if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") && attackNum >= 3)
@@ -160,7 +160,6 @@ public class PlayerManager : MonoBehaviour
             anim.SetInteger("swingCount", 0);
             canAttack = true;
             attackNum = 0;
-            player.GetComponent<CharacterMovementIsometric>().isAttacking = false;
         }
 
         EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
@@ -168,6 +167,7 @@ public class PlayerManager : MonoBehaviour
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].alreadyHitByPlayer = false;
+            enemies[i].anim.ResetTrigger("Hit");
         }
     }
 
@@ -209,10 +209,5 @@ public class PlayerManager : MonoBehaviour
         pointToLook = new Vector3(pointToLook.x, pointToLook.y + .5f, pointToLook.z);
         GameObject stun = Instantiate(stunPart, pointToLook, Quaternion.Euler(-90, 0, 0)) as GameObject;
         stun.GetComponent<SpellInteraction>().spellType = "stun";
-    }
-
-    void Attack()
-    {
-
     }
 }

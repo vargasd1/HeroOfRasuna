@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour
         Chasing,
         Attacking,
         Stunned,
+        hitStunned,
         Dead,
     }
     public State state;
@@ -68,6 +69,11 @@ public class EnemyAI : MonoBehaviour
             case State.Attacking:
                 AttackPlayer();
                 break;
+            case State.hitStunned:
+                agent.speed = 0f;
+                agent.acceleration = 1000f;
+                anim.SetTrigger("Hit");
+                break;
             case State.Stunned:
                 // Stops moving instantly
                 agent.speed = 0f;
@@ -95,6 +101,8 @@ public class EnemyAI : MonoBehaviour
         if (player && health > 0)
         {
             anim.SetBool("isMoving", true);
+            agent.speed = 3.5f;
+            agent.acceleration = 8f;
             agent.SetDestination(player.position);
             transform.LookAt(player);
             if (agent.remainingDistance <= agent.stoppingDistance) state = State.Attacking;
@@ -133,5 +141,16 @@ public class EnemyAI : MonoBehaviour
         {
             state = State.Idle;
         }
+    }
+
+    public void resetDamageTrigger()
+    {
+        anim.SetBool("HitAgain", false);
+    }
+
+    public void resetEnemy()
+    {
+        state = State.Chasing;
+        anim.ResetTrigger("Hit");
     }
 }

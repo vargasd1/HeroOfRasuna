@@ -20,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 ai.health -= 34;
                 ai.alreadyHitByPlayer = true;
+                ai.state = EnemyAI.State.hitStunned;
             }
         }
     }

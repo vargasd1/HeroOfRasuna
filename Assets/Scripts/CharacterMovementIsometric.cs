@@ -15,6 +15,7 @@ public class CharacterMovementIsometric : MonoBehaviour
     // bool for animation activation 
     public bool isMoving = false;
     public bool isAttacking = false;
+    public bool playerHit = false;
     public bool isDead = false;
 
     public float playerSpeed = 5.0f;
@@ -34,7 +35,7 @@ public class CharacterMovementIsometric : MonoBehaviour
     float slowdownFactor = .05f;
     float overclockTime = 5f;
     float overclockTransitionTime = 2f;
-    float overclockCDTime = 10f;
+    float overclockCDTime = 0f;
     public static bool overclock = false;
     public static bool overclockTransition = false;
 
@@ -71,36 +72,31 @@ public class CharacterMovementIsometric : MonoBehaviour
             {
                 //////////////////////////////////////////////////////////// Sprinting Speed
                 playerVelocity.y = 0f;
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (!playerHit && !isAttacking)
                 {
-                    if (doOnce)
+                    if (Input.GetKey(KeyCode.LeftShift))
                     {
-                        doOnce = false;
+                        if (doOnce)
+                        {
+                            doOnce = false;
+                        }
+                        if (playerSpeed < 12) playerSpeed += Time.fixedUnscaledDeltaTime * 25;
+                        else playerSpeed = 12f;
+                        anim.SetFloat("Speed", playerSpeed);
                     }
-                    playerSpeed = 15.0f;
+                    else
+                    {
+                        //////////////////////////////////////////////////////////// Walking Speed
+                        doOnce = true;
+                        if (playerSpeed > 6) playerSpeed -= Time.fixedUnscaledDeltaTime * 25;
+                        else playerSpeed = 6f;
+                        anim.SetFloat("Speed", playerSpeed);
+                    }
                 }
                 else
                 {
-                    //////////////////////////////////////////////////////////// Walking Speed
-                    doOnce = true;
-                    playerSpeed = 8.0f;
+                    playerSpeed = 0f;
                 }
-            }
-            else
-            {
-                //////////////////////////////////////////////////////////// In air Speed
-                playerSpeed = 5.0f;
-            }
-
-            // If isAttacking don't move
-            if (isAttacking)
-            {
-                playerSpeed = 0f;
-            }
-            // If attack animations are still playing, don't move
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") || anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") || anim.GetCurrentAnimatorStateInfo(0).IsName("finalSwing"))
-            {
-                playerSpeed = 0f;
             }
 
             //////////////////////////////////////////////////////////// Player Movement X & Z
@@ -233,5 +229,16 @@ public class CharacterMovementIsometric : MonoBehaviour
 
             doRotation = true;
         }
+    }
+
+    public void ResetDamage()
+    {
+        anim.ResetTrigger("Hit");
+        playerHit = false;
+    }
+
+    public void ResetAttack()
+    {
+        isAttacking = false;
     }
 }

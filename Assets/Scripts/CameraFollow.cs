@@ -49,7 +49,7 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 120;
 
         //Exit Game
         if (Input.GetKey(KeyCode.Escape))
@@ -76,45 +76,6 @@ public class CameraFollow : MonoBehaviour
             //Moves the camera around the object based on speed (step)
             float step = cameraMoveSpeed * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-            //Cast Ray from camera to player and check collision between the two
-            //RaycastHit hit;
-            //if (Physics.Raycast(target.transform.position + new Vector3(0, 1, 0), Camera.main.transform.position, out hit))
-            //{
-            //    if (hit.collider.gameObject.tag == "Wall")
-            //    {
-            //        PlayerObject.GetComponentInChildren<Outline>().enabled = true;
-            //        if (hitObjs.Count > 0)
-            //        {
-            //            foreach (GameObject obj in hitObjs)
-            //            {
-            //                if (hit.collider.gameObject != obj)
-            //                {
-            //                    hit.collider.gameObject.GetComponent<WallFade>().SetMaterialTransparent();
-            //                    hitObjs.Add(hit.collider.gameObject);
-            //                }
-            //            }
-            //        }
-            //        else
-            //        {
-            //            hit.collider.gameObject.GetComponent<WallFade>().SetMaterialTransparent();
-            //            hitObjs.Add(hit.collider.gameObject);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    if (hitObjs.Count > 0)
-            //    {
-            //        PlayerObject.GetComponentInChildren<Outline>().enabled = false;
-            //        for (int i = 0; i < hitObjs.Count; i++)
-            //        {
-            //            hitObjs[i].gameObject.GetComponent<WallFade>().fadeOut = false;
-            //            hitObjs[i].gameObject.GetComponent<WallFade>().fadeIn = true;
-            //            hitObjs.Remove(hitObjs[i]);
-            //        }
-            //    }
-            //}
         }
     }
 }

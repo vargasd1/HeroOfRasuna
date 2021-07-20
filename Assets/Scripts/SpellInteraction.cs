@@ -21,12 +21,13 @@ public class SpellInteraction : MonoBehaviour
 
     void OnTriggerEnter(Collider hit)
     {
+        EnemyAI enem = hit.gameObject.GetComponent<EnemyAI>();
         switch (spellType)
         {
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-                    EnemyAI enem = hit.gameObject.GetComponent<EnemyAI>();
+
                     if (enem.state != EnemyAI.State.Stunned)
                     {
                         enem.stunnedTimer = 4f;
@@ -39,9 +40,9 @@ public class SpellInteraction : MonoBehaviour
             case "attack":
                 if (hit.gameObject.tag == "Enemy")
                 {
-                    hit.gameObject.GetComponent<EnemyAI>().health -= 25;
+                    enem.health -= 25;
+                    enem.state = EnemyAI.State.hitStunned;
                 }
-
                 if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera")
                 {
                     Destroy(gameObject);

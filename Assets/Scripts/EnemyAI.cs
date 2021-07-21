@@ -32,6 +32,7 @@ public class EnemyAI : MonoBehaviour
     private float timeBetweenAttacks = 0f;
     public bool alreadyHitPlayer = false;
     public bool alreadyHitByPlayer = false;
+    public bool isAttacking = false;
 
     void Awake()
     {
@@ -120,16 +121,16 @@ public class EnemyAI : MonoBehaviour
             if (timeBetweenAttacks <= 0)
             {
                 anim.SetBool("isMoving", false);
-                anim.ResetTrigger("Attack");
                 alreadyHitPlayer = false;
                 if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 1f)
                 {
                     anim.SetTrigger("Attack");
+                    isAttacking = true;
                     timeBetweenAttacks = 3f;
                 }
                 else
                 {
-                    state = State.Chasing;
+                    if (!isAttacking) state = State.Chasing;
                 }
             }
 
@@ -143,14 +144,17 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void resetDamageTrigger()
+    public void resetAttackEnemy()
     {
-        anim.SetBool("HitAgain", false);
+        state = State.Idle;
+        isAttacking = false;
+        anim.ResetTrigger("Attack");
     }
 
-    public void resetEnemy()
+    public void resetDamageEnemy()
     {
-        state = State.Chasing;
+        state = State.Idle;
         anim.ResetTrigger("Hit");
+        anim.SetBool("HitAgain", false);
     }
 }

@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviour
     // variables for attack spell
     public GameObject projectile;
     public Transform spellSpawnLoc;
+    private float attackSpellCDTime = 0f;
 
     // variables for stun
     public GameObject stunPart;
@@ -80,8 +81,11 @@ public class PlayerManager : MonoBehaviour
             // spawn attack spell
             if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
             {
-                if (attackNum == 0) playerMove.lookAtMouse();
-                StartCoroutine(spellAttack());
+                if (attackSpellCDTime <= 0f)
+                {
+                    if (attackNum == 0) playerMove.lookAtMouse();
+                    StartCoroutine(spellAttack());
+                }
             }
 
             // swing attack
@@ -92,17 +96,6 @@ public class PlayerManager : MonoBehaviour
                 startCombo();
             }
         }
-    }
-    IEnumerator spellAttack()
-    {
-        yield return new WaitForSecondsRealtime(0.01f);
-
-        GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, player.transform.rotation, null) as GameObject;
-        Rigidbody rb = lightBlast.GetComponent<Rigidbody>();
-        rb.velocity = player.transform.forward * 20;
-        lightBlast.GetComponent<SpellInteraction>().spellType = "attack";
-
-        StopAllCoroutines();
     }
 
     void startCombo()
@@ -187,6 +180,9 @@ public class PlayerManager : MonoBehaviour
         stunCDTime -= Time.fixedUnscaledDeltaTime;
         if (stunCDTime < 0f) stunCDTime = 0f;
         stunCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, stunCDTime / 30f));
+
+        attackSpellCDTime -= Time.fixedUnscaledDeltaTime;
+        if (stunCDTime < 0f) stunCDTime = 0f;
     }
 
     void Heal()
@@ -196,7 +192,6 @@ public class PlayerManager : MonoBehaviour
         Instantiate(healParticles, player.gameObject.transform.position, Quaternion.Euler(-90, 0, 0));
         healCDTime = 30f;
     }
-
     void Stun()
     {
         // Finding location so spawn stun
@@ -209,5 +204,17 @@ public class PlayerManager : MonoBehaviour
         pointToLook = new Vector3(pointToLook.x, pointToLook.y + .5f, pointToLook.z);
         GameObject stun = Instantiate(stunPart, pointToLook, Quaternion.Euler(-90, 0, 0)) as GameObject;
         stun.GetComponent<SpellInteraction>().spellType = "stun";
+    }
+    IEnumerator spellAttack()
+    {
+        yield return new WaitForSecondsRealtime(0.01f);
+
+        attackSpellCDTime = 10f;
+        GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, player.transform.rotation, null) as GameObject;
+        Rigidbody rb = lightBlast.GetComponent<Rigidbody>();
+        rb.velocity = player.transform.forward * 20;
+        lightBlast.GetComponent<SpellInteraction>().spellType = "attack";
+
+        StopAllCoroutines();
     }
 }

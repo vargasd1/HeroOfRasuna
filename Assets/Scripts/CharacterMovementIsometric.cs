@@ -235,10 +235,13 @@ public class CharacterMovementIsometric : MonoBehaviour
     {
         anim.ResetTrigger("Hit");
         playerHit = false;
+        isAttacking = false;
     }
 
     public void ResetAttack()
     {
+        anim.ResetTrigger("Hit");
         isAttacking = false;
+        playerHit = false;
     }
 }

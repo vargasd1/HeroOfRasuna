@@ -39,6 +39,7 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         state = State.Spawning;
+        player = FindObjectOfType<PlayerManager>().gameObject.transform;
     }
 
     private void Start() { }
@@ -47,53 +48,58 @@ public class EnemyAI : MonoBehaviour
     {
         if (health <= 0) state = State.Dead;
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
-
-        switch (state)
+        if (!player.GetComponent<PlayerManager>().isPaused)
         {
-            case State.Spawning:
-                // Play spawn animation
-                // When completed, goes to Idle state
-                spawnTimer -= Time.fixedDeltaTime;
-                anim.SetBool("isMoving", false);
-                if (spawnTimer <= 0) state = State.Idle;
-                break;
-            case State.Idle:
-                // Reset navMesh && state
-                agent.speed = 3.5f;
-                agent.acceleration = 8f;
-                anim.SetBool("isMoving", false);
-                if (player) state = State.Chasing;
-                break;
-            case State.Chasing:
-                ChasePlayer();
-                break;
-            case State.Attacking:
-                AttackPlayer();
-                break;
-            case State.hitStunned:
-                agent.speed = 0f;
-                agent.acceleration = 1000f;
-                anim.SetTrigger("Hit");
-                break;
-            case State.Stunned:
-                // Stops moving instantly
-                agent.speed = 0f;
-                agent.acceleration = 1000f;
-                anim.SetBool("isMoving", false);
-                // Decrement stun timer
-                stunnedTimer -= Time.fixedDeltaTime;
-                if (stunnedTimer <= 0) state = State.Idle;
-                break;
-            case State.Dead:
-                // Play Death Animation
-                anim.SetTrigger("Died");
-                // STOP MOVING
-                agent.speed = 0f;
-                agent.acceleration = 1000f;
-                // Remove Collider
-                GetComponent<CapsuleCollider>().enabled = false;
-                GetComponentInChildren<BoxCollider>().enabled = false;
-                break;
+            switch (state)
+            {
+                case State.Spawning:
+                    // Play spawn animation
+                    // When completed, goes to Idle state
+                    spawnTimer -= Time.fixedDeltaTime;
+                    anim.SetBool("isMoving", false);
+                    if (spawnTimer <= 0) state = State.Idle;
+                    break;
+                case State.Idle:
+                    // Reset navMesh && state
+                    agent.speed = 3.5f;
+                    agent.acceleration = 8f;
+                    anim.SetBool("isMoving", false);
+                    if (player)
+                    {
+                        if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 1f) state = State.Attacking;
+                        else state = State.Chasing;
+                    }
+                    break;
+                case State.Chasing:
+                    ChasePlayer();
+                    break;
+                case State.Attacking:
+                    AttackPlayer();
+                    break;
+                case State.hitStunned:
+                    agent.speed = 0f;
+                    agent.acceleration = 1000f;
+                    anim.SetTrigger("Hit");
+                    break;
+                case State.Stunned:
+                    // Stops moving instantly
+                    agent.speed = 0f;
+                    agent.acceleration = 1000f;
+                    anim.SetBool("isMoving", false);
+                    // Decrement stun timer
+                    stunnedTimer -= Time.fixedDeltaTime;
+                    if (stunnedTimer <= 0) state = State.Idle;
+                    break;
+                case State.Dead:
+                    // Play Death Animation
+                    anim.SetTrigger("Died");
+                    // STOP MOVING
+                    agent.speed = 0f;
+                    agent.acceleration = 1000f;
+                    // Remove Collider
+                    GetComponent<CapsuleCollider>().enabled = false;
+                    break;
+            }
         }
     }
 
@@ -125,7 +131,6 @@ public class EnemyAI : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 1f)
                 {
                     anim.SetTrigger("Attack");
-                    isAttacking = true;
                     timeBetweenAttacks = 3f;
                 }
                 else
@@ -156,5 +161,10 @@ public class EnemyAI : MonoBehaviour
         state = State.Idle;
         anim.ResetTrigger("Hit");
         anim.SetBool("HitAgain", false);
+    }
+    public void isAttackingSet()
+    {
+        if (!isAttacking) isAttacking = true;
+        else isAttacking = false;
     }
 }

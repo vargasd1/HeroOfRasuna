@@ -17,14 +17,14 @@ public class EnemyAttack : MonoBehaviour
         self = gameObject.GetComponentInParent<EnemyAI>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && self.anim.GetCurrentAnimatorStateInfo(0).IsName("enemyPunch") && !self.alreadyHitPlayer)
+        if (other.gameObject.tag == "Player" && self.isAttacking && !playerManager.isInvinc)
         {
             playerManager.playerTargetHealth -= 25;
-            playerMove.playerHit = true;
+            playerManager.isInvinc = true;
             playerManager.anim.SetTrigger("Hit");
-            self.alreadyHitPlayer = true;
+            playerMove.playerHit = true;
         }
     }
 }

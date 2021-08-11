@@ -48,13 +48,13 @@ public class CameraFollow : MonoBehaviour
         Application.targetFrameRate = 120;
 
         //Exit Game
-        if (Input.GetKey(KeyCode.Escape))
+        /*if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
-        }
+        }*/
     }
 
     void LateUpdate()

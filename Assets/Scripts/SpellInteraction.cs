@@ -9,6 +9,7 @@ public class SpellInteraction : MonoBehaviour
     public GameObject stunnedPart;
     public Rigidbody rb;
     public string spellType;
+    public GameObject fractured;
 
     private void Start()
     {
@@ -43,10 +44,20 @@ public class SpellInteraction : MonoBehaviour
                     enem.health -= 25;
                     enem.state = EnemyAI.State.hitStunned;
                 }
-                if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera")
+                if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox")
                 {
                     Destroy(gameObject);
                     Instantiate(collisionFlash, transform.position, transform.rotation);
+                }
+                if (hit.tag == "Prop")
+                {
+                    GameObject frac = Instantiate(fractured, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                    foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
+                    {
+                        Vector3 force = (rb.transform.position - transform.position).normalized * 150;
+                        rb.AddForce(force);
+                    }
+                    Destroy(hit.gameObject);
                 }
                 break;
         }

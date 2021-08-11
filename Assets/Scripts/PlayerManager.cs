@@ -12,9 +12,9 @@ public class PlayerManager : MonoBehaviour
 
     // variables for melee attack
     public int attackNum = 0;
-    //public bool isAttacking = false;
     bool canAttack;
-    public bool alreadyHit = false;
+    public bool isInvinc = false;
+    public float invincTimer = 0;
 
     // variables for heal
     public ParticleSystem healParticles;
@@ -39,6 +39,9 @@ public class PlayerManager : MonoBehaviour
     private float rayLength;
     public Image stunCD;
 
+    // variables for pausing game
+    public bool isPaused = false;
+
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -55,12 +58,21 @@ public class PlayerManager : MonoBehaviour
             anim.SetTrigger("Died");
         }
 
-        if (!isDead)
+        if (!isDead && !isPaused)
         {
             // Lerps health
             if (playerTargetHealth < playerHealth) playerHealth -= Time.fixedUnscaledDeltaTime * 30;
-            else if (playerTargetHealth > playerHealth) playerHealth += Time.fixedUnscaledDeltaTime * 30;
             else playerHealth = playerTargetHealth;
+
+            // pause game
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPaused = true;
+                // Stop time
+                Time.timeScale = 0;
+                // Freeze Animation
+                anim.SetFloat("speedMult", 0);
+            }
 
             // activate heal
             if (Input.GetKeyDown(KeyCode.E))
@@ -91,9 +103,20 @@ public class PlayerManager : MonoBehaviour
             // swing attack
             if (Input.GetMouseButtonDown(0))
             {
-                playerMove.isAttacking = true;
                 if (attackNum == 0) playerMove.lookAtMouse();
                 startCombo();
+            }
+        }
+        else if (!isDead && isPaused)
+        {
+            // unpause game
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPaused = false;
+                // Put time back to normal speed
+                Time.timeScale = 1;
+                // Let animations play again
+                anim.SetFloat("speedMult", 1);
             }
         }
     }
@@ -166,23 +189,26 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        // update player UI
-        playerHealth = Mathf.Clamp(playerHealth, 0f, playerMaxHealth);//prevents timeScale from going above 1/below 0
-        playerTargetHealth = Mathf.Clamp(playerTargetHealth, 0f, playerMaxHealth);
-        healthUI.rectTransform.sizeDelta = new Vector2(Mathf.Lerp(0, 290, playerHealth / playerMaxHealth), 40);
+        if (!isDead || !isPaused)
+        {
+            // update player UI
+            playerHealth = Mathf.Clamp(playerHealth, 0f, playerMaxHealth);//prevents timeScale from going above 1/below 0
+            playerTargetHealth = Mathf.Clamp(playerTargetHealth, 0f, playerMaxHealth);
+            healthUI.rectTransform.sizeDelta = new Vector2(Mathf.Lerp(0, 290, playerHealth / playerMaxHealth), 40);
 
-        // edit the cooldown shadows/effects for abilities
-        healCDTime -= Time.fixedUnscaledDeltaTime;
-        if (healCDTime < 0f) healCDTime = 0f;
-        healCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, healCDTime / 30f));
+            // edit the cooldown shadows/effects for abilities
+            healCDTime -= Time.fixedUnscaledDeltaTime;
+            if (healCDTime < 0f) healCDTime = 0f;
+            healCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, healCDTime / 30f));
 
-        // decrement stun time and edit the CD shadows/effect for ability
-        stunCDTime -= Time.fixedUnscaledDeltaTime;
-        if (stunCDTime < 0f) stunCDTime = 0f;
-        stunCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, stunCDTime / 30f));
+            // decrement stun time and edit the CD shadows/effect for ability
+            stunCDTime -= Time.fixedUnscaledDeltaTime;
+            if (stunCDTime < 0f) stunCDTime = 0f;
+            stunCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, stunCDTime / 30f));
 
-        attackSpellCDTime -= Time.fixedUnscaledDeltaTime;
-        if (stunCDTime < 0f) stunCDTime = 0f;
+            attackSpellCDTime -= Time.fixedUnscaledDeltaTime;
+            if (stunCDTime < 0f) stunCDTime = 0f;
+        }
     }
 
     void Heal()

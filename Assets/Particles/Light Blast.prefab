@@ -4844,3 +4844,5 @@ MonoBehaviour:
   stunnedPart: {fileID: 0}
   rb: {fileID: 0}
   spellType: 
+  fractured: {fileID: 7154857359773321060, guid: 1dc7bf48e7116d042aa1182955ee2b43,
+    type: 3}

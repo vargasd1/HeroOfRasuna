@@ -8,6 +8,8 @@ TagManager:
   - Particles
   - Ground
   - Wall
+  - Prop
+  - HitBox
   layers:
   - Default
   - TransparentFX

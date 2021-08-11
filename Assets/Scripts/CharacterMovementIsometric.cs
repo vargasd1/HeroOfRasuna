@@ -17,6 +17,8 @@ public class CharacterMovementIsometric : MonoBehaviour
     public bool isAttacking = false;
     public bool playerHit = false;
     public bool isDead = false;
+    public bool isPaused = false;
+    public bool attackAnimPlaying = false;
 
     public float playerSpeed = 5.0f;
 
@@ -53,8 +55,9 @@ public class CharacterMovementIsometric : MonoBehaviour
     void Update()
     {
         isDead = playerMan.isDead;
+        isPaused = playerMan.isPaused;
 
-        if (!isDead)
+        if (!isDead && !isPaused)
         {
             //////////////////////////////////////////////////////////// Player Grounded & Speed
             groundedPlayer = controller.isGrounded;
@@ -72,7 +75,7 @@ public class CharacterMovementIsometric : MonoBehaviour
             {
                 //////////////////////////////////////////////////////////// Sprinting Speed
                 playerVelocity.y = 0f;
-                if (!playerHit && !isAttacking)
+                if (!playerHit && !isAttacking && !attackAnimPlaying)
                 {
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
@@ -80,8 +83,8 @@ public class CharacterMovementIsometric : MonoBehaviour
                         {
                             doOnce = false;
                         }
-                        if (playerSpeed < 12) playerSpeed += Time.fixedUnscaledDeltaTime * 25;
-                        else playerSpeed = 12f;
+                        if (playerSpeed < 9) playerSpeed += Time.fixedUnscaledDeltaTime * 25;
+                        else playerSpeed = 9f;
                         anim.SetFloat("Speed", playerSpeed);
                     }
                     else
@@ -151,52 +154,55 @@ public class CharacterMovementIsometric : MonoBehaviour
 
     void FixedUpdate()
     {
-        //////////////////////////////////////////////////////////// Final Movement
-        if (playerVelocity.y >= 15) playerVelocity.y = 15;
-        //playerVelocity.y += (gravityValue * Time.fixedUnscaledDeltaTime);
-        Vector3 finalMovementVector = new Vector3(move.x * playerSpeed, playerVelocity.y, move.z * playerSpeed);
-        if (!isDead) controller.Move(finalMovementVector * Time.fixedUnscaledDeltaTime);
-
-        //decrement overclock time
-        if (overclock)
+        if (!isDead && !isPaused)
         {
-            Debug.Log("Overclock");
-            overclockTime -= Time.fixedUnscaledDeltaTime;
-            if (overclockTime <= 0f)
+            //////////////////////////////////////////////////////////// Final Movement
+            if (playerVelocity.y >= 15) playerVelocity.y = 15;
+            //playerVelocity.y += (gravityValue * Time.fixedUnscaledDeltaTime);
+            Vector3 finalMovementVector = new Vector3(move.x * playerSpeed, playerVelocity.y, move.z * playerSpeed);
+            controller.Move(finalMovementVector * Time.fixedUnscaledDeltaTime);
+
+            //decrement overclock time
+            if (overclock)
             {
-                //start transitioning back
-                overclockTransition = true;
-                overclock = false;
-                overclockTime = 5f;
+                Debug.Log("Overclock");
+                overclockTime -= Time.fixedUnscaledDeltaTime;
+                if (overclockTime <= 0f)
+                {
+                    //start transitioning back
+                    overclockTransition = true;
+                    overclock = false;
+                    overclockTime = 5f;
+                }
             }
-        }
-        //transition the time back to normal
-        else if (overclockTransition)
-        {
-            Debug.Log("Overclock Transition");
-            overclockTransitionTime -= Time.fixedUnscaledDeltaTime;
-            //slowly return back to normal time. increase pitches of sounds as time goes back
-            Time.timeScale += (1f / overclockTransitionTime) * Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);//prevents timeScale from going above 1/below 0
-            Time.fixedDeltaTime = Time.timeScale * .02f;
-
-            if (overclockTransitionTime <= 1f)
+            //transition the time back to normal
+            else if (overclockTransition)
             {
-                //set everything back to normal time
-                Debug.Log("Overclock off");
-                overclockTransition = false;
-                overclockTransitionTime = 2f;
-                Time.timeScale = 1f;
+                Debug.Log("Overclock Transition");
+                overclockTransitionTime -= Time.fixedUnscaledDeltaTime;
+                //slowly return back to normal time. increase pitches of sounds as time goes back
+                Time.timeScale += (1f / overclockTransitionTime) * Time.unscaledDeltaTime;
+                Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);//prevents timeScale from going above 1/below 0
                 Time.fixedDeltaTime = Time.timeScale * .02f;
-                overlay.SetActive(false);
+
+                if (overclockTransitionTime <= 1f)
+                {
+                    //set everything back to normal time
+                    Debug.Log("Overclock off");
+                    overclockTransition = false;
+                    overclockTransitionTime = 2f;
+                    Time.timeScale = 1f;
+                    Time.fixedDeltaTime = Time.timeScale * .02f;
+                    overlay.SetActive(false);
+                }
             }
-        }
-        else
-        {
-            //only edit the cooldown shadows/effects for OVERCLOCK SPECIFICALLY here when not actively using overclock
-            overclockCDTime -= Time.fixedUnscaledDeltaTime;
-            if (overclockCDTime < 0f) overclockCDTime = 0f;
-            overclockCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, overclockCDTime / 10f));
+            else
+            {
+                //only edit the cooldown shadows/effects for OVERCLOCK SPECIFICALLY here when not actively using overclock
+                overclockCDTime -= Time.fixedUnscaledDeltaTime;
+                if (overclockCDTime < 0f) overclockCDTime = 0f;
+                overclockCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, overclockCDTime / 10f));
+            }
         }
     }//FixedUpdate()
 
@@ -235,13 +241,22 @@ public class CharacterMovementIsometric : MonoBehaviour
     {
         anim.ResetTrigger("Hit");
         playerHit = false;
-        isAttacking = false;
     }
 
     public void ResetAttack()
     {
         anim.ResetTrigger("Hit");
-        isAttacking = false;
         playerHit = false;
+        attackAnimPlaying = false;
+    }
+
+    public void isAttackingSet()
+    {
+        isAttacking = !isAttacking;
+    }
+
+    public void attackAnimSet()
+    {
+        attackAnimPlaying = true;
     }
 }

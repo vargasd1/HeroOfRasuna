@@ -289,9 +289,7 @@ GameObject:
   - component: {fileID: 7073225388319002956}
   - component: {fileID: 4822299249877730658}
   - component: {fileID: 3667594662253739038}
-  - component: {fileID: 144811780654395804}
   - component: {fileID: 2661470472701077565}
-  - component: {fileID: 989315721}
   m_Layer: 0
   m_Name: SwordObject
   m_TagString: Player
@@ -360,19 +358,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &144811780654395804
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729204758438473509}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.25, y: 1.25, z: 1.25}
-  m_Center: {x: -0.0000009536743, y: 0, z: -0.125}
 --- !u!114 &2661470472701077565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,22 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd190e52db054d04792209940059f048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &989315721
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2729204758438473509}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  fractured: {fileID: 0}
 --- !u!1 &3206014787823278030
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +497,66 @@ Transform:
   m_Father: {fileID: 4699637130662354107}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5127791768569895752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7677232860680426681}
+  - component: {fileID: 1628143211820349481}
+  - component: {fileID: 3951803450076269156}
+  m_Layer: 0
+  m_Name: AttackHitbox
+  m_TagString: HitBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7677232860680426681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127791768569895752}
+  m_LocalRotation: {x: -0.00000009170129, y: -0.00000004273898, z: -0.00000007559118,
+    w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7287264577761349368}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1628143211820349481
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127791768569895752}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 1.1}
+--- !u!114 &3951803450076269156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127791768569895752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd190e52db054d04792209940059f048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fractured: {fileID: 7154857359773321060, guid: 1dc7bf48e7116d042aa1182955ee2b43,
+    type: 3}
 --- !u!1 &5257566377609620243
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +773,7 @@ Transform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 7287264577761349368}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &8044543663264741029
 SkinnedMeshRenderer:
@@ -959,7 +989,7 @@ Transform:
   - {fileID: 1437866080225548627}
   - {fileID: 3249694154833567231}
   m_Father: {fileID: 7287264577761349368}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7956242243108525122
 GameObject:
@@ -974,6 +1004,7 @@ GameObject:
   - component: {fileID: 7109822596229207304}
   - component: {fileID: 7109822596229207305}
   - component: {fileID: 919132148106517197}
+  - component: {fileID: 919132148106517196}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -992,6 +1023,7 @@ Transform:
   m_LocalPosition: {x: -4.286524, y: 0.04, z: 4.884714}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7677232860680426681}
   - {fileID: 2986381653792714348}
   - {fileID: 1111821911214796492}
   m_Father: {fileID: 0}
@@ -1032,8 +1064,8 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.1, z: 0}
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &7109822596229207305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,7 +1080,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMoving: 0
   isAttacking: 0
+  playerHit: 0
   isDead: 0
+  isPaused: 0
+  attackAnimPlaying: 0
   playerSpeed: 5
   overlay: {fileID: 0}
   overclockCD: {fileID: 0}
@@ -1067,8 +1102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 7956242243108525122}
   anim: {fileID: 0}
+  playerMove: {fileID: 0}
   attackNum: 0
-  alreadyHit: 0
+  isInvinc: 0
+  invincTimer: 0
   healParticles: {fileID: 7865477803590536380, guid: e2591f20e877165429968d5cafedd746,
     type: 3}
   healthUI: {fileID: 0}
@@ -1082,6 +1119,23 @@ MonoBehaviour:
   stunPart: {fileID: 8344548248336078949, guid: 85ac5c2308f4d5c4886c655f1fa5df29,
     type: 3}
   stunCD: {fileID: 0}
+  isPaused: 0
+--- !u!54 &919132148106517196
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7956242243108525122}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8087999547953815294
 GameObject:
   m_ObjectHideFlags: 0

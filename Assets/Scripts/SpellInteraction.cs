@@ -42,7 +42,9 @@ public class SpellInteraction : MonoBehaviour
             case "attack":
                 if (hit.gameObject.tag == "Enemy")
                 {
-                    enem.health -= 25;
+                    enem.health -= 34;
+                    enem.alreadyHitByPlayer = true;
+                    enem.anim.SetTrigger("Hit");
                     enem.state = EnemyAI.State.hitStunned;
                 }
                 if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox")
@@ -61,7 +63,7 @@ public class SpellInteraction : MonoBehaviour
                     for (int i = 0; i < Random.Range(2, 4); i++)
                     {
                         GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
-                        Vector3 force = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f)).normalized * 150;
+                        Vector3 force = new Vector3(Random.Range(-10f, 10f), 0f, Random.Range(-10f, 10f)).normalized * 200;
                         xp.GetComponent<Rigidbody>().AddForce(force);
                     }
                     Destroy(hit.gameObject);

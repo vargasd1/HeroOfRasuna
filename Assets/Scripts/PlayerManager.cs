@@ -177,14 +177,6 @@ public class PlayerManager : MonoBehaviour
             canAttack = true;
             attackNum = 0;
         }
-
-        EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
-
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].alreadyHitByPlayer = false;
-            enemies[i].anim.ResetTrigger("Hit");
-        }
     }
 
     void FixedUpdate()

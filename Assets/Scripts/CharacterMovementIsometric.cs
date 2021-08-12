@@ -37,9 +37,10 @@ public class CharacterMovementIsometric : MonoBehaviour
     float slowdownFactor = .05f;
     float overclockTime = 5f;
     float overclockTransitionTime = 2f;
-    float overclockCDTime = 0f;
+    //float overclockCDTime = 0f;
     public static bool overclock = false;
     public static bool overclockTransition = false;
+    public float overclockChargedAmt = 0f;
 
     public Camera mainCam;
 
@@ -137,7 +138,7 @@ public class CharacterMovementIsometric : MonoBehaviour
             //activate overclock
             if (Input.GetKeyDown(KeyCode.R) && !isDead)
             {
-                if (!overclock && overclockCDTime <= 0f) SlowTime();
+                if (!overclock && overclockChargedAmt >= 100) SlowTime();
             }
 
             //display time
@@ -199,9 +200,10 @@ public class CharacterMovementIsometric : MonoBehaviour
             else
             {
                 //only edit the cooldown shadows/effects for OVERCLOCK SPECIFICALLY here when not actively using overclock
-                overclockCDTime -= Time.fixedUnscaledDeltaTime;
-                if (overclockCDTime < 0f) overclockCDTime = 0f;
-                overclockCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, overclockCDTime / 10f));
+                //overclockCDTime -= Time.fixedUnscaledDeltaTime;
+                //if (overclockCDTime < 0f) overclockCDTime = 0f;
+                float chargeHeight = AnimMath.Map(overclockChargedAmt / 1.4285f, 0, 100, 70, 0);
+                overclockCD.rectTransform.sizeDelta = new Vector2(70, chargeHeight);
             }
         }
     }//FixedUpdate()
@@ -213,8 +215,9 @@ public class CharacterMovementIsometric : MonoBehaviour
         Time.timeScale = slowdownFactor;
         Time.fixedDeltaTime = Time.timeScale * .02f;
         overclock = true;
+        overclockChargedAmt = 0;
         overlay.SetActive(true);
-        overclockCDTime = 10f;
+        //overclockCDTime = 10f;
 
         //slowing down decrease pitches of sounds - adjust for later
     }//SlowTime()
@@ -239,12 +242,14 @@ public class CharacterMovementIsometric : MonoBehaviour
 
     public void ResetDamage()
     {
+        // in Animator sets the Trigger parameter back to false
         anim.ResetTrigger("Hit");
         playerHit = false;
     }
 
     public void ResetAttack()
     {
+        // in Animator sets the Trigger parameter back to false
         anim.ResetTrigger("Hit");
         playerHit = false;
         attackAnimPlaying = false;
@@ -252,11 +257,13 @@ public class CharacterMovementIsometric : MonoBehaviour
 
     public void isAttackingSet()
     {
+        // Used for the animator to tell the player script if to move or not, and when they frames of the attack are out
         isAttacking = !isAttacking;
     }
 
     public void attackAnimSet()
     {
+        // Used for the animator to tell the player script if the attack animations are playing or not
         attackAnimPlaying = true;
     }
 }

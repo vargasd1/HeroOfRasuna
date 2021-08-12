@@ -4,6 +4,12 @@ using UnityEngine;
 
 public static class AnimMath 
 {
+
+    public static float Map(float input, float min, float max, float min2, float max2)
+    {
+        return (input - min) * (max2 - min2) / (max - min) + min2;
+    }
+
     public static float Lerp(float min, float max, float p, bool allowExtrapolation = true)
     {
         if (!allowExtrapolation)

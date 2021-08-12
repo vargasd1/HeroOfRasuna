@@ -22,10 +22,11 @@ public class PlayerAttack : MonoBehaviour
             if (hit.tag == "Enemy")
             {
                 EnemyAI ai = hit.gameObject.GetComponent<EnemyAI>();
-                if (self.attackNum > 0 && !ai.alreadyHitByPlayer)
+                if (!ai.alreadyHitByPlayer)
                 {
                     ai.health -= 34;
                     ai.alreadyHitByPlayer = true;
+                    ai.anim.SetTrigger("Hit");
                     ai.state = EnemyAI.State.hitStunned;
                 }
             }
@@ -40,7 +41,7 @@ public class PlayerAttack : MonoBehaviour
                 for (int i = 0; i < Random.Range(2, 4); i++)
                 {
                     GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
-                    Vector3 force = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f)).normalized * 150;
+                    Vector3 force = new Vector3(Random.Range(-10f, 10f), 0f, Random.Range(-10f, 10f)).normalized * 200;
                     xp.GetComponent<Rigidbody>().AddForce(force);
                 }
                 Destroy(hit.gameObject);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,6 +13,7 @@ public class EnemyAI : MonoBehaviour
         Idle,
         Chasing,
         Attacking,
+        Wander,
         Stunned,
         hitStunned,
         Dead,
@@ -22,11 +24,16 @@ public class EnemyAI : MonoBehaviour
     public Transform player;
     private NavMeshAgent agent;
     public Animator anim;
+    public bool hasSeenPlayer;
+    public float wanderTimer;
+    public float wanderDelay;
 
     // Health Variables
     public float health = 100f;
     public float stunnedTimer = 0f;
     private float spawnTimer = 2f;
+    public GameObject xpOrb;
+    public bool orbsDroppedOnce = false;
 
     // Attack Variables
     private float timeBetweenAttacks = 0f;
@@ -65,13 +72,25 @@ public class EnemyAI : MonoBehaviour
                     agent.speed = 3.5f;
                     agent.acceleration = 8f;
                     anim.SetBool("isMoving", false);
+                    if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
                     if (player)
                     {
-                        if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 1f) state = State.Attacking;
-                        else state = State.Chasing;
+                        if (Vector3.Distance(transform.position, player.position) > 10 && wanderDelay <= 0)
+                        {
+                            state = State.Wander;
+                        }
+                        if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
+                        if (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer) state = State.Chasing;
                     }
                     break;
+                case State.Wander:
+                    agent.speed = 2f;
+                    agent.acceleration = 8f;
+                    WanderToLocation();
+                    break;
                 case State.Chasing:
+                    agent.speed = 3.5f;
+                    agent.acceleration = 8f;
                     ChasePlayer();
                     break;
                 case State.Attacking:
@@ -80,7 +99,6 @@ public class EnemyAI : MonoBehaviour
                 case State.hitStunned:
                     agent.speed = 0f;
                     agent.acceleration = 1000f;
-                    anim.SetTrigger("Hit");
                     break;
                 case State.Stunned:
                     // Stops moving instantly
@@ -88,7 +106,7 @@ public class EnemyAI : MonoBehaviour
                     agent.acceleration = 1000f;
                     anim.SetBool("isMoving", false);
                     // Decrement stun timer
-                    stunnedTimer -= Time.fixedDeltaTime;
+                    stunnedTimer -= Time.deltaTime;
                     if (stunnedTimer <= 0) state = State.Idle;
                     break;
                 case State.Dead:
@@ -97,6 +115,16 @@ public class EnemyAI : MonoBehaviour
                     // STOP MOVING
                     agent.speed = 0f;
                     agent.acceleration = 1000f;
+                    if (!orbsDroppedOnce)
+                    {
+                        for (int i = 0; i < UnityEngine.Random.Range(3, 5); i++)
+                        {
+                            GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
+                            Vector3 force = new Vector3(UnityEngine.Random.Range(-10f, 10f), 0f, UnityEngine.Random.Range(-10f, 10f)).normalized * 200;
+                            xp.GetComponent<Rigidbody>().AddForce(force);
+                        }
+                        orbsDroppedOnce = true;
+                    }
                     // Remove Collider
                     GetComponent<CapsuleCollider>().enabled = false;
                     break;
@@ -104,20 +132,54 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void ChasePlayer()
+    void WanderToLocation()
     {
-        if (player && health > 0)
+        if (player)
         {
-            anim.SetBool("isMoving", true);
-            agent.speed = 3.5f;
-            agent.acceleration = 8f;
-            agent.SetDestination(player.position);
-            transform.LookAt(player);
-            if (agent.remainingDistance <= agent.stoppingDistance) state = State.Attacking;
+            if (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer)
+            {
+                state = State.Chasing;
+            }
+            else
+            {
+                anim.SetBool("isMoving", true);
+                NavMeshHit hit;
+                Vector3 randomDir = UnityEngine.Random.insideUnitSphere * 3;
+                NavMesh.SamplePosition(randomDir, out hit, 3, 9);
+                agent.SetDestination(hit.position);
+                if (Vector3.Distance(transform.position, hit.position) <= 0.25f)
+                {
+                    state = State.Idle;
+                    agent.SetDestination(transform.position);
+                    wanderDelay = 5;
+                }
+            }
         }
         else
         {
             state = State.Idle;
+            agent.SetDestination(transform.position);
+        }
+    }
+
+    void ChasePlayer()
+    {
+        if (player && health > 0 && (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer))
+        {
+            hasSeenPlayer = true;
+            anim.SetBool("isMoving", true);
+            agent.speed = 3.5f;
+            agent.acceleration = 8f;
+            transform.LookAt(player);
+            if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
+            else agent.SetDestination(player.position);
+            if (Vector3.Distance(transform.position, player.position) >= 30) hasSeenPlayer = false;
+
+        }
+        else
+        {
+            state = State.Idle;
+            agent.SetDestination(transform.position);
         }
     }
 
@@ -129,10 +191,12 @@ public class EnemyAI : MonoBehaviour
             {
                 anim.SetBool("isMoving", false);
                 alreadyHitPlayer = false;
-                if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance + 1f)
+                if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance)
                 {
                     anim.SetTrigger("Attack");
                     timeBetweenAttacks = 3f;
+                    agent.speed = 0f;
+                    agent.acceleration = 1000f;
                 }
                 else
                 {
@@ -158,10 +222,17 @@ public class EnemyAI : MonoBehaviour
         attackAnimIsPlaying = false;
     }
 
+    public void resetHitStun()
+    {
+        alreadyHitByPlayer = false;
+        anim.ResetTrigger("Hit");
+    }
+
     public void resetDamageEnemy()
     {
         state = State.Idle;
         anim.ResetTrigger("Hit");
+        alreadyHitByPlayer = false;
         anim.SetBool("HitAgain", false);
         attackAnimIsPlaying = false;
     }

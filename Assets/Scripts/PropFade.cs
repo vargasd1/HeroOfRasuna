@@ -8,10 +8,10 @@ public class PropFade : MonoBehaviour
     private float alpha = 1;
     private float timer = 2;
 
-
     // Start is called before the first frame update
     void Start()
     {
+        Physics.IgnoreLayerCollision(10, 12);
         foreach (Transform child in transform)
         {
             foreach (Material mat in child.GetComponent<Renderer>().materials)
@@ -19,6 +19,8 @@ public class PropFade : MonoBehaviour
                 mats.Add(mat);
             }
         }
+
+
     }
 
     // Update is called once per frame
@@ -32,8 +34,11 @@ public class PropFade : MonoBehaviour
         {
             SetMaterialTransparent();
             FadeOutMaterial();
-            alpha -= Time.fixedUnscaledDeltaTime * 0.2f;
-            if (alpha <= 0f) Destroy(gameObject);
+            alpha -= Time.unscaledDeltaTime * 0.2f;
+            if (alpha <= 0f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

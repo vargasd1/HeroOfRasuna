@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1473,6 +1473,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstFloor_GB
       objectReference: {fileID: 0}
+    - target: {fileID: 2925022942867897857, guid: 636a7b78e5acfab43a97bc9c02d5db7d,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2925022942867897857, guid: 636a7b78e5acfab43a97bc9c02d5db7d,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3395007834288161493, guid: 636a7b78e5acfab43a97bc9c02d5db7d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2241,7 +2251,7 @@ GameObject:
   - component: {fileID: 1507003758}
   - component: {fileID: 1507003757}
   - component: {fileID: 1507003756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2397,7 +2407,7 @@ Light:
   m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 5.7e-44, z: 2.6927e-41, w: 5.9e-44}
+  m_BoundingSphereOverride: {x: 0, y: 4.7454e-41, z: 0, w: -0.0000000015570549}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

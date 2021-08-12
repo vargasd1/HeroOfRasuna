@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7101919730199571312}
   - component: {fileID: 5647364364587906604}
   - component: {fileID: 2322760288173161335}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pCube11_cell.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 5637850857871962187}
   - component: {fileID: 2002451101458990027}
   - component: {fileID: 2990315534031702694}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pCube11_cell.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 5845165173214799120}
   - component: {fileID: 5162473247272752031}
   - component: {fileID: 4759113544327017976}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pCube11_cell.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7494262943242034654}
   - component: {fileID: 4772655865250847184}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: fracLantern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 1383803246821725698}
   - component: {fileID: 4599265132740065440}
   - component: {fileID: 1318895055695702848}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pCube11_cell.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 3466404426699080941}
   - component: {fileID: 626972749999113212}
   - component: {fileID: 312101459389877999}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pCube11_cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 2592894317987786867}
   - component: {fileID: 6830012578991906477}
   - component: {fileID: 8282260744957397143}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pCube11_cell.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}

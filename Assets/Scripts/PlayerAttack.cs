@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerManager self;
     public GameObject fractured;
     private CharacterMovementIsometric playerMove;
+    public GameObject xpOrb;
 
     void Start()
     {
@@ -35,6 +36,12 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                     rb.AddForce(force);
+                }
+                for (int i = 0; i < Random.Range(2, 4); i++)
+                {
+                    GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
+                    Vector3 force = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f)).normalized * 150;
+                    xp.GetComponent<Rigidbody>().AddForce(force);
                 }
                 Destroy(hit.gameObject);
             }

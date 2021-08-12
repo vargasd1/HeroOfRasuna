@@ -33,6 +33,7 @@ public class EnemyAI : MonoBehaviour
     public bool alreadyHitPlayer = false;
     public bool alreadyHitByPlayer = false;
     public bool isAttacking = false;
+    public bool attackAnimIsPlaying = false;
 
     void Awake()
     {
@@ -135,7 +136,7 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                    if (!isAttacking) state = State.Chasing;
+                    if (!isAttacking && !attackAnimIsPlaying) state = State.Chasing;
                 }
             }
 
@@ -154,6 +155,7 @@ public class EnemyAI : MonoBehaviour
         state = State.Idle;
         isAttacking = false;
         anim.ResetTrigger("Attack");
+        attackAnimIsPlaying = false;
     }
 
     public void resetDamageEnemy()
@@ -161,10 +163,15 @@ public class EnemyAI : MonoBehaviour
         state = State.Idle;
         anim.ResetTrigger("Hit");
         anim.SetBool("HitAgain", false);
+        attackAnimIsPlaying = false;
     }
     public void isAttackingSet()
     {
-        if (!isAttacking) isAttacking = true;
-        else isAttacking = false;
+        isAttacking = !isAttacking;
+    }
+
+    public void isAttackPlaying()
+    {
+        attackAnimIsPlaying = true;
     }
 }

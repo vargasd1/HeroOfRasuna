@@ -10,6 +10,7 @@ public class SpellInteraction : MonoBehaviour
     public Rigidbody rb;
     public string spellType;
     public GameObject fractured;
+    public GameObject xpOrb;
 
     private void Start()
     {
@@ -54,8 +55,14 @@ public class SpellInteraction : MonoBehaviour
                     GameObject frac = Instantiate(fractured, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
                     foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                     {
-                        Vector3 force = (rb.transform.position - transform.position).normalized * 150;
+                        Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                         rb.AddForce(force);
+                    }
+                    for (int i = 0; i < Random.Range(2, 4); i++)
+                    {
+                        GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
+                        Vector3 force = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f)).normalized * 150;
+                        xp.GetComponent<Rigidbody>().AddForce(force);
                     }
                     Destroy(hit.gameObject);
                 }

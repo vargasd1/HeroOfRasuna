@@ -23,12 +23,11 @@ public class goToPlayer : MonoBehaviour
         {
             if (Vector3.Distance(player.transform.position, transform.position) < 5)
             {
-                transform.position = AnimMath.Slide(transform.position, player.transform.position, 0.15f);
-            }
-
-            if (Vector3.Distance(player.transform.position, transform.position) < 0.5f)
-            {
-                Destroy(gameObject);
+                transform.position = AnimMath.Lerp(transform.position, player.transform.position, 0.13f);
+                if (Vector3.Distance(player.transform.position, transform.position) < 0.5f)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         else

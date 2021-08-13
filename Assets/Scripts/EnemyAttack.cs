@@ -6,14 +6,14 @@ public class EnemyAttack : MonoBehaviour
 {
     private GameObject player;
     private PlayerManager playerManager;
-    private CharacterMovementIsometric playerMove;
+    private PlayerMovement playerMove;
     private EnemyAI self;
 
     void Start()
     {
         player = FindObjectOfType<PlayerManager>().gameObject;
         playerManager = player.GetComponent<PlayerManager>();
-        playerMove = player.GetComponent<CharacterMovementIsometric>();
+        playerMove = player.GetComponent<PlayerMovement>();
         self = gameObject.GetComponentInParent<EnemyAI>();
     }
 

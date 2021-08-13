@@ -6,13 +6,13 @@ public class PlayerAttack : MonoBehaviour
 {
     private PlayerManager self;
     public GameObject fractured;
-    private CharacterMovementIsometric playerMove;
+    private PlayerMovement playerMove;
     public GameObject xpOrb;
 
     void Start()
     {
         self = gameObject.GetComponentInParent<PlayerManager>();
-        playerMove = gameObject.GetComponentInParent<CharacterMovementIsometric>();
+        playerMove = gameObject.GetComponentInParent<PlayerMovement>();
     }
 
     private void OnTriggerStay(Collider hit)

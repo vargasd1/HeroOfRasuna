@@ -70,7 +70,6 @@ public class EnemyAI : MonoBehaviour
                 case State.Idle:
                     // Reset navMesh && state
                     agent.speed = 3.5f;
-                    agent.acceleration = 8f;
                     anim.SetBool("isMoving", false);
                     if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
                     if (player)
@@ -85,12 +84,10 @@ public class EnemyAI : MonoBehaviour
                     break;
                 case State.Wander:
                     agent.speed = 2f;
-                    agent.acceleration = 8f;
                     WanderToLocation();
                     break;
                 case State.Chasing:
                     agent.speed = 3.5f;
-                    agent.acceleration = 8f;
                     ChasePlayer();
                     break;
                 case State.Attacking:
@@ -98,12 +95,10 @@ public class EnemyAI : MonoBehaviour
                     break;
                 case State.hitStunned:
                     agent.speed = 0f;
-                    agent.acceleration = 1000f;
                     break;
                 case State.Stunned:
                     // Stops moving instantly
                     agent.speed = 0f;
-                    agent.acceleration = 1000f;
                     anim.SetBool("isMoving", false);
                     // Decrement stun timer
                     stunnedTimer -= Time.deltaTime;
@@ -114,7 +109,6 @@ public class EnemyAI : MonoBehaviour
                     anim.SetTrigger("Died");
                     // STOP MOVING
                     agent.speed = 0f;
-                    agent.acceleration = 1000f;
                     if (!orbsDroppedOnce)
                     {
                         for (int i = 0; i < UnityEngine.Random.Range(3, 5); i++)
@@ -169,7 +163,6 @@ public class EnemyAI : MonoBehaviour
             hasSeenPlayer = true;
             anim.SetBool("isMoving", true);
             agent.speed = 3.5f;
-            agent.acceleration = 8f;
             transform.LookAt(player);
             if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
             else agent.SetDestination(player.position);
@@ -196,7 +189,6 @@ public class EnemyAI : MonoBehaviour
                     anim.SetTrigger("Attack");
                     timeBetweenAttacks = 3f;
                     agent.speed = 0f;
-                    agent.acceleration = 1000f;
                 }
                 else
                 {

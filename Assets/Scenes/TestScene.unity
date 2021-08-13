@@ -2111,7 +2111,7 @@ PrefabInstance:
     - target: {fileID: 5394465390314399015, guid: 2f76c7bf2ef22224e8e6b6a178d7a0f6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.575535
+      value: -21.42
       objectReference: {fileID: 0}
     - target: {fileID: 5394465390314399015, guid: 2f76c7bf2ef22224e8e6b6a178d7a0f6,
         type: 3}
@@ -3781,21 +3781,6 @@ PrefabInstance:
       propertyPath: stunCD
       value: 
       objectReference: {fileID: 942015371}
-    - target: {fileID: 7109822596229207305, guid: 0506de41b2cee054f99d864d24463030,
-        type: 3}
-      propertyPath: overlay
-      value: 
-      objectReference: {fileID: 1771653761}
-    - target: {fileID: 7109822596229207305, guid: 0506de41b2cee054f99d864d24463030,
-        type: 3}
-      propertyPath: overclockCD
-      value: 
-      objectReference: {fileID: 1785170770}
-    - target: {fileID: 7109822596229207305, guid: 0506de41b2cee054f99d864d24463030,
-        type: 3}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 282840813}
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3814,22 +3799,22 @@ PrefabInstance:
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99975765
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.022016363
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
@@ -3844,7 +3829,7 @@ PrefabInstance:
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 182.523
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
@@ -3856,6 +3841,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8543143971074826392, guid: 0506de41b2cee054f99d864d24463030,
+        type: 3}
+      propertyPath: overlay
+      value: 
+      objectReference: {fileID: 1771653761}
+    - target: {fileID: 8543143971074826392, guid: 0506de41b2cee054f99d864d24463030,
+        type: 3}
+      propertyPath: overclockCD
+      value: 
+      objectReference: {fileID: 1785170770}
+    - target: {fileID: 8543143971074826392, guid: 0506de41b2cee054f99d864d24463030,
+        type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 282840813}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0506de41b2cee054f99d864d24463030, type: 3}
 --- !u!4 &7169879835946353323

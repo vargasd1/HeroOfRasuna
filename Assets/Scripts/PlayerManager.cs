@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     // player variables
     public GameObject player;
     public Animator anim;
-    public CharacterMovementIsometric playerMove;
+    public PlayerMovement playerMove;
 
     // variables for melee attack
     public int attackNum = 0;
@@ -45,7 +45,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
-        playerMove = gameObject.GetComponent<CharacterMovementIsometric>();
+        playerMove = gameObject.GetComponent<PlayerMovement>();
         canAttack = true;
     }
 

@@ -9,10 +9,11 @@ public class PlayerManager : MonoBehaviour
     public GameObject player;
     public Animator anim;
     public PlayerMovement playerMove;
+    public Transform stunSpawnLoc;
 
     // variables for melee attack
     public int attackNum = 0;
-    bool canAttack;
+    public bool canAttack;
     public bool isInvinc = false;
     public float invincTimer = 0;
 
@@ -23,7 +24,7 @@ public class PlayerManager : MonoBehaviour
     public float playerHealth = 100f;
     public float playerTargetHealth = 100f;
     float playerMaxHealth = 100f;
-    float healAmount = 20f;
+    float healAmount = 25f;
     float healCDTime = 0f;
     public bool isDead;
 
@@ -31,9 +32,11 @@ public class PlayerManager : MonoBehaviour
     public GameObject projectile;
     public Transform spellSpawnLoc;
     private float attackSpellCDTime = 0f;
+    public Vector3 normalForward;
+    public Quaternion normalRotation;
 
     // variables for stun
-    public GameObject stunPart;
+    public GameObject stunGren;
     private float stunCDTime = 0f;
     private Vector3 pointToLook;
     private float rayLength;
@@ -61,8 +64,8 @@ public class PlayerManager : MonoBehaviour
         if (!isDead && !isPaused)
         {
             // Lerps health
-            if (playerTargetHealth < playerHealth) playerHealth -= Time.fixedUnscaledDeltaTime * 30;
-            else playerHealth = playerTargetHealth;
+            playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.05f);
+            if (playerHealth > 99.8f) playerHealth = 100;
 
             // pause game
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -74,37 +77,44 @@ public class PlayerManager : MonoBehaviour
                 anim.SetFloat("speedMult", 0);
             }
 
-            // activate heal
-            if (Input.GetKeyDown(KeyCode.E))
+            if (!playerMove.isAttacking)
             {
-                if (healCDTime <= 0f && playerHealth != playerMaxHealth) Heal();
-            }
+                // activate heal
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (healCDTime <= 0f && playerHealth != playerMaxHealth)
+                    {
+                        canAttack = false;
+                        playerMove.isAttacking = true;
+                        anim.SetTrigger("castHeal");
+                        Heal();
+                    }
+                }
 
-            // activate stun spell
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (stunCDTime <= 0f)
+                // activate stun spell
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (stunCDTime <= 0f) Stun();
+                }
+
+                // spawn attack spell
+                if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
+                {
+                    if (attackSpellCDTime <= 0f)
+                    {
+                        canAttack = false;
+                        playerMove.isAttacking = true;
+                        if (attackNum == 0) playerMove.lookAtMouse();
+                        anim.SetTrigger("castAttack");
+                    }
+                }
+
+                // swing attack
+                if (Input.GetMouseButtonDown(0))
                 {
                     if (attackNum == 0) playerMove.lookAtMouse();
-                    Stun();
+                    startCombo();
                 }
-            }
-
-            // spawn attack spell
-            if (Input.GetKeyDown(KeyCode.Mouse1) && canAttack)
-            {
-                if (attackSpellCDTime <= 0f)
-                {
-                    if (attackNum == 0) playerMove.lookAtMouse();
-                    StartCoroutine(spellAttack());
-                }
-            }
-
-            // swing attack
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (attackNum == 0) playerMove.lookAtMouse();
-                startCombo();
             }
         }
         else if (!isDead && isPaused)
@@ -217,22 +227,42 @@ public class PlayerManager : MonoBehaviour
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         if (groundPlane.Raycast(cameraRay, out rayLength)) pointToLook = cameraRay.GetPoint(rayLength);
 
-        // spawning the stun and resetting CD
+        Vector3 startPos = new Vector3(player.transform.position.x, player.transform.position.y + 4, player.transform.position.z);
+
+        GameObject stun = Instantiate(stunGren, startPos, Quaternion.identity) as GameObject;
+        SpellInteraction stunSpell = stun.GetComponent<SpellInteraction>();
+        stunSpell.spellType = "grenade";
+        stunSpell.positionB = pointToLook;
+        stunSpell.positionA = stunSpawnLoc.position;
+
+        stunSpell.handle = stunSpell.positionA + (stunSpell.positionB - stunSpell.positionA) / 2;
+        stunSpell.handle += new Vector3(0, 5, 0);
+
         stunCDTime = 30f;
-        pointToLook = new Vector3(pointToLook.x, pointToLook.y + .5f, pointToLook.z);
-        GameObject stun = Instantiate(stunPart, pointToLook, Quaternion.Euler(-90, 0, 0)) as GameObject;
-        stun.GetComponent<SpellInteraction>().spellType = "stun";
     }
-    IEnumerator spellAttack()
+
+    public void spellAttack()
     {
-        yield return new WaitForSecondsRealtime(0.01f);
+        // Finding location of click
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        if (groundPlane.Raycast(cameraRay, out rayLength)) pointToLook = cameraRay.GetPoint(rayLength);
 
+        // reset attack CD
         attackSpellCDTime = 10f;
-        GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, player.transform.rotation, null) as GameObject;
-        Rigidbody rb = lightBlast.GetComponent<Rigidbody>();
-        rb.velocity = player.transform.forward * 20;
-        lightBlast.GetComponent<SpellInteraction>().spellType = "attack";
 
-        StopAllCoroutines();
+        // Spawn prefab
+        GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, Quaternion.identity, null) as GameObject;
+
+        // make y same height, so it doesn't fall up or down
+        pointToLook = new Vector3(pointToLook.x, spellSpawnLoc.position.y, pointToLook.z);
+
+        // make lightBlast prefab rotate towards click
+        lightBlast.transform.LookAt(pointToLook);
+        // addForce in the forward direction so the lightBlast moved towards click
+        lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 20);
+
+        // set spell type
+        lightBlast.GetComponent<SpellInteraction>().spellType = "attack";
     }
 }

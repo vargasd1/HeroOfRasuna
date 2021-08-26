@@ -263,6 +263,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Used for the animator to tell the player script if to move or not, and when they frames of the attack are out
         isAttacking = !isAttacking;
+        playerMan.canAttack = true;
     }
 
     public void attackAnimSet()

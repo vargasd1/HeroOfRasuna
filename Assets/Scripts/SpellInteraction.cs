@@ -7,17 +7,40 @@ public class SpellInteraction : MonoBehaviour
     public Transform player;
     public GameObject collisionFlash;
     public GameObject stunnedPart;
+    public GameObject stunPart;
     public Rigidbody rb;
     public string spellType;
     public GameObject fractured;
     public GameObject xpOrb;
 
+    //Grenade Vars
+    public Vector3 positionA;
+    public Vector3 positionB;
+    public Vector3 handle;
+    public AnimationCurve tweenSpeed;
+    private float percent = 0;
+    private float tweenLength = .5f;
+    private float tweenTimer = 0;
+
     private void Start()
     {
+        player = FindObjectOfType<PlayerManager>().gameObject.transform;
         if (spellType == "attack")
         {
             rb = GetComponent<Rigidbody>();
             rb.velocity = transform.forward * 20;
+        }
+    }
+
+    private void Update()
+    {
+        if (spellType == "grenade")
+        {
+            tweenTimer += Time.deltaTime;
+            float p = tweenTimer / tweenLength;
+
+            percent = tweenSpeed.Evaluate(p);
+            transform.position = CalcPositionOnCurve(percent);
         }
     }
 
@@ -69,6 +92,15 @@ public class SpellInteraction : MonoBehaviour
                     Destroy(hit.gameObject);
                 }
                 break;
+            case "grenade":
+                if (hit.gameObject.tag == "Ground")
+                {
+                    Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
+                    GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(-90, 0, 0)) as GameObject;
+                    stun.GetComponent<SpellInteraction>().spellType = "stun";
+                    Destroy(gameObject);
+                }
+                break;
         }
     }
 
@@ -90,5 +122,19 @@ public class SpellInteraction : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private Vector3 CalcPositionOnCurve(float percent)
+    {
+        // pC = lerp between pA and handle
+        Vector3 positionC = AnimMath.Lerp(positionA, handle, percent);
+
+        // pD = lerp between handle and pB
+        Vector3 positionD = AnimMath.Lerp(handle, positionB, percent);
+
+        // pF = lerp between pC and pD
+        Vector3 positionE = AnimMath.Lerp(positionC, positionD, percent);
+
+        return positionE;
     }
 }

@@ -304,11 +304,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2729204758438473509}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.438, y: 0.061, z: -0.005}
+  m_LocalRotation: {x: 0.70759046, y: 0.000002489962, z: -0.7066228, w: -0.0000022187871}
+  m_LocalPosition: {x: 0.438, y: 0.085, z: -0.004}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8871674762172438235}
+  m_Father: {fileID: 4077812842594532560}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &4822299249877730658
@@ -493,8 +493,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.3877788e-17, y: 0.202756, z: 4.440892e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7073225388319002956}
+  m_Children: []
   m_Father: {fileID: 4699637130662354107}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -894,7 +893,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.20275614, z: -2.220446e-16}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7073225388319002956}
   m_Father: {fileID: 323249348297086954}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1084,19 +1084,22 @@ MonoBehaviour:
   anim: {fileID: 0}
   playerMove: {fileID: 0}
   attackNum: 0
+  canAttack: 0
   isInvinc: 0
   invincTimer: 0
   healParticles: {fileID: 7865477803590536380, guid: e2591f20e877165429968d5cafedd746,
     type: 3}
   healthUI: {fileID: 0}
   healCD: {fileID: 0}
-  playerHealth: 100
-  playerTargetHealth: 100
+  playerHealth: 50
+  playerTargetHealth: 50
   isDead: 0
   projectile: {fileID: 1352447834921957360, guid: 558570228c94c9a488655ee620d30eda,
     type: 3}
   spellSpawnLoc: {fileID: 4077812842594532560}
-  stunPart: {fileID: 8344548248336078949, guid: 85ac5c2308f4d5c4886c655f1fa5df29,
+  normalForward: {x: 0, y: 0, z: 0}
+  normalRotation: {x: 0, y: 0, z: 0, w: 0}
+  stunGren: {fileID: 6796940464481990212, guid: 62fbad8d3e475d44794616cc7cadabad,
     type: 3}
   stunCD: {fileID: 0}
   isPaused: 0

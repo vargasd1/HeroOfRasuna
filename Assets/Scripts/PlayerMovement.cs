@@ -206,8 +206,10 @@ public class PlayerMovement : MonoBehaviour
                 //only edit the cooldown shadows/effects for OVERCLOCK SPECIFICALLY here when not actively using overclock
                 //overclockCDTime -= Time.fixedUnscaledDeltaTime;
                 //if (overclockCDTime < 0f) overclockCDTime = 0f;
-                float chargeHeight = AnimMath.Map(overclockChargedAmt / 1.4285f, 0, 100, 70, 0);
+                //float chargeHeight = AnimMath.Map((100f - overclockChargedAmt) / 1.4285f, 0, 100, 70, 0);
+                float chargeHeight = Mathf.Lerp(70f, 0f, (overclockChargedAmt / 100f));
                 overclockCD.rectTransform.sizeDelta = new Vector2(70, chargeHeight);
+                Debug.Log("chargeHeight: " + chargeHeight);
             }
         }//(!isDead && !isPaused)
     }//FixedUpdate()

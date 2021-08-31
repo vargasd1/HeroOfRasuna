@@ -23,6 +23,7 @@ public class EnemyAttack : MonoBehaviour
         {
             playerManager.playerTargetHealth -= 25;
             playerManager.isInvinc = true;
+            playerManager.invincTimer = 5;
             playerManager.anim.SetTrigger("Hit");
             playerMove.playerHit = true;
         }

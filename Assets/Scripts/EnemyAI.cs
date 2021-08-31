@@ -56,7 +56,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (health <= 0) state = State.Dead;
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
-        if (!player.GetComponent<PlayerManager>().isPaused)
+        if (!pauseMenu.GamePaused)
         {
             switch (state)
             {

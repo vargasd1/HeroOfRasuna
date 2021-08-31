@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isAttacking = false;
     public bool playerHit = false;
     public bool isDead = false;
-    public bool isPaused = false;
     public bool attackAnimPlaying = false;
 
     public float playerSpeed = 5.0f;
@@ -56,9 +55,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isDead = playerMan.isDead;
-        isPaused = playerMan.isPaused;
 
-        if (!isDead && !isPaused)
+        if (!isDead && !pauseMenu.GamePaused)
         {
             //////////////////////////////////////////////////////////// Player Grounded & Speed
             groundedPlayer = controller.isGrounded;
@@ -160,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDead && !isPaused)
+        if (!isDead && !pauseMenu.GamePaused)
         {
             //////////////////////////////////////////////////////////// Final Movement
             if (playerVelocity.y >= 15) playerVelocity.y = 15;

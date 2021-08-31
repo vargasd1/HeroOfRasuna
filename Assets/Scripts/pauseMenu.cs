@@ -8,6 +8,8 @@ public class pauseMenu : MonoBehaviour
     public static bool GamePaused = false;
     public GameObject pauseMenuUI;
 
+    public Animator player;
+
     public static pauseMenu instance;
 
     // called right before Start() methods, so sounds can be called in Start()
@@ -21,12 +23,14 @@ public class pauseMenu : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+
+        player = FindObjectOfType<PlayerManager>().gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GamePaused) Resume();
             else Pause();
@@ -35,14 +39,16 @@ public class pauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
+        player.SetFloat("speedMult", 1);
         GamePaused = false;
+        pauseMenuUI.SetActive(false);
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        player.SetFloat("speedMult", 0);
         Time.timeScale = 0f;
         GamePaused = true;
     }

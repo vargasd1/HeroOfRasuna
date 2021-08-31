@@ -42,9 +42,6 @@ public class PlayerManager : MonoBehaviour
     private float rayLength;
     public Image stunCD;
 
-    // variables for pausing game
-    public bool isPaused = false;
-
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -61,20 +58,20 @@ public class PlayerManager : MonoBehaviour
             anim.SetTrigger("Died");
         }
 
-        if (!isDead && !isPaused)
+        if (!isDead && !pauseMenu.GamePaused)
         {
             // Lerps health
             playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.05f);
             if (playerHealth > 99.8f) playerHealth = 100;
 
-            // pause game
-            if (Input.GetKeyDown(KeyCode.Escape))
+            // Lowers invinc tiemr
+            if (isInvinc) invincTimer -= Time.unscaledDeltaTime;
+
+            // If timer = 0, invinc gone
+            if (invincTimer <= 0)
             {
-                isPaused = true;
-                // Stop time
-                Time.timeScale = 0;
-                // Freeze Animation
-                anim.SetFloat("speedMult", 0);
+                invincTimer = 0;
+                isInvinc = false;
             }
 
             if (!playerMove.isAttacking)
@@ -115,18 +112,6 @@ public class PlayerManager : MonoBehaviour
                     if (attackNum == 0) playerMove.lookAtMouse();
                     startCombo();
                 }
-            }
-        }
-        else if (!isDead && isPaused)
-        {
-            // unpause game
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                isPaused = false;
-                // Put time back to normal speed
-                Time.timeScale = 1;
-                // Let animations play again
-                anim.SetFloat("speedMult", 1);
             }
         }
     }
@@ -191,7 +176,7 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDead || !isPaused)
+        if (!isDead || !pauseMenu.GamePaused)
         {
             // update player UI
             playerHealth = Mathf.Clamp(playerHealth, 0f, playerMaxHealth);//prevents timeScale from going above 1/below 0

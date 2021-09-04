@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     public static bool overclockTransition = false;
     public float overclockChargedAmt = 0f;
 
-    public Camera mainCam;
+    //public Camera mainCam;
 
     private void Start()
     {
@@ -229,7 +229,7 @@ public class PlayerMovement : MonoBehaviour
     public void lookAtMouse()
     {
         //////////////////////////////////////////////////////////// This makes player look at mouse cursor
-        Ray cameraRay = mainCam.ScreenPointToRay(Input.mousePosition);
+        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         float rayLength;
 

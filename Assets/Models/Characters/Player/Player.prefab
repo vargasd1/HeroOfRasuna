@@ -1083,16 +1083,17 @@ MonoBehaviour:
   player: {fileID: 7956242243108525122}
   anim: {fileID: 0}
   playerMove: {fileID: 0}
+  stunSpawnLoc: {fileID: 0}
   attackNum: 0
-  canAttack: 0
+  canAttack: 1
   isInvinc: 0
   invincTimer: 0
   healParticles: {fileID: 7865477803590536380, guid: e2591f20e877165429968d5cafedd746,
     type: 3}
   healthUI: {fileID: 0}
   healCD: {fileID: 0}
-  playerHealth: 50
-  playerTargetHealth: 50
+  playerHealth: 75
+  playerTargetHealth: 75
   isDead: 0
   projectile: {fileID: 1352447834921957360, guid: 558570228c94c9a488655ee620d30eda,
     type: 3}
@@ -1102,7 +1103,6 @@ MonoBehaviour:
   stunGren: {fileID: 6796940464481990212, guid: 62fbad8d3e475d44794616cc7cadabad,
     type: 3}
   stunCD: {fileID: 0}
-  isPaused: 0
 --- !u!54 &919132148106517196
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1135,12 +1135,11 @@ MonoBehaviour:
   isAttacking: 0
   playerHit: 0
   isDead: 0
-  isPaused: 0
   attackAnimPlaying: 0
-  playerSpeed: 5
+  playerSpeed: 6
   overlay: {fileID: 0}
   overclockCD: {fileID: 0}
-  overclockChargedAmt: 0
+  overclockChargedAmt: 100
   mainCam: {fileID: 0}
 --- !u!1 &8087999547953815294
 GameObject:

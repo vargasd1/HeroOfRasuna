@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -449,6 +449,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fac0108555cf67f489ae2f49d719b614,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.020553
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fac0108555cf67f489ae2f49d719b614,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.020553
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fac0108555cf67f489ae2f49d719b614,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.020553
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fac0108555cf67f489ae2f49d719b614,
         type: 3}

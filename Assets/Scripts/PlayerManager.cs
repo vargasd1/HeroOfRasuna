@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovement playerMove;
     public Transform stunSpawnLoc;
 
+    public bool isCutScene = false;
+
     // variables for melee attack
     public int attackNum = 0;
     public bool canAttack;
@@ -58,7 +60,9 @@ public class PlayerManager : MonoBehaviour
             anim.SetTrigger("Died");
         }
 
-        if (!isDead && !pauseMenu.GamePaused)
+        isCutScene = playerMove.isCutScene;
+
+        if (!isDead && !pauseMenu.GamePaused && !isCutScene)
         {
             // Lerps health
             playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.05f);
@@ -176,7 +180,7 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDead || !pauseMenu.GamePaused)
+        if (!isDead || !pauseMenu.GamePaused || !isCutScene)
         {
             // update player UI
             playerHealth = Mathf.Clamp(playerHealth, 0f, playerMaxHealth);//prevents timeScale from going above 1/below 0

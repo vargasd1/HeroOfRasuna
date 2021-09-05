@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
-    private Animator anim;
+    public Animator anim;
     private PlayerManager playerMan;
 
     private bool groundedPlayer;
@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public bool playerHit = false;
     public bool isDead = false;
     public bool attackAnimPlaying = false;
+    public bool isCutScene = false;
 
     public float playerSpeed = 5.0f;
 
@@ -56,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isDead = playerMan.isDead;
 
-        if (!isDead && !pauseMenu.GamePaused)
+        if (!isDead && !pauseMenu.GamePaused && !isCutScene)
         {
             //////////////////////////////////////////////////////////// Player Grounded & Speed
             groundedPlayer = controller.isGrounded;
@@ -149,16 +150,24 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("Fixed Delta Time: " + Time.fixedDeltaTime + "\nFixed Unscaled Delta Time: " + Time.fixedUnscaledDeltaTime);
             }
-        }//(!isDead && !isPaused)
+        }
+        else if (!isDead && !pauseMenu.GamePaused && isCutScene)
+        {
+            anim.SetBool("isMoving", false);
+            playerSpeed = 0;
+            anim.SetFloat("Speed", playerSpeed);
+        }
+        //(!isDead && !isPaused)
         else
         {
             playerSpeed = 0;
+            anim.SetFloat("Speed", playerSpeed);
         }
     }//Update()
 
     void FixedUpdate()
     {
-        if (!isDead && !pauseMenu.GamePaused)
+        if (!isDead && !pauseMenu.GamePaused && !isCutScene)
         {
             //////////////////////////////////////////////////////////// Final Movement
             if (playerVelocity.y >= 15) playerVelocity.y = 15;
@@ -207,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
                 //float chargeHeight = AnimMath.Map((100f - overclockChargedAmt) / 1.4285f, 0, 100, 70, 0);
                 float chargeHeight = Mathf.Lerp(70f, 0f, (overclockChargedAmt / 100f));
                 overclockCD.rectTransform.sizeDelta = new Vector2(70, chargeHeight);
-                Debug.Log("chargeHeight: " + chargeHeight);
+                //Debug.Log("chargeHeight: " + chargeHeight);
             }
         }//(!isDead && !isPaused)
     }//FixedUpdate()

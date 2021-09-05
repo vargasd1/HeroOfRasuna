@@ -133,6 +133,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &273925105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273925106}
+  m_Layer: 0
+  m_Name: enemyCameraFocus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &273925106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273925105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.43, y: 0.62, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &331965324 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4687984394517034720, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
@@ -226,6 +256,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ea42b3b270f28e47ab805a886495c88, type: 3}
+--- !u!1 &560310635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6081889460756285750, guid: 2ea42b3b270f28e47ab805a886495c88,
+    type: 3}
+  m_PrefabInstance: {fileID: 481472983}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &685432633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,6 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 942200437}
   - component: {fileID: 942200436}
+  - component: {fileID: 942200438}
   m_Layer: 0
   m_Name: Button Hitbox
   m_TagString: Untagged
@@ -576,7 +613,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 11.77, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &942200437
 Transform:
@@ -586,12 +623,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942200435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.97, y: 0.225, z: 0.581}
+  m_LocalPosition: {x: -4.97, y: 1.577, z: 0.581}
   m_LocalScale: {x: 1.3479495, y: 0.26034755, z: 1.2666386}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &942200438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942200435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2241b5c1a3259504a9f55f7cb7efcba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyFocus: {fileID: 273925105}
+  cameraObject: {fileID: 560310635}
 --- !u!1 &943636773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4687984395916136340, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
@@ -611,7 +662,7 @@ GameObject:
   - component: {fileID: 1005246445}
   - component: {fileID: 1005246444}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -8,6 +8,7 @@ public class loadingScreenScript : MonoBehaviour
 {
 
     public Image progressBar;
+    public static string scene;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class loadingScreenScript : MonoBehaviour
 
     IEnumerator loadAsyncOperation()
     {
-        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(4);
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(scene);
 
         while (gameLevel.progress < 1)
         {

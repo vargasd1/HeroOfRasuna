@@ -8,7 +8,8 @@ public class SceneSwitcher : MonoBehaviour
 {
     public void switchToPlay()
     {
-        SceneManager.LoadScene("TestScene");
+        loadingScreenScript.scene = "FirstFloor";
+        SceneManager.LoadScene(5);
     }
 
     public void quitGame()

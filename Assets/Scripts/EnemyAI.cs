@@ -25,7 +25,8 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent agent;
     public Animator anim;
     public bool hasSeenPlayer;
-    public float wanderTimer;
+    public bool isWandering = false;
+    public Vector3 wanderDest;
     public float wanderDelay;
 
     // Health Variables
@@ -136,16 +137,25 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                anim.SetBool("isMoving", true);
                 NavMeshHit hit;
-                Vector3 randomDir = UnityEngine.Random.insideUnitSphere * 3;
-                NavMesh.SamplePosition(randomDir, out hit, 3, 9);
-                agent.SetDestination(hit.position);
-                if (Vector3.Distance(transform.position, hit.position) <= 0.25f)
+                anim.SetBool("isMoving", true);
+                Vector3 randomDir = UnityEngine.Random.insideUnitSphere * 10;
+                randomDir += transform.position;
+                NavMesh.SamplePosition(randomDir, out hit, 10, 9);
+
+                if (!isWandering)
+                {
+                    isWandering = true;
+                    wanderDest = hit.position;
+                    agent.SetDestination(wanderDest);
+                }
+
+                if (Vector3.Distance(transform.position, wanderDest) <= 1.5f)
                 {
                     state = State.Idle;
                     agent.SetDestination(transform.position);
                     wanderDelay = 5;
+                    isWandering = false;
                 }
             }
         }

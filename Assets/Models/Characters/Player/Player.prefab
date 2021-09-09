@@ -1083,7 +1083,8 @@ MonoBehaviour:
   player: {fileID: 7956242243108525122}
   anim: {fileID: 0}
   playerMove: {fileID: 0}
-  stunSpawnLoc: {fileID: 0}
+  stunSpawnLoc: {fileID: 8871674762172438235}
+  isCutScene: 0
   attackNum: 0
   canAttack: 1
   isInvinc: 0
@@ -1131,16 +1132,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8cebc10610e1cf4f8c1e1c469790744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   isMoving: 0
   isAttacking: 0
   playerHit: 0
   isDead: 0
   attackAnimPlaying: 0
+  isCutScene: 0
   playerSpeed: 6
   overlay: {fileID: 0}
   overclockCD: {fileID: 0}
   overclockChargedAmt: 100
-  mainCam: {fileID: 0}
 --- !u!1 &8087999547953815294
 GameObject:
   m_ObjectHideFlags: 0

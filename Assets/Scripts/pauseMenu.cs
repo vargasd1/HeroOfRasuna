@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class pauseMenu : MonoBehaviour
 {
     public static bool GamePaused = false;
     public GameObject pauseMenuUI;
+    public Image loadingScreen;
+    private bool fadeIn = true;
+    public float alpha = 1;
 
-    public Animator player;
+    private GameObject player;
+    private Animator playerAnim;
+    private PlayerMovement playerMove;
 
     public static pauseMenu instance;
 
@@ -24,7 +30,10 @@ public class pauseMenu : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        player = FindObjectOfType<PlayerManager>().gameObject.GetComponent<Animator>();
+        player = FindObjectOfType<PlayerManager>().gameObject;
+        playerAnim = player.GetComponent<Animator>();
+        playerMove = player.GetComponent<PlayerMovement>();
+        playerMove.isCutScene = true;
     }
 
     // Update is called once per frame
@@ -35,12 +44,29 @@ public class pauseMenu : MonoBehaviour
             if (GamePaused) Resume();
             else Pause();
         }
+
+        if (fadeIn)
+        {
+            loadingScreen.color = new Color(0, 0, 0, alpha);
+
+            if (alpha <= 0.35f)
+            {
+                alpha -= Time.unscaledDeltaTime;
+                playerMove.isCutScene = false;
+                if (alpha <= 0) fadeIn = false;
+            }
+            else
+            {
+                alpha -= Time.unscaledDeltaTime * 0.25f;
+                playerMove.isCutScene = true;
+            }
+        }
     }
 
     public void Resume()
     {
         Time.timeScale = 1f;
-        player.SetFloat("speedMult", 1);
+        playerAnim.SetFloat("speedMult", 1);
         GamePaused = false;
         pauseMenuUI.SetActive(false);
     }
@@ -48,7 +74,7 @@ public class pauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
-        player.SetFloat("speedMult", 0);
+        playerAnim.SetFloat("speedMult", 0);
         Time.timeScale = 0f;
         GamePaused = true;
     }

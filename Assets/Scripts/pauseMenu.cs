@@ -41,8 +41,11 @@ public class pauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GamePaused) Resume();
-            else Pause();
+            if (!playerMove.isCutScene)
+            {
+                if (GamePaused) Resume();
+                else Pause();
+            }
         }
 
         if (fadeIn)
@@ -60,6 +63,19 @@ public class pauseMenu : MonoBehaviour
                 alpha -= Time.unscaledDeltaTime * 0.25f;
                 playerMove.isCutScene = true;
             }
+        }
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 5)
+        {
+            player = FindObjectOfType<PlayerManager>().gameObject;
+            playerAnim = player.GetComponent<Animator>();
+            playerMove = player.GetComponent<PlayerMovement>();
+            playerMove.isCutScene = true;
+            alpha = 1;
+            fadeIn = true;
         }
     }
 

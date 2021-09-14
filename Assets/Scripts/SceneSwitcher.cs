@@ -16,6 +16,7 @@ public class SceneSwitcher : MonoBehaviour
         fadeOut = false;
         loadScreen.color = new Color(0, 0, 0, 0);
         alpha = 0;
+        loadScreen.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -35,6 +36,7 @@ public class SceneSwitcher : MonoBehaviour
     public void switchToPlay()
     {
         fadeOut = true;
+        loadScreen.gameObject.SetActive(true);
     }
 
     public void quitGame()

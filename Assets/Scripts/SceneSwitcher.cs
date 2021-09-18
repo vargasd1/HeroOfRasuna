@@ -10,6 +10,9 @@ public class SceneSwitcher : MonoBehaviour
     {
         loadingScreenScript.scene = "FirstFloor";
         SceneManager.LoadScene(5);
+        
+        FindObjectOfType<AudioManager>().Stop("Theme");
+        FindObjectOfType<AudioManager>().Play("Ambient1");
     }
 
     public void quitGame()

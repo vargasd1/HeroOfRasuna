@@ -142,7 +142,11 @@ public class PlayerMovement : MonoBehaviour
             //activate overclock
             if (Input.GetKeyDown(KeyCode.R) && !isDead)
             {
-                if (!overclock && overclockChargedAmt >= 100) SlowTime();
+                if (!overclock && overclockChargedAmt >= 100)
+                {
+                    FindObjectOfType<AudioManager>().Play("Overclock");
+                    SlowTime();
+                }
             }
 
             //display time
@@ -177,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
             //decrement overclock time
             if (overclock)
             {
-                Debug.Log("Overclock");
+                //Debug.Log("Overclock");
                 overclockTime -= Time.fixedUnscaledDeltaTime;
                 if (overclockTime <= 0f)
                 {
@@ -196,16 +200,19 @@ public class PlayerMovement : MonoBehaviour
                 Time.timeScale += (1f / overclockTransitionTime) * Time.unscaledDeltaTime;
                 Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);//prevents timeScale from going above 1/below 0
                 Time.fixedDeltaTime = Time.timeScale * .02f;
+                FindObjectOfType<AudioManager>().ChangePitch("Overclock", 2f + Time.timeScale);
 
                 if (overclockTransitionTime <= 1f)
                 {
                     //set everything back to normal time
-                    Debug.Log("Overclock off");
+                    //Debug.Log("Overclock off");
                     overclockTransition = false;
                     overclockTransitionTime = 2f;
                     Time.timeScale = 1f;
                     Time.fixedDeltaTime = Time.timeScale * .02f;
                     overlay.SetActive(false);
+                    FindObjectOfType<AudioManager>().Stop("Overclock");
+                    FindObjectOfType<AudioManager>().ChangePitch("Overclock", 1f);
                 }
             }
             else
@@ -231,6 +238,7 @@ public class PlayerMovement : MonoBehaviour
         overclockChargedAmt = 0;
         overlay.SetActive(true);
         //overclockCDTime = 10f;
+        
 
         //slowing down decrease pitches of sounds - adjust for later
     }//SlowTime()

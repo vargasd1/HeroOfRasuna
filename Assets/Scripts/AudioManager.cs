@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 // ATTACHED TO: AudioManager prefab. Prefab should ONLY be placed in the start screen
 
@@ -38,8 +39,21 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Play("Pekora");
+        Debug.Log("Start theme");
+        Play("Theme");
     }
+
+    // play BGM
+    /*void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        if (scene.name == "MainMenu") Play("Theme");
+        else
+        {
+            Stop("Theme");
+            Play("Ambient1");
+        }
+    }*/
 
     // play sound based on input name
     public void Play(string name)
@@ -51,6 +65,10 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Sound: " + name + " not found");
             return;
         }
+
+        if (pauseMenu.GamePaused) s.source.pitch = .5f;
+        else s.source.pitch = 1;
+
         s.source.Play();
     }
 
@@ -70,7 +88,9 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator playSoundWithDelay(string clip, float delay, Sound s)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
+        if (pauseMenu.GamePaused) s.source.pitch = .5f;
+        else s.source.pitch = 1;
         s.source.Play();
     }
 
@@ -91,12 +111,33 @@ public class AudioManager : MonoBehaviour
 
     public void PlayUninterrupted(string name)
     {
+        // TO USE: FindObjectOfType<AudioManager>().PlayUninterrupted(name);
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
             Debug.Log("Sound: " + name + " not found");
             return;
         }
-        else s.source.PlayOneShot(s.source.clip, s.source.volume);
+        else
+        {
+            if (pauseMenu.GamePaused) s.source.pitch = .5f;
+            else s.source.pitch = 1;
+            s.source.PlayOneShot(s.source.clip, s.source.volume);
+        }
+    }
+
+    public void ChangePitch(string name, float pitch)
+    {
+        // TO USE: FindObjectOfType<AudioManager>().ChangePitch(name, pitch);
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.Log("Sound: " + name + " not found");
+            return;
+        }
+        else
+        {
+            s.source.pitch = pitch;
+        }
     }
 }

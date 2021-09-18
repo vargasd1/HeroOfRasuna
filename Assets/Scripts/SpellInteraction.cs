@@ -52,7 +52,7 @@ public class SpellInteraction : MonoBehaviour
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-
+                    FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                     if (enem.state != EnemyAI.State.Stunned)
                     {
                         enem.stunnedTimer = 4f;
@@ -95,6 +95,8 @@ public class SpellInteraction : MonoBehaviour
             case "grenade":
                 if (hit.gameObject.tag == "Ground")
                 {
+                    FindObjectOfType<AudioManager>().Play("Light Burst");
+                    Debug.Log("Light burst");
                     Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
                     GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(-90, 0, 0)) as GameObject;
                     stun.GetComponent<SpellInteraction>().spellType = "stun";

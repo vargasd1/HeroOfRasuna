@@ -44,20 +44,108 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Pekora
-    clip: {fileID: 8300000, guid: 7b373f43f52e1754280c3a0c62d4855e, type: 3}
+  - name: Theme
+    clip: {fileID: 8300000, guid: 6e02b0ec9c03a404abce96e27e4d7c75, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
-  - name: Nene
-    clip: {fileID: 8300000, guid: f79e0ca36325b624998d639fdcecc8d4, type: 3}
+  - name: Hit 1
+    clip: {fileID: 8300000, guid: 1c763e4ed1921ed4d894840a84d9c37b, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Hit 2 (clip 3)
+    clip: {fileID: 8300000, guid: 7fd9670d66f6c004f94bb855150c8f28, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Hit 3 (clip 2)
+    clip: {fileID: 8300000, guid: ee7516cb9b52e3f46b190ca3dedff0e4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Heal
+    clip: {fileID: 8300000, guid: 0f80b1064da189c4184cee468c7b6683, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Light Burst
+    clip: {fileID: 8300000, guid: 35f259aae2f946d47ab61c4d11d679c7, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Stun
+    clip: {fileID: 8300000, guid: 8c8fe629d68d30d4c8bfa0533a88f53e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Overclock
+    clip: {fileID: 8300000, guid: 10a2dee39e435fa4f816b89056fe792c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Ambient1
+    clip: {fileID: 8300000, guid: d40021d941fc02f448eb0321f133c0ee, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Ambient2
+    clip: {fileID: 8300000, guid: a9020ef0f4b0d54419b2fe1b01e2af6c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Fight
+    clip: {fileID: 8300000, guid: de11cd4a9147333468c7b6a7b69bce52, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Boss Fight
+    clip: {fileID: 8300000, guid: e2e161b05d4485e4fa3ba96ca3f5dd0f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: Surav Chat BGM
+    clip: {fileID: 8300000, guid: 74ab210c527ea2845841ce1988875035, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
   mixer: {fileID: 24100000, guid: ae1573fff5c5ece4dafc355a210963c0, type: 2}

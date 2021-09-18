@@ -85,6 +85,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     if (healCDTime <= 0f && playerHealth != playerMaxHealth)
                     {
+                        FindObjectOfType<AudioManager>().PlayUninterrupted("Heal");
                         canAttack = false;
                         playerMove.isAttacking = true;
                         anim.SetTrigger("castHeal");
@@ -125,14 +126,23 @@ public class PlayerManager : MonoBehaviour
         if (canAttack && attackNum == 0)
         {
             attackNum++;
+            FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
         }
         else if (canAttack && attackNum == 1)
         {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing")) attackNum++;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing"))
+            {
+                attackNum++;
+                FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 2 (clip 3)");
+            }
         }
         else if (canAttack && attackNum == 2)
         {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger")) attackNum++;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger"))
+            {
+                attackNum++;
+                FindObjectOfType<AudioManager>().PlayInSeconds("Hit 3 (clip 2)", 0.25f);
+            }
         }
 
         if (attackNum == 1)

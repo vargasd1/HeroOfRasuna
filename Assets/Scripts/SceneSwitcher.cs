@@ -6,11 +6,37 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+
+    public Image loadScreen;
+    private bool fadeOut = false;
+    private float alpha = 0;
+
+    private void Start()
+    {
+        fadeOut = false;
+        loadScreen.color = new Color(0, 0, 0, 0);
+        alpha = 0;
+        loadScreen.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (fadeOut)
+        {
+            alpha += Time.unscaledDeltaTime;
+            loadScreen.color = new Color(0, 0, 0, alpha);
+            if (loadScreen.color.a >= 1)
+            {
+                loadingScreenScript.scene = "FirstFloor";
+                SceneManager.LoadScene(5);
+            }
+        }
+    }
+
     public void switchToPlay()
     {
-        loadingScreenScript.scene = "FirstFloor";
-        SceneManager.LoadScene(5);
-        
+        fadeOut = true;
+        loadScreen.gameObject.SetActive(true);
         FindObjectOfType<AudioManager>().Stop("Theme");
         FindObjectOfType<AudioManager>().Play("Ambient1");
     }

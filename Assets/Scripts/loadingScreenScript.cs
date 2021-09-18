@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class loadingScreenScript : MonoBehaviour
 {
-
-    public Image progressBar;
     public static string scene;
 
     // Start is called before the first frame update
@@ -22,7 +20,6 @@ public class loadingScreenScript : MonoBehaviour
 
         while (gameLevel.progress < 1)
         {
-            progressBar.transform.localScale = new Vector3(1, gameLevel.progress, 1);
             yield return new WaitForEndOfFrame();
         }
     }

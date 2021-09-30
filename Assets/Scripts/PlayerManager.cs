@@ -43,6 +43,7 @@ public class PlayerManager : MonoBehaviour
     private Vector3 pointToLook;
     private float rayLength;
     public Image stunCD;
+    public LayerMask floorMask;
 
     void Start()
     {
@@ -99,7 +100,7 @@ public class PlayerManager : MonoBehaviour
                     RaycastHit hit;
                     Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                    if (Physics.Raycast(cameraRay, out hit))
+                    if (Physics.Raycast(cameraRay, out hit, 1000, floorMask))
                     {
                         if (hit.transform.gameObject.layer == 9)
                         {

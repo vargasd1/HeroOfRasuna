@@ -473,6 +473,11 @@ PrefabInstance:
       propertyPath: stunCD
       value: 
       objectReference: {fileID: 891629368}
+    - target: {fileID: 919132148106517197, guid: 0506de41b2cee054f99d864d24463030,
+        type: 3}
+      propertyPath: floorMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 7287264577761349368, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -148,4 +148,20 @@ MonoBehaviour:
     audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
+  - name: HoverOn
+    clip: {fileID: 8300000, guid: 8af5b6aa587814d47a7b8d7de87b9e05, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: HoverOff
+    clip: {fileID: 8300000, guid: 95fe1ee543a28384fa132ef96a79f927, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
   mixer: {fileID: 24100000, guid: ae1573fff5c5ece4dafc355a210963c0, type: 2}

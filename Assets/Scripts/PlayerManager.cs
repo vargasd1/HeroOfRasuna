@@ -43,6 +43,7 @@ public class PlayerManager : MonoBehaviour
     private Vector3 pointToLook;
     private float rayLength;
     public Image stunCD;
+    public LayerMask floorMask;
 
     void Start()
     {
@@ -96,7 +97,16 @@ public class PlayerManager : MonoBehaviour
                 // activate stun spell
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    if (stunCDTime <= 0f) Stun();
+                    RaycastHit hit;
+                    Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                    if (Physics.Raycast(cameraRay, out hit, 1000, floorMask))
+                    {
+                        if (hit.transform.gameObject.layer == 9)
+                        {
+                            if (stunCDTime <= 0f) Stun();
+                        }
+                    }
                 }
 
                 // spawn attack spell
@@ -222,9 +232,11 @@ public class PlayerManager : MonoBehaviour
     void Stun()
     {
         // Finding location so spawn stun
+        RaycastHit hit;
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         if (groundPlane.Raycast(cameraRay, out rayLength)) pointToLook = cameraRay.GetPoint(rayLength);
+
 
         Vector3 startPos = new Vector3(player.transform.position.x, player.transform.position.y + 4, player.transform.position.z);
 

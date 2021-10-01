@@ -19,8 +19,6 @@ public class PropFade : MonoBehaviour
                 mats.Add(mat);
             }
         }
-
-
     }
 
     // Update is called once per frame

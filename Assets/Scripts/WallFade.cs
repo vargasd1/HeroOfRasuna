@@ -52,7 +52,7 @@ public class WallFade : MonoBehaviour
         {
             alpha = AnimMath.Slide(alpha, .25f, 0.001f);
             byte alpha2 = (byte)(alpha * 255);
-            m.color = new Color32(81, 81, 81, alpha2);
+            m.color = new Color32(255, 255, 255, alpha2);
         }
         if (alpha <= 0.24f)
         {
@@ -66,7 +66,7 @@ public class WallFade : MonoBehaviour
         {
             alpha = AnimMath.Slide(alpha, 1, 0.001f);
             byte alpha2 = (byte)(alpha * 255);
-            m.color = new Color32(81, 81, 81, alpha2);
+            m.color = new Color32(255, 255, 255, alpha2);
         }
         if (alpha >= 0.99f)
         {

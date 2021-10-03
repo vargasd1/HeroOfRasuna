@@ -20,7 +20,7 @@ public class ItemPickup : Interactable
 
     void PickUp()
     {
-        Debug.Log("Picking up " + item.name);
+        //Debug.Log("Picking up " + item.name);
         //Add to inventory
         Inventory.instance.Add(item);
         textPickup.SetActive(false);

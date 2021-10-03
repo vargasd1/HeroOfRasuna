@@ -25,7 +25,7 @@ public class InventoryUI : MonoBehaviour
         //loop through and check for items
         for (int i = 0; i < inventory.items.Count; ++i)
         {
-            Debug.Log(inventory.items[i].name);
+            //Debug.Log(inventory.items[i].name);
             switch(inventory.items[i].name)
             {
                 case "Test item 1":

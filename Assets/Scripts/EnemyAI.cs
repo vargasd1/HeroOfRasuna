@@ -70,7 +70,7 @@ public class EnemyAI : MonoBehaviour
                     break;
                 case State.Idle:
                     // Reset navMesh && state
-                    agent.speed = 3.5f;
+                    agent.speed = 6f;
                     anim.SetBool("isMoving", false);
                     if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
                     if (player)
@@ -79,16 +79,16 @@ public class EnemyAI : MonoBehaviour
                         {
                             state = State.Wander;
                         }
-                        if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
                         if (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer) state = State.Chasing;
+                        if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
                     }
                     break;
                 case State.Wander:
-                    agent.speed = 2f;
+                    agent.speed = 4f;
                     WanderToLocation();
                     break;
                 case State.Chasing:
-                    agent.speed = 3.5f;
+                    agent.speed = 5f;
                     ChasePlayer();
                     break;
                 case State.Attacking:

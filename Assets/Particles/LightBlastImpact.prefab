@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 753135900258370677}
   - component: {fileID: 31187367889112974}
   - component: {fileID: 7462121326506781287}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: LightBlastImpact
   m_TagString: Particles
   m_Icon: {fileID: 0}

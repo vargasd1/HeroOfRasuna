@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5433583776240600602}
   - component: {fileID: 7127964012768628950}
   - component: {fileID: 8969345975625238631}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Particles
   m_Icon: {fileID: 0}
@@ -4767,7 +4767,7 @@ GameObject:
   - component: {fileID: 4973637959959752187}
   - component: {fileID: 646705017217829208}
   - component: {fileID: -8576951496455435267}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Light Blast
   m_TagString: Particles
   m_Icon: {fileID: 0}
@@ -4842,8 +4842,18 @@ MonoBehaviour:
   collisionFlash: {fileID: 6145135010310999906, guid: ceb2f4af5b7563244a7b67ad473429bc,
     type: 3}
   stunnedPart: {fileID: 0}
+  stunPart: {fileID: 0}
   rb: {fileID: 0}
   spellType: 
   fractured: {fileID: 7154857359773321060, guid: 1dc7bf48e7116d042aa1182955ee2b43,
     type: 3}
   xpOrb: {fileID: 7199548093328757152, guid: ded9bac1f908bc040acc0d6089672c86, type: 3}
+  positionA: {x: 0, y: 0, z: 0}
+  positionB: {x: 0, y: 0, z: 0}
+  handle: {x: 0, y: 0, z: 0}
+  tweenSpeed:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7498900159925358080}
   - component: {fileID: 5390006051099050518}
   - component: {fileID: 3434315818590366966}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: StunAOE_Prefab
   m_TagString: Particles
   m_Icon: {fileID: 0}
@@ -4812,8 +4812,20 @@ MonoBehaviour:
   collisionFlash: {fileID: 0}
   stunnedPart: {fileID: 2817288810066339798, guid: 3aaa439c0950ac048889a618cd9bfabe,
     type: 3}
+  stunPart: {fileID: 0}
   rb: {fileID: 0}
   spellType: 
+  fractured: {fileID: 0}
+  xpOrb: {fileID: 0}
+  positionA: {x: 0, y: 0, z: 0}
+  positionB: {x: 0, y: 0, z: 0}
+  handle: {x: 0, y: 0, z: 0}
+  tweenSpeed:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8344548248979889635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4825,7 +4837,7 @@ GameObject:
   - component: {fileID: 8344548248979889632}
   - component: {fileID: 8344548248979889647}
   - component: {fileID: 8344548248979889646}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: hemisphere
   m_TagString: Particles
   m_Icon: {fileID: 0}

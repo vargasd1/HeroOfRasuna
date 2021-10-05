@@ -1063,7 +1063,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.85
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 90
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
@@ -1104,6 +1104,9 @@ MonoBehaviour:
   stunGren: {fileID: 6796940464481990212, guid: 62fbad8d3e475d44794616cc7cadabad,
     type: 3}
   stunCD: {fileID: 0}
+  floorMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &919132148106517196
 Rigidbody:
   m_ObjectHideFlags: 0

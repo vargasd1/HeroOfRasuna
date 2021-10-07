@@ -8,6 +8,9 @@ public class PlayerAttack : MonoBehaviour
     public GameObject fractured;
     private PlayerMovement playerMove;
     public GameObject xpOrb;
+    private bool enemIsRanged = false;
+    private EnemyAI enem;
+    private EnemyRangedAI enemR;
 
     void Start()
     {
@@ -21,13 +24,36 @@ public class PlayerAttack : MonoBehaviour
         {
             if (hit.tag == "Enemy")
             {
-                EnemyAI ai = hit.gameObject.GetComponent<EnemyAI>();
-                if (!ai.alreadyHitByPlayer)
+                if (hit.gameObject.GetComponent<EnemyAI>() != null)
                 {
-                    ai.health -= 34;
-                    ai.alreadyHitByPlayer = true;
-                    ai.anim.SetTrigger("Hit");
-                    ai.state = EnemyAI.State.hitStunned;
+                    enem = hit.gameObject.GetComponent<EnemyAI>();
+                    enemIsRanged = false;
+                }
+                else if (hit.gameObject.GetComponent<EnemyRangedAI>() != null)
+                {
+                    enemR = hit.gameObject.GetComponent<EnemyRangedAI>();
+                    enemIsRanged = true;
+                }
+
+                if (enemIsRanged)
+                {
+                    if (!enemR.alreadyHitByPlayer)
+                    {
+                        enemR.health -= 34;
+                        enemR.alreadyHitByPlayer = true;
+                        enemR.anim.SetTrigger("Hit");
+                        enemR.state = EnemyRangedAI.State.hitStunned;
+                    }
+                }
+                else
+                {
+                    if (!enem.alreadyHitByPlayer)
+                    {
+                        enem.health -= 34;
+                        enem.alreadyHitByPlayer = true;
+                        enem.anim.SetTrigger("Hit");
+                        enem.state = EnemyAI.State.hitStunned;
+                    }
                 }
             }
             else if (hit.tag == "Prop")

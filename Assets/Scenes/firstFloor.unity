@@ -414,7 +414,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &313697109 stripped
 GameObject:
@@ -1258,7 +1258,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2525f8955d9d08e4ea2ec7d604b46fa7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2525f8955d9d08e4ea2ec7d604b46fa7,
         type: 3}
@@ -1514,6 +1514,8 @@ MonoBehaviour:
   navMeshBlock: {fileID: 1240577279}
   enemySpawnPoint: {fileID: 909588930}
   enemy: {fileID: 4726295933915266973, guid: 2f76c7bf2ef22224e8e6b6a178d7a0f6, type: 3}
+  rangedEnemy: {fileID: 3682907239063450688, guid: dbce10a30149d054794673338249e176,
+    type: 3}
   enemyRagdoll: {fileID: 2414641552781049916, guid: 6a75d461dbfe9484d9aaa5ef7d014d1e,
     type: 3}
 --- !u!1 &943636773 stripped
@@ -1824,7 +1826,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8bd39af2c2224c745ba33e74c8f8d7ef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 27
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8bd39af2c2224c745ba33e74c8f8d7ef,
         type: 3}
@@ -2194,7 +2196,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1992ceddb18c8244ab59a0d823fcbca3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 29
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1992ceddb18c8244ab59a0d823fcbca3,
         type: 3}
@@ -2556,7 +2558,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1643761266
 MonoBehaviour:
@@ -2932,7 +2934,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2126553526
 PrefabInstance:

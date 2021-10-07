@@ -232,7 +232,7 @@ public class PlayerManager : MonoBehaviour
     void Stun()
     {
         // Finding location so spawn stun
-        RaycastHit hit;
+        //RaycastHit hit;
         Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
         if (groundPlane.Raycast(cameraRay, out rayLength)) pointToLook = cameraRay.GetPoint(rayLength);

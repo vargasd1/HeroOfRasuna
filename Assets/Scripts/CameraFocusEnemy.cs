@@ -12,6 +12,7 @@ public class CameraFocusEnemy : MonoBehaviour
     public GameObject enemySpawnPoint;
     private PlayerMovement player;
     public GameObject enemy;
+    public GameObject rangedEnemy;
     public GameObject enemyRagdoll;
     private GameObject enemRag;
     private CameraFollow camFol;
@@ -89,8 +90,8 @@ public class CameraFocusEnemy : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1);
 
-        var newEnem3 = Instantiate(enemy, new Vector3(enemRag.transform.position.x, 0, enemRag.transform.position.z), new Quaternion(0, 0, 0, 0));
-        newEnem3.GetComponent<EnemyAI>().state = EnemyAI.State.Idle;
+        var newEnem3 = Instantiate(rangedEnemy, new Vector3(enemRag.transform.position.x, 0, enemRag.transform.position.z), new Quaternion(0, 0, 0, 0));
+        newEnem3.GetComponent<EnemyRangedAI>().state = EnemyRangedAI.State.Idle;
         Destroy(enemRag);
 
     }

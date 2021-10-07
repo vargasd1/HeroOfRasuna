@@ -12,6 +12,9 @@ public class SpellInteraction : MonoBehaviour
     public string spellType;
     public GameObject fractured;
     public GameObject xpOrb;
+    private bool enemIsRanged = false;
+    private EnemyAI enem;
+    private EnemyRangedAI enemR;
 
     //Grenade Vars
     public Vector3 positionA;
@@ -46,29 +49,62 @@ public class SpellInteraction : MonoBehaviour
 
     void OnTriggerEnter(Collider hit)
     {
-        EnemyAI enem = hit.gameObject.GetComponent<EnemyAI>();
+        if (hit.gameObject.GetComponent<EnemyAI>() != null)
+        {
+            enem = hit.gameObject.GetComponent<EnemyAI>();
+            enemIsRanged = false;
+        }
+        else if (hit.gameObject.GetComponent<EnemyRangedAI>() != null)
+        {
+            enemR = hit.gameObject.GetComponent<EnemyRangedAI>();
+            enemIsRanged = true;
+        }
+
         switch (spellType)
         {
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
                     FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
-                    if (enem.state != EnemyAI.State.Stunned)
+                    if (enemIsRanged)
                     {
-                        enem.stunnedTimer = 4f;
-                        enem.state = EnemyAI.State.Stunned;
-                        Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
-                        Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
+                        if (enemR.state != EnemyRangedAI.State.Stunned)
+                        {
+                            enemR.stunnedTimer = 4f;
+                            enemR.state = EnemyRangedAI.State.Stunned;
+                            Vector3 stunnedPos = new Vector3(enemR.transform.position.x, enemR.transform.position.y + 2, enemR.transform.position.z);
+                            Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enemR.gameObject.transform);
+                        }
+                    }
+                    else
+                    {
+                        if (enem.state != EnemyAI.State.Stunned)
+                        {
+                            enem.stunnedTimer = 4f;
+                            enem.state = EnemyAI.State.Stunned;
+                            Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
+                            Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
+                        }
                     }
                 }
                 break;
             case "attack":
                 if (hit.gameObject.tag == "Enemy")
                 {
-                    enem.health -= 34;
-                    enem.alreadyHitByPlayer = true;
-                    enem.anim.SetTrigger("Hit");
-                    enem.state = EnemyAI.State.hitStunned;
+                    if (enemIsRanged)
+                    {
+                        enemR.health -= 34;
+                        enemR.alreadyHitByPlayer = true;
+                        enemR.anim.SetTrigger("Hit");
+                        enemR.state = EnemyRangedAI.State.hitStunned;
+                    }
+                    else
+                    {
+                        enem.health -= 34;
+                        enem.alreadyHitByPlayer = true;
+                        enem.anim.SetTrigger("Hit");
+                        enem.state = EnemyAI.State.hitStunned;
+                    }
                 }
                 if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox")
                 {
@@ -111,15 +147,28 @@ public class SpellInteraction : MonoBehaviour
         switch (spellType)
         {
             case "stun":
-                if (hit.gameObject.tag == "Enemy")
+                if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-                    EnemyAI enem = hit.gameObject.GetComponent<EnemyAI>();
-                    if (enem.state != EnemyAI.State.Stunned)
+                    FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
+                    if (enemIsRanged)
                     {
-                        enem.stunnedTimer = 4f;
-                        enem.state = EnemyAI.State.Stunned;
-                        Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
-                        Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
+                        if (enemR.state != EnemyRangedAI.State.Stunned)
+                        {
+                            enemR.stunnedTimer = 4f;
+                            enemR.state = EnemyRangedAI.State.Stunned;
+                            Vector3 stunnedPos = new Vector3(enemR.transform.position.x, enemR.transform.position.y + 2, enemR.transform.position.z);
+                            Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enemR.gameObject.transform);
+                        }
+                    }
+                    else
+                    {
+                        if (enem.state != EnemyAI.State.Stunned)
+                        {
+                            enem.stunnedTimer = 4f;
+                            enem.state = EnemyAI.State.Stunned;
+                            Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
+                            Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
+                        }
                     }
                 }
                 break;

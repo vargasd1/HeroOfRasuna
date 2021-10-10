@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpellInteraction : MonoBehaviour
 {
@@ -72,6 +73,7 @@ public class SpellInteraction : MonoBehaviour
                         {
                             enemR.stunnedTimer = 4f;
                             enemR.state = EnemyRangedAI.State.Stunned;
+                            enemR.GetComponent<NavMeshAgent>().SetDestination(enemR.transform.position);
                             Vector3 stunnedPos = new Vector3(enemR.transform.position.x, enemR.transform.position.y + 2, enemR.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enemR.gameObject.transform);
                         }
@@ -82,6 +84,7 @@ public class SpellInteraction : MonoBehaviour
                         {
                             enem.stunnedTimer = 4f;
                             enem.state = EnemyAI.State.Stunned;
+                            enem.GetComponent<NavMeshAgent>().SetDestination(enem.transform.position);
                             Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
                         }
@@ -156,6 +159,7 @@ public class SpellInteraction : MonoBehaviour
                         {
                             enemR.stunnedTimer = 4f;
                             enemR.state = EnemyRangedAI.State.Stunned;
+                            enemR.GetComponent<NavMeshAgent>().SetDestination(enemR.transform.position);
                             Vector3 stunnedPos = new Vector3(enemR.transform.position.x, enemR.transform.position.y + 2, enemR.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enemR.gameObject.transform);
                         }
@@ -166,6 +170,7 @@ public class SpellInteraction : MonoBehaviour
                         {
                             enem.stunnedTimer = 4f;
                             enem.state = EnemyAI.State.Stunned;
+                            enem.GetComponent<NavMeshAgent>().SetDestination(enem.transform.position);
                             Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
                         }

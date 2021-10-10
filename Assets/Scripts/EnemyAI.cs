@@ -119,6 +119,7 @@ public class EnemyAI : MonoBehaviour
                             xp.GetComponent<Rigidbody>().AddForce(force);
                         }
                         orbsDroppedOnce = true;
+                        player.gameObject.GetComponent<PlayerManager>().enemiesKilled++;
                     }
                     // Remove Collider
                     GetComponent<CapsuleCollider>().enabled = false;
@@ -218,7 +219,8 @@ public class EnemyAI : MonoBehaviour
 
     public void resetAttackEnemy()
     {
-        state = State.Idle;
+        if (stunnedTimer >= 0) state = State.Stunned;
+        else state = State.Idle;
         isAttacking = false;
         anim.ResetTrigger("Attack");
         attackAnimIsPlaying = false;
@@ -232,7 +234,8 @@ public class EnemyAI : MonoBehaviour
 
     public void resetDamageEnemy()
     {
-        state = State.Idle;
+        if (stunnedTimer >= 0) state = State.Stunned;
+        else state = State.Idle;
         anim.ResetTrigger("Hit");
         alreadyHitByPlayer = false;
         anim.SetBool("HitAgain", false);

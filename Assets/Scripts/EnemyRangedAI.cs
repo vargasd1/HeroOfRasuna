@@ -121,6 +121,7 @@ public class EnemyRangedAI : MonoBehaviour
                             xp.GetComponent<Rigidbody>().AddForce(force);
                         }
                         orbsDroppedOnce = true;
+                        player.gameObject.GetComponent<PlayerManager>().enemiesKilled++;
                     }
                     // Remove Collider
                     GetComponent<CapsuleCollider>().enabled = false;

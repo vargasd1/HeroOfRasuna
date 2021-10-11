@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 7babb01b0ac640b49ba22c6b3e284b1b
+guid: bdd185a8de78e6843bfb726785b091d4
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -6860359201722873624
+    second: Button.001|ButtonAction.001
   externalObjects: {}
   materials:
     materialImportMode: 1

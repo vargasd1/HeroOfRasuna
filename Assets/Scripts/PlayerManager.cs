@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     public Transform stunSpawnLoc;
 
     public bool isCutScene = false;
+    public int enemiesKilled = 0;
 
     // variables for melee attack
     public int attackNum = 0;

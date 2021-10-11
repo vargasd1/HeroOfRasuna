@@ -86,13 +86,13 @@ public class CameraFocusEnemy : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
 
         camFol.CameraFollowObject = player.gameObject;
-        player.isCutScene = false;
 
         yield return new WaitForSecondsRealtime(1);
 
         var newEnem3 = Instantiate(rangedEnemy, new Vector3(enemRag.transform.position.x, 0, enemRag.transform.position.z), new Quaternion(0, 0, 0, 0));
         newEnem3.GetComponent<EnemyRangedAI>().state = EnemyRangedAI.State.Idle;
         Destroy(enemRag);
+        player.isCutScene = false;
 
     }
 }

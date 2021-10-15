@@ -23,30 +23,39 @@ public class Interactable : MonoBehaviour
             Interact();
         }
     }
-    /*void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         //for use in editor
         //keep editor from giving errors
         if (interactionTransform == null) interactionTransform = transform;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
-    }*/
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if (interactionTransform.name == "Test switch") textPlace.SetActive(true);
-        else textPickup.SetActive(true);
+        if(other.gameObject.name == "Player")
+        {
+            if (interactionTransform.name == "Puzzle (empty)") textPlace.SetActive(true);
+            else textPickup.SetActive(true);
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (interactionTransform.name == "Test switch") textPlace.SetActive(false);
-        else textPickup.SetActive(false);
+        if (other.gameObject.name == "Player")
+        {
+            if (interactionTransform.name == "Puzzle (empty)") textPlace.SetActive(false);
+            else textPickup.SetActive(false);
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
-        if (interactionTransform.name == "Test switch") textPlace.SetActive(true);
-        else textPickup.SetActive(true);
+        if (other.gameObject.name == "Player")
+        {
+            if (interactionTransform.name == "Puzzle (empty)") textPlace.SetActive(true);
+            else textPickup.SetActive(true);
+        }
     }
 }

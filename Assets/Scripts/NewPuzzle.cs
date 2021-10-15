@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//names in PlaceDisk() need to stay updated with object names
+
 public class NewPuzzle : Interactable
 {
     Inventory inventory;
@@ -81,15 +83,15 @@ public class NewPuzzle : Interactable
             //place puzzles
             switch(inventory.items[0].name)
             {
-                case "Test item 1":
+                case "HOR_Puzzle_Piece3":
                     ui.ringOuter.SetActive(false);
                     discOuter.SetActive(true);
                     break;
-                case "Test item 2":
+                case "HOR_Puzzle_Piece2":
                     ui.ringMid.SetActive(false);
                     discMid.SetActive(true);
                     break;
-                case "Test item 3":
+                case "HOR_Puzzle_Piece1":
                     ui.ringInner.SetActive(false);
                     discInner.SetActive(true);
                     break;

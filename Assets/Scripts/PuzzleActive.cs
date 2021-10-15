@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PuzzleActive : MonoBehaviour
 {
-    public GameObject discOuter, discMid, discInner, camPuzzle, highlightInner, highlightMid, highlightOuter;
+    public GameObject discOuter, discMid, discInner, camPuzzle, highlightInner, highlightMid, highlightOuter, playerObj, puzzleUI, canvasUI, camMain, camGate;
     float inRot, midRot, outRot, startIn, startMid, startOut, time = 0f;
     int selectedPiece = 0;
     public bool finishPuzzle = false;
@@ -73,7 +73,7 @@ public class PuzzleActive : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(finishPuzzle)
+        if(finishPuzzle && time < 1f)
         {
             //make all rotations on puzzles 0
             discInner.transform.Rotate(0.0f, 0.0f, startIn, Space.Self);
@@ -83,22 +83,24 @@ public class PuzzleActive : MonoBehaviour
             time += Time.fixedDeltaTime;
         }
 
-        if(time >= 6f && time < 6.5f)
+        //only runs after puzzle is finished
+        if(time >= 6f)// && time < 6.25f)
         {
             //disable view for staircase being unlocked
             //enable player
-            /*playerObj.SetActive(true);
+            camGate.SetActive(false);
+            playerObj.SetActive(true);
             canvasUI.SetActive(true);
-            camMain.SetActive(true);*/
+            camMain.SetActive(true);
             time += Time.fixedDeltaTime;
         }
         else if(time >= 1f)
         {
             finishPuzzle = false;
-            //disable all puzzle parts
-            /*puzzleUI.SetActive(false);
-            camPuzzle.SetActive(false);*/
-            //enable view for staircase being unlocked in the second floor
+            //disable all puzzle parts, enable view for staircase being unlocked in the second floor
+            puzzleUI.SetActive(false);
+            camPuzzle.SetActive(false);
+            camGate.SetActive(true);
             time += Time.fixedDeltaTime;
         }
     }

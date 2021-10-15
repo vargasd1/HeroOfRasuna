@@ -2,36 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//ATTACHD TO: HoR_Gate (1) in level 2
+//repurposed from old test puzzle in test scene
+
 public class DoorScript : MonoBehaviour
 {
-    //Attached to Door
-    public GameObject puzzle0, puzzle1, puzzle2;
+    public GameObject gate;
+    PuzzleActive puzzleScript;
     Vector3 openPosition;
     Vector3 closedPosition;
     float time = 0f;
-
+    bool open = false;
     void Start()
     {
-        closedPosition = transform.position;
-        openPosition = new Vector3(transform.position.x, transform.position.y + 10f, transform.position.z);
+        closedPosition = gate.transform.position;
+        openPosition = new Vector3(transform.position.x, transform.position.y - 7f, transform.position.z);
+        puzzleScript = FindObjectOfType<PuzzleActive>();
     }
 
     void FixedUpdate()
     {
-        if (puzzle0.GetComponent<PuzzleSwitch>().correctPlace == true
-            && puzzle1.GetComponent<PuzzleSwitch>().correctPlace == true
-            && puzzle2.GetComponent<PuzzleSwitch>().correctPlace == true)
+        if (puzzleScript.finishPuzzle)
         {
-            openDoor();
+            open = true;
+            
+        }
+
+        if(open)
+        {
             time += Time.fixedUnscaledDeltaTime;
-            puzzle0.GetComponent<PuzzleSwitch>().allowPuzzle = false;
-            puzzle1.GetComponent<PuzzleSwitch>().allowPuzzle = false;
-            puzzle2.GetComponent<PuzzleSwitch>().allowPuzzle = false;
+            if (time >= 1.5f && time <= 5.5f) openDoor();
         }
     }
 
     void openDoor()
     {
-        transform.position = Vector3.Lerp(closedPosition, openPosition, time / 2.5f);
+        //open the gate from 1.5 - 5.5 seconds
+        Debug.Log("Moving");
+        gate.transform.position = Vector3.Lerp(closedPosition, openPosition, (time - 1.5f) / 4f);
     }
 }

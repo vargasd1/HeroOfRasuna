@@ -10,12 +10,14 @@ public class NewPuzzle : Interactable
     Inventory inventory;
     InventoryUI ui;
     public GameObject discOuter, discMid, discInner, camPuzzle, camMain, playerObj, canvasUI, puzzleUI;//, highlightInner, highlightMid, highlightOuter;
+    public PuzzleActive puzzleScript;
     //int selectedPiece = 0;
 
     void Start()
     {
         inventory = Inventory.instance;
         ui = FindObjectOfType<InventoryUI>();
+        puzzleScript = FindObjectOfType<PuzzleActive>();
     }
 
     /*void Update()
@@ -48,31 +50,34 @@ public class NewPuzzle : Interactable
 
     public override void Interact()//called when the player presses the interact button (G)
     {
-        //call parent function
-        base.Interact();
-        
-        //switch to puzzle mode
-        if (!camPuzzle.activeSelf && discInner.activeSelf && discMid.activeSelf && discOuter.activeSelf)
+        if (!puzzleScript.finishPuzzle)
         {
-            camMain.SetActive(false);
-            camPuzzle.SetActive(true);
-            playerObj.SetActive(false);
-            puzzleUI.SetActive(true);
-            canvasUI.SetActive(false);
-        }
-        //exit puzzle mode
-        else if(camPuzzle.activeSelf)
-        {
-            playerObj.SetActive(true);
-            puzzleUI.SetActive(false);
-            canvasUI.SetActive(true);
-            camPuzzle.SetActive(false);
-            camMain.SetActive(true);
-            //shouldn't need to unhighlight since they are children of puzzleUI
-        }
-        else
-        {
-            PlaceDisc();
+            //call parent function
+            base.Interact();
+
+            //switch to puzzle mode
+            if (!camPuzzle.activeSelf && discInner.activeSelf && discMid.activeSelf && discOuter.activeSelf)
+            {
+                camMain.SetActive(false);
+                camPuzzle.SetActive(true);
+                playerObj.SetActive(false);
+                puzzleUI.SetActive(true);
+                canvasUI.SetActive(false);
+            }
+            //exit puzzle mode
+            else if (camPuzzle.activeSelf)
+            {
+                playerObj.SetActive(true);
+                puzzleUI.SetActive(false);
+                canvasUI.SetActive(true);
+                camPuzzle.SetActive(false);
+                camMain.SetActive(true);
+                //shouldn't need to unhighlight since they are children of puzzleUI
+            }
+            else
+            {
+                PlaceDisc();
+            }
         }
     }
 

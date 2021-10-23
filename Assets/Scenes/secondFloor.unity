@@ -1427,6 +1427,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 097740945c5bde14c96fadf7e8767a8d, type: 3}
+--- !u!114 &574363474 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4687984394517034720, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
+    type: 3}
+  m_PrefabInstance: {fileID: 578393506}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &578393506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1576,18 +1588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &578393510 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4687984395373594549, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
-    type: 3}
-  m_PrefabInstance: {fileID: 578393506}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &578393511 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4687984394564568734, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
@@ -1623,7 +1623,7 @@ PrefabInstance:
         type: 3}
       propertyPath: healthUI
       value: 
-      objectReference: {fileID: 578393510}
+      objectReference: {fileID: 574363474}
     - target: {fileID: 919132148106517197, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: healCD

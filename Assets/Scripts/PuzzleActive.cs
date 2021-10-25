@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PuzzleActive : MonoBehaviour
 {
-    public GameObject discOuter, discMid, discInner, camPuzzle, highlightInner, highlightMid, highlightOuter;
+    public GameObject discOuter, discMid, discInner, camPuzzle, highlightInner, highlightMid, highlightOuter, playerObj, puzzleUI, canvasUI, camMain, camGate;
     float inRot, midRot, outRot, startIn, startMid, startOut, time = 0f;
     int selectedPiece = 0;
     public bool finishPuzzle = false;
@@ -14,13 +14,13 @@ public class PuzzleActive : MonoBehaviour
         //move the puzzle pieces in puzzle mode
         if (camPuzzle.activeSelf)
         {
-            //if puzzle is close enough to complete
+            //if puzzle is close enough to complete. Give the euler angles
             if(Mathf.Abs(discInner.transform.rotation.z) <= 6f * (Mathf.PI / 180f) && Mathf.Abs(discMid.transform.rotation.z) <= 6f * (Mathf.PI / 180f) && Mathf.Abs(discOuter.transform.rotation.z) <= 6f * (Mathf.PI / 180f))
             {
                 finishPuzzle = true;
-                startIn = discInner.transform.rotation.z;
-                startMid = discMid.transform.rotation.z;
-                startOut = discOuter.transform.rotation.z;
+                startIn = GetAngle(discInner.transform.eulerAngles.z);
+                startMid = GetAngle(discMid.transform.eulerAngles.z);
+                startOut = GetAngle(discOuter.transform.eulerAngles.z);
             }
             //allow player to move puzzle
             else
@@ -42,21 +42,6 @@ public class PuzzleActive : MonoBehaviour
                     switch(selectedPiece)
                     {
                         case 0:
-                            discInner.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
-                            break;
-                        case 1:
-                            discMid.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
-                            break;
-                        case 2:
-                            discOuter.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
-                            break;
-                    }
-                }
-                else if (Input.GetKey(KeyCode.D))
-                {
-                    switch (selectedPiece)
-                    {
-                        case 0:
                             discInner.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
                             break;
                         case 1:
@@ -67,43 +52,66 @@ public class PuzzleActive : MonoBehaviour
                             break;
                     }
                 }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    switch (selectedPiece)
+                    {
+                        case 0:
+                            discInner.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            break;
+                        case 1:
+                            discMid.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            break;
+                        case 2:
+                            discOuter.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            break;
+                    }
+                }
             }//else allow player to move puzzle
         }//if(camPuzzle.activeSelf)
     }//Update()
 
     void FixedUpdate()
     {
-        if(finishPuzzle)
+        if(finishPuzzle && time < 1f)
         {
-            //adjust all rotations to be 0
-            if (time > 1f) time = 1f;
-            inRot = Mathf.Lerp(startIn, 0f, time);
-            midRot = Mathf.Lerp(startMid, 0f, time);
-            outRot = Mathf.Lerp(startOut, 0f, time);
-
-            discInner.transform.rotation = new Quaternion(0f, 0f, inRot, Quaternion.identity.w);
-            discMid.transform.rotation = new Quaternion(0f, 0f, midRot, Quaternion.identity.w);
-            discOuter.transform.rotation = new Quaternion(0f, 0f, outRot, Quaternion.identity.w);
+            //make all rotations on puzzles 0
+            discInner.transform.Rotate(0.0f, 0.0f, startIn, Space.Self);
+            discMid.transform.Rotate(0.0f, 0.0f, startMid, Space.Self);
+            discOuter.transform.Rotate(0.0f, 0.0f, startOut, Space.Self);
 
             time += Time.fixedDeltaTime;
         }
 
-        if(time >= 6f)
+        //only runs after puzzle is finished
+        if(time >= 6f)// && time < 6.25f)
         {
             //disable view for staircase being unlocked
             //enable player
-            /*playerObj.SetActive(true);
+            camGate.SetActive(false);
+            playerObj.SetActive(true);
             canvasUI.SetActive(true);
-            camMain.SetActive(true);*/
+            camMain.SetActive(true);
+            time += Time.fixedDeltaTime;
         }
         else if(time >= 1f)
         {
             finishPuzzle = false;
-            //disable all puzzle parts
-            /*puzzleUI.SetActive(false);
-            camPuzzle.SetActive(false);*/
-            //enable view for staircase being unlocked in the second floor
+            //disable all puzzle parts, enable view for staircase being unlocked in the second floor
+            puzzleUI.SetActive(false);
+            camPuzzle.SetActive(false);
+            camGate.SetActive(true);
+            time += Time.fixedDeltaTime;
         }
+    }
+
+    float GetAngle(float starting)
+    {
+        //given the euler angle, give the correct adjustment
+        //[0, 6]
+        if (starting <= 6f) return -starting * Time.fixedDeltaTime;
+        //[354, 360]
+        else return (360f - starting) * Time.fixedDeltaTime;
     }
 
     void HighlightPuzzle()

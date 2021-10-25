@@ -28,13 +28,13 @@ public class InventoryUI : MonoBehaviour
             //Debug.Log(inventory.items[i].name);
             switch(inventory.items[i].name)
             {
-                case "Test item 1":
+                case "HOR_Puzzle_Piece3":
                     ringOuter.SetActive(true);
                     break;
-                case "Test item 2":
+                case "HOR_Puzzle_Piece2":
                     ringMid.SetActive(true);
                     break;
-                case "Test item 3":
+                case "HOR_Puzzle_Piece1":
                     ringInner.SetActive(true);
                     break;
             }

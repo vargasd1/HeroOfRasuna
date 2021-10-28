@@ -86,15 +86,5 @@ public class HealthBar : MonoBehaviour
 
         kite1.fillAmount = Mathf.Lerp(0f, 0.378f, (Mathf.Clamp(health, runningTotal, runningTotal + 0.01415f) - runningTotal) / 0.01415f);
         kite1.color = healthColor;
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Debug.Log("Health" + health);
-            Debug.Log("Fill: " + kite1.fillAmount);
-            Debug.Log("Running total: " + runningTotal);
-            Debug.Log("Running total + amount: " + (runningTotal + 0.01415f));
-            Debug.Log("Clamped: " + Mathf.Clamp(health, runningTotal, runningTotal + 0.01415f));
-            Debug.Log("Final proportion: " + (Mathf.Clamp(health, runningTotal, runningTotal + 0.01415f) - runningTotal) / 0.01415f);
-            Debug.Log("Lerp: " + Mathf.Lerp(0f, 0.378f, (Mathf.Clamp(health, runningTotal, runningTotal + 0.01415f) - runningTotal) / 0.01415f));
-        }
     }
 }

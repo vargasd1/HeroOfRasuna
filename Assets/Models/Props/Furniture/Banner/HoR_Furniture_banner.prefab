@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5033116210717235732}
   - component: {fileID: 5568549149566263344}
   - component: {fileID: 8065522260115697287}
+  - component: {fileID: 2017992699}
   m_Layer: 10
   m_Name: HoR_Furniture_banner
   m_TagString: Wall
@@ -91,8 +92,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: -0.112990625, z: -2.1688366}
-    m_Extent: {x: 1.1658916, y: 0.112990625, z: 2.2750034}
+    m_Center: {x: 0, y: -0.11299061, z: -2.168836}
+    m_Extent: {x: 1.165891, y: 0.112990595, z: 2.275003}
   m_DirtyAABB: 0
 --- !u!183 &5033116210717235732
 Cloth:
@@ -262,3 +263,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2017992699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114595179803169483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400e7c3289a5c0245a78bfe334ede0be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alpha: 1
+  fadeOut: 0
+  fadeIn: 0

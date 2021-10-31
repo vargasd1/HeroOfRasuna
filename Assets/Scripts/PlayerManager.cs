@@ -14,15 +14,15 @@ public class PlayerManager : MonoBehaviour
     public bool isCutScene = false;
     public int enemiesKilled = 0;
 
-    // variables for melee attack
+    // variables for melee attack (Left Click)
     public int attackNum = 0;
     public bool canAttack;
     public bool isInvinc = false;
     public float invincTimer = 0;
 
-    // variables for heal
+    // variables for heal (E)
     public ParticleSystem healParticles;
-    public Image healthUI;
+    //public Image healthUI;
     public Image healCD;
     public float playerHealth = 100f;
     public float playerTargetHealth = 100f;
@@ -31,14 +31,15 @@ public class PlayerManager : MonoBehaviour
     float healCDTime = 0f;
     public bool isDead;
 
-    // variables for attack spell
+    // variables for attack spell (Right Click)
     public GameObject projectile;
     public Transform spellSpawnLoc;
+    public Image attackSpellCD;
     private float attackSpellCDTime = 0f;
     public Vector3 normalForward;
     public Quaternion normalRotation;
 
-    // variables for stun
+    // variables for stun (Q)
     public GameObject stunGren;
     private float stunCDTime = 0f;
     private Vector3 pointToLook;
@@ -105,6 +106,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         if (hit.transform.gameObject.layer == 9)
                         {
+                            Debug.Log("Q");
                             if (stunCDTime <= 0f) Stun();
                         }
                     }
@@ -206,20 +208,24 @@ public class PlayerManager : MonoBehaviour
             // update player UI
             playerHealth = Mathf.Clamp(playerHealth, 0f, playerMaxHealth);//prevents timeScale from going above 1/below 0
             playerTargetHealth = Mathf.Clamp(playerTargetHealth, 0f, playerMaxHealth);
-            healthUI.rectTransform.sizeDelta = new Vector2(Mathf.Lerp(0, 290, playerHealth / playerMaxHealth), 40);
+            //healthUI.rectTransform.sizeDelta = new Vector2(Mathf.Lerp(0, 290, playerHealth / playerMaxHealth), 40);
 
             // edit the cooldown shadows/effects for abilities
             healCDTime -= Time.fixedUnscaledDeltaTime;
             if (healCDTime < 0f) healCDTime = 0f;
-            healCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, healCDTime / 30f));
+            //healCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, healCDTime / 30f));
+            healCD.fillAmount = Mathf.Clamp(healCDTime / 30f, 0f, 1f);
 
             // decrement stun time and edit the CD shadows/effect for ability
             stunCDTime -= Time.fixedUnscaledDeltaTime;
             if (stunCDTime < 0f) stunCDTime = 0f;
-            stunCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, stunCDTime / 30f));
+            //stunCD.rectTransform.sizeDelta = new Vector2(70, Mathf.Lerp(0, 70, stunCDTime / 30f));
+            stunCD.fillAmount = Mathf.Clamp(stunCDTime / 30f, 0f, 1f);
 
             attackSpellCDTime -= Time.fixedUnscaledDeltaTime;
-            if (stunCDTime < 0f) stunCDTime = 0f;
+            //if (stunCDTime < 0f) stunCDTime = 0f;
+            if (attackSpellCDTime < 0f) attackSpellCDTime = 0f;
+            attackSpellCD.fillAmount = Mathf.Clamp(attackSpellCDTime / 10f, 0f, 1f);
         }
     }
 

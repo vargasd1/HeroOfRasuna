@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//ATTACHED TO: player gameobject
+
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
@@ -183,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Debug.Log("Overclock");
                 overclockTime -= Time.fixedUnscaledDeltaTime;
+                overclockChargedAmt = ((overclockTime + 1f) / 6f) * 100f;
                 if (overclockTime <= 0f)
                 {
                     //start transitioning back
@@ -196,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("Overclock Transition");
                 overclockTransitionTime -= Time.fixedUnscaledDeltaTime;
+                overclockChargedAmt = ((overclockTransitionTime - 1f) / 6f) * 100f;
                 //slowly return back to normal time. increase pitches of sounds as time goes back
                 Time.timeScale += (1f / overclockTransitionTime) * Time.unscaledDeltaTime;
                 Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);//prevents timeScale from going above 1/below 0
@@ -211,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
                     Time.timeScale = 1f;
                     Time.fixedDeltaTime = Time.timeScale * .02f;
                     overlay.SetActive(false);
+                    overclockChargedAmt = 0f;
                     FindObjectOfType<AudioManager>().Stop("Overclock");
                     FindObjectOfType<AudioManager>().ChangePitch("Overclock", 1f);
                 }
@@ -221,10 +226,12 @@ public class PlayerMovement : MonoBehaviour
                 //overclockCDTime -= Time.fixedUnscaledDeltaTime;
                 //if (overclockCDTime < 0f) overclockCDTime = 0f;
                 //float chargeHeight = AnimMath.Map((100f - overclockChargedAmt) / 1.4285f, 0, 100, 70, 0);
-                float chargeHeight = Mathf.Lerp(70f, 0f, (overclockChargedAmt / 100f));
-                overclockCD.rectTransform.sizeDelta = new Vector2(70, chargeHeight);
+                //float chargeHeight = Mathf.Lerp(70f, 0f, (overclockChargedAmt / 100f));
+                //overclockCD.rectTransform.sizeDelta = new Vector2(70, chargeHeight);
+                //overclockCD.fillAmount = Mathf.Clamp(overclockChargedAmt / 100f, 0f, 1f);
                 //Debug.Log("chargeHeight: " + chargeHeight);
             }
+            overclockCD.fillAmount = Mathf.Clamp(overclockChargedAmt / 100f, 0f, 1f);
         }//(!isDead && !isPaused)
     }//FixedUpdate()
 

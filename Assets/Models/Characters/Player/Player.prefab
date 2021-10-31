@@ -1085,13 +1085,13 @@ MonoBehaviour:
   playerMove: {fileID: 0}
   stunSpawnLoc: {fileID: 8871674762172438235}
   isCutScene: 0
+  enemiesKilled: 0
   attackNum: 0
   canAttack: 1
   isInvinc: 0
   invincTimer: 0
   healParticles: {fileID: 7865477803590536380, guid: e2591f20e877165429968d5cafedd746,
     type: 3}
-  healthUI: {fileID: 0}
   healCD: {fileID: 0}
   playerHealth: 75
   playerTargetHealth: 75
@@ -1099,6 +1099,7 @@ MonoBehaviour:
   projectile: {fileID: 1352447834921957360, guid: 558570228c94c9a488655ee620d30eda,
     type: 3}
   spellSpawnLoc: {fileID: 4077812842594532560}
+  attackSpellCD: {fileID: 0}
   normalForward: {x: 0, y: 0, z: 0}
   normalRotation: {x: 0, y: 0, z: 0, w: 0}
   stunGren: {fileID: 6796940464481990212, guid: 62fbad8d3e475d44794616cc7cadabad,
@@ -1106,7 +1107,7 @@ MonoBehaviour:
   stunCD: {fileID: 0}
   floorMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!54 &919132148106517196
 Rigidbody:
   m_ObjectHideFlags: 0

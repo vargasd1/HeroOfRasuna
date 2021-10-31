@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4478786662339895755}
   m_Layer: 0
   m_Name: polySurface74
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 4340527857218842750}
   m_Layer: 0
   m_Name: polySurface71
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 4236019848714761881}
   m_Layer: 0
   m_Name: polySurface80
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -729,7 +729,7 @@ GameObject:
   - component: {fileID: 3200191623904116720}
   m_Layer: 0
   m_Name: Corner_R4
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -951,7 +951,7 @@ GameObject:
   - component: {fileID: 2412992917083596717}
   m_Layer: 0
   m_Name: polySurface75
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1062,7 +1062,7 @@ GameObject:
   - component: {fileID: 2169046639788869669}
   m_Layer: 0
   m_Name: polySurface79
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1351,7 +1351,7 @@ GameObject:
   - component: {fileID: 843201856863481142}
   m_Layer: 0
   m_Name: Corner_L2
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1462,7 +1462,7 @@ GameObject:
   - component: {fileID: 9182959420900923131}
   m_Layer: 0
   m_Name: polySurface69
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1573,7 +1573,7 @@ GameObject:
   - component: {fileID: 7824128035749477415}
   m_Layer: 0
   m_Name: Wall_L
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -1684,7 +1684,7 @@ GameObject:
   - component: {fileID: 7620835089480255255}
   m_Layer: 0
   m_Name: polySurface81
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -2049,7 +2049,7 @@ GameObject:
   - component: {fileID: 6604235298698996598}
   m_Layer: 0
   m_Name: polySurface73
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8

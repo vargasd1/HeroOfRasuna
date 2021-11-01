@@ -15,6 +15,7 @@ public class loadNextLevel : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
+        loadScreen = GameObject.FindGameObjectWithTag("loadingScreen").GetComponent<Image>();
     }
 
     private void Update()

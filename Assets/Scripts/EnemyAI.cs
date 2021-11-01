@@ -55,7 +55,11 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0) state = State.Dead;
+        if (health <= 0)
+        {
+            anim.SetBool("Stunned", false);
+            state = State.Dead;
+        }
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
         if (!pauseMenu.GamePaused)
         {
@@ -101,9 +105,17 @@ public class EnemyAI : MonoBehaviour
                     // Stops moving instantly
                     agent.speed = 0f;
                     anim.SetBool("isMoving", false);
+                    anim.SetBool("Stunned", true);
+                    resetAttackEnemy();
+                    resetHitStun();
+                    resetDamageEnemy();
                     // Decrement stun timer
                     stunnedTimer -= Time.deltaTime;
-                    if (stunnedTimer <= 0) state = State.Idle;
+                    if (stunnedTimer <= 0)
+                    {
+                        state = State.Idle;
+                        anim.SetBool("Stunned", false);
+                    }
                     break;
                 case State.Dead:
                     // Play Death Animation

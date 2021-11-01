@@ -18,8 +18,8 @@ GameObject:
   m_Name: polySurface8
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6179919252295479552
 Transform:
@@ -145,8 +145,8 @@ GameObject:
   m_Name: Corner_R3
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6790393524430569023
 Transform:
@@ -272,8 +272,8 @@ GameObject:
   m_Name: polySurface6
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2450046047770725539
 Transform:
@@ -399,8 +399,8 @@ GameObject:
   m_Name: polySurface22
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3064071790879080141
 Transform:
@@ -526,8 +526,8 @@ GameObject:
   m_Name: polySurface4
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4727705551615558727
 Transform:
@@ -652,8 +652,8 @@ GameObject:
   m_Name: Corner_R4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6190333485884763293
 Transform:
@@ -764,8 +764,8 @@ GameObject:
   m_Name: Corner_R8
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1396264893655999396
 Transform:
@@ -890,8 +890,8 @@ GameObject:
   m_Name: Wall_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1088427620115643561
 Transform:
@@ -1002,7 +1002,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2656882529629795581
 Transform:
@@ -1113,8 +1113,8 @@ GameObject:
   m_Name: polySurface2
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7960896202072235781
 Transform:
@@ -1235,12 +1235,13 @@ GameObject:
   - component: {fileID: 7739903178082385641}
   - component: {fileID: 4328574716789199988}
   - component: {fileID: 7757265240839205501}
+  - component: {fileID: 2087282332}
   m_Layer: 0
   m_Name: polySurface35
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &24742029461468806
 Transform:
@@ -1333,6 +1334,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -981004378944408349, guid: 2a9a84924380e084ea52731e33d8d91f, type: 3}
+--- !u!114 &2087282332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2398238645845070006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400e7c3289a5c0245a78bfe334ede0be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alpha: 1
+  fadeOut: 0
+  fadeIn: 0
 --- !u!1 &2717532252208761630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,8 +1366,8 @@ GameObject:
   m_Name: polySurface17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3445201756735878542
 Transform:
@@ -1462,8 +1478,8 @@ GameObject:
   m_Name: polySurface26
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8977598379256509304
 Transform:
@@ -1589,8 +1605,8 @@ GameObject:
   m_Name: polySurface14
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7463450723915589304
 Transform:
@@ -1790,8 +1806,8 @@ GameObject:
   m_Name: polySurface32
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5006244686432392851
 Transform:
@@ -1916,8 +1932,8 @@ GameObject:
   m_Name: Corner_L2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4527320094737162604
 Transform:
@@ -2027,8 +2043,8 @@ GameObject:
   m_Name: polySurface30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8545962452278400886
 Transform:
@@ -2139,8 +2155,8 @@ GameObject:
   m_Name: polySurface24
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6947231237021142745
 Transform:
@@ -2266,8 +2282,8 @@ GameObject:
   m_Name: polySurface19
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6194626021428223381
 Transform:
@@ -2393,8 +2409,8 @@ GameObject:
   m_Name: polySurface28
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &737946656158173671
 Transform:
@@ -2519,8 +2535,8 @@ GameObject:
   m_Name: Corner_L1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4752356331194375126
 Transform:
@@ -2631,8 +2647,8 @@ GameObject:
   m_Name: polySurface16
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6837385882206574422
 Transform:
@@ -2758,8 +2774,8 @@ GameObject:
   m_Name: Wall_R
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7797759905231362919
 Transform:
@@ -2884,8 +2900,8 @@ GameObject:
   m_Name: polySurface21
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8277194280802634019
 Transform:
@@ -2996,8 +3012,8 @@ GameObject:
   m_Name: Corner_L3
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &864348681984840063
 Transform:
@@ -3123,8 +3139,8 @@ GameObject:
   m_Name: polySurface31
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &6560343944718041478
 Transform:
@@ -3250,8 +3266,8 @@ GameObject:
   m_Name: polySurface33
   m_TagString: Wall
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &272315847709778197
 Transform:

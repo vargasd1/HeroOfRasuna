@@ -19,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player" && self.isAttacking && !playerManager.isInvinc)
+        if (other.gameObject.tag == "Player" && self.isAttacking && !playerManager.isInvinc && self.state != EnemyAI.State.Stunned)
         {
             playerManager.playerTargetHealth -= 25;
             playerManager.isInvinc = true;

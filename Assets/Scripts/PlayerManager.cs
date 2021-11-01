@@ -89,10 +89,10 @@ public class PlayerManager : MonoBehaviour
                     if (healCDTime <= 0f && playerHealth != playerMaxHealth)
                     {
                         FindObjectOfType<AudioManager>().PlayUninterrupted("Heal");
+                        Heal();
                         canAttack = false;
                         playerMove.isAttacking = true;
                         anim.SetTrigger("castHeal");
-                        Heal();
                     }
                 }
 
@@ -233,7 +233,7 @@ public class PlayerManager : MonoBehaviour
     {
         // heal player
         playerTargetHealth += healAmount;
-        Instantiate(healParticles, player.gameObject.transform.position, Quaternion.Euler(-90, 0, 0));
+        Instantiate(healParticles, player.gameObject.transform.position, Quaternion.Euler(0, 0, 0));
         healCDTime = 30f;
     }
     void Stun()

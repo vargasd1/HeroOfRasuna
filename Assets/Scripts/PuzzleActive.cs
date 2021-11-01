@@ -10,11 +10,12 @@ public class PuzzleActive : MonoBehaviour
     int selectedPiece = 0;
     public bool finishPuzzle = false;
     private Image UICover;
-    private bool fadeIn = false;
-    private bool fadeOut = false;
+    public bool fadeIn = false;
+    public bool fadeOut = false;
     private float alpha = 0;
     private bool openDoor = false;
     public GameObject gate;
+    private bool doOnce = false;
 
     private void Awake()
     {
@@ -105,7 +106,8 @@ public class PuzzleActive : MonoBehaviour
             discMid.transform.Rotate(0.0f, 0.0f, startMid, Space.Self);
             discOuter.transform.Rotate(0.0f, 0.0f, startOut, Space.Self);
 
-            StartCoroutine(openDoorCutscene());
+            if (!doOnce) StartCoroutine(openDoorCutscene());
+            doOnce = true;
         }
 
         //only runs after puzzle is finished
@@ -183,8 +185,6 @@ public class PuzzleActive : MonoBehaviour
 
     IEnumerator openDoorCutscene()
     {
-
-        finishPuzzle = false;
         //disable all puzzle parts, enable view for staircase being unlocked in the second floor
         puzzleUI.SetActive(false);
 

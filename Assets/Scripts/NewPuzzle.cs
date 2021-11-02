@@ -11,6 +11,10 @@ public class NewPuzzle : Interactable
     InventoryUI ui;
     public GameObject discOuter, discMid, discInner, camPuzzle, camMain, playerObj, canvasUI, puzzleUI;//, highlightInner, highlightMid, highlightOuter;
     public PuzzleActive puzzleScript;
+    private bool fadeIn = false;
+    private bool fadeOut = false;
+    public Image UICover;
+    private float alpha = 0;
     //int selectedPiece = 0;
 
     void Start()
@@ -18,6 +22,7 @@ public class NewPuzzle : Interactable
         inventory = Inventory.instance;
         ui = FindObjectOfType<InventoryUI>();
         puzzleScript = FindObjectOfType<PuzzleActive>();
+        UICover = GameObject.FindGameObjectWithTag("loadingScreen").GetComponent<Image>();
     }
 
     /*void Update()
@@ -58,20 +63,26 @@ public class NewPuzzle : Interactable
             //switch to puzzle mode
             if (!camPuzzle.activeSelf && discInner.activeSelf && discMid.activeSelf && discOuter.activeSelf)
             {
-                camMain.SetActive(false);
-                camPuzzle.SetActive(true);
-                playerObj.SetActive(false);
-                puzzleUI.SetActive(true);
-                canvasUI.SetActive(false);
+                StartCoroutine(switchToPuzzle());
+                // Moved in to Coroutine
+
+                //camMain.SetActive(false);
+                //camPuzzle.SetActive(true);
+                //playerObj.SetActive(false);
+                //puzzleUI.SetActive(true);
+                //canvasUI.SetActive(false);
             }
             //exit puzzle mode
             else if (camPuzzle.activeSelf)
             {
-                playerObj.SetActive(true);
-                puzzleUI.SetActive(false);
-                canvasUI.SetActive(true);
-                camPuzzle.SetActive(false);
-                camMain.SetActive(true);
+                StartCoroutine(exitPuzzle());
+                // Moved in to Coroutine
+
+                //playerObj.SetActive(true);
+                //puzzleUI.SetActive(false);
+                //canvasUI.SetActive(true);
+                //camPuzzle.SetActive(false);
+                //camMain.SetActive(true);
                 //shouldn't need to unhighlight since they are children of puzzleUI
             }
             else
@@ -83,10 +94,10 @@ public class NewPuzzle : Interactable
 
     void PlaceDisc()
     {
-        if(inventory.items.Count > 0)
+        if (inventory.items.Count > 0)
         {
             //place puzzles
-            switch(inventory.items[0].name)
+            switch (inventory.items[0].name)
             {
                 case "HOR_Puzzle_Piece3":
                     ui.ringOuter.SetActive(false);
@@ -103,6 +114,50 @@ public class NewPuzzle : Interactable
             }
             inventory.Remove(inventory.items[0]);
         }
+    }
+
+    IEnumerator switchToPuzzle()
+    {
+        playerObj.GetComponent<PlayerMovement>().isCutScene = true;
+        puzzleScript.fadeOut = true;
+        puzzleScript.fadeIn = false;
+        canvasUI.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(1);
+
+        camMain.SetActive(false);
+        camPuzzle.SetActive(true);
+        playerObj.SetActive(false);
+
+        puzzleScript.fadeOut = false;
+        puzzleScript.fadeIn = true;
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        puzzleUI.SetActive(true);
+    }
+
+    IEnumerator exitPuzzle()
+    {
+        puzzleScript.fadeOut = true;
+        puzzleScript.fadeIn = false;
+        puzzleUI.SetActive(false);
+
+
+        yield return new WaitForSecondsRealtime(1);
+
+        camMain.SetActive(true);
+        camPuzzle.SetActive(false);
+        playerObj.SetActive(true);
+        playerObj.GetComponent<PlayerMovement>().isCutScene = true;
+
+        puzzleScript.fadeOut = false;
+        puzzleScript.fadeIn = true;
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        canvasUI.SetActive(true);
+        playerObj.GetComponent<PlayerMovement>().isCutScene = false;
     }
 
     /*void HighlightPuzzle()

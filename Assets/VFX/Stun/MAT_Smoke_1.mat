@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7937235057395953233
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_Stun_Smoke
-  m_Shader: {fileID: -6465566751694194690, guid: db798cd73495efd4284d83ee7d414077,
+  m_Name: MAT_Smoke_1
+  m_Shader: {fileID: -6465566751694194690, guid: da1a1d011c468f34b891a7382a7d001d,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -57,24 +44,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_23B837A3_Texture_1:
-        m_Texture: {fileID: 2800000, guid: d33855d62768e874e984140adc591b80, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_86D08DC3_Texture_1:
-        m_Texture: {fileID: 2800000, guid: e330dbfd3d962634794972a6540c4cea, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_C4368CC6_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 9a39042244048ac40a12659e35ec2557, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_DCB883B_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 9336b99e8d05d1b459573315b3cbe6fd, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_DF952135_Texture_1:
-        m_Texture: {fileID: 2800000, guid: d33855d62768e874e984140adc591b80, type: 3}
+    - _SampleTexture2D_9E19E47_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 4d88ee4d48dd45e45b0f232ae3882692, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -82,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_E445C292: -0.5
+    - Vector1_DA9CFC5: -0.5
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -109,3 +80,16 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+--- !u!114 &7982579203749964804
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1

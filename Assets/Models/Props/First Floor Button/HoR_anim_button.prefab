@@ -62,10 +62,10 @@ MonoBehaviour:
   enemyDoor: {fileID: 0}
   navMeshBlock: {fileID: 0}
   enemySpawnPoint: {fileID: 0}
-  enemy: {fileID: 4726295933915266973, guid: 2f76c7bf2ef22224e8e6b6a178d7a0f6, type: 3}
-  rangedEnemy: {fileID: 3682907239063450688, guid: dbce10a30149d054794673338249e176,
+  enemy: {fileID: 6182621848863944332, guid: f2ebf16cbe72dfc46a3660d13738d5f9, type: 3}
+  rangedEnemy: {fileID: 6182621848863944332, guid: 918ed1e444cf602489f92ca739e9898c,
     type: 3}
-  enemyRagdoll: {fileID: 2414641552781049916, guid: 6a75d461dbfe9484d9aaa5ef7d014d1e,
+  enemyRagdoll: {fileID: 7481115346156911647, guid: 11a683e4640b2ac4185320f8d05501c6,
     type: 3}
   topButtonPart: {fileID: 7784653615987031145}
 --- !u!1 &980010533794967514
@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 7838486813967842507}
   - component: {fileID: 4419528622287484000}
   - component: {fileID: 3513740119775759001}
+  - component: {fileID: 6821887586121560649}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -180,6 +181,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &6821887586121560649
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914412114991969783}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.010272618, y: 0.0102726165, z: 0.001252275}
+  m_Center: {x: 0, y: 0, z: -0.00020871244}
 --- !u!1 &7784653615987031145
 GameObject:
   m_ObjectHideFlags: 0

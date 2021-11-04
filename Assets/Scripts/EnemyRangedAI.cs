@@ -57,7 +57,11 @@ public class EnemyRangedAI : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0) state = State.Dead;
+        if (health <= 0)
+        {
+            anim.SetBool("Stunned", false);
+            state = State.Dead;
+        }
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
         if (!pauseMenu.GamePaused)
         {
@@ -103,12 +107,19 @@ public class EnemyRangedAI : MonoBehaviour
                     // Stops moving instantly
                     agent.speed = 0f;
                     anim.SetBool("isMoving", false);
+                    anim.SetBool("Stunned", true);
+                    resetAttackEnemy();
                     // Decrement stun timer
                     stunnedTimer -= Time.deltaTime;
-                    if (stunnedTimer <= 0) state = State.Idle;
+                    if (stunnedTimer <= 0)
+                    {
+                        state = State.Idle;
+                        anim.SetBool("Stunned", false);
+                    }
                     break;
                 case State.Dead:
                     // Play Death Animation
+                    anim.SetBool("Stunned", false);
                     anim.SetTrigger("Died");
                     // STOP MOVING
                     agent.speed = 0f;
@@ -254,15 +265,18 @@ public class EnemyRangedAI : MonoBehaviour
 
     public void spawnSpell()
     {
-        // Spawn prefab
-        GameObject lightBlast = Instantiate(spellObj, transform.position, Quaternion.identity, null) as GameObject;
+        if (state != State.Stunned)
+        {
+            // Spawn prefab
+            GameObject lightBlast = Instantiate(spellObj, transform.position, Quaternion.identity, null) as GameObject;
 
-        // make y same height, so it doesn't fall up or down
-        pointToLook = new Vector3(player.transform.position.x, transform.position.y + 1, player.transform.position.z);
+            // make y same height, so it doesn't fall up or down
+            pointToLook = new Vector3(player.transform.position.x, transform.position.y + 1, player.transform.position.z);
 
-        // make lightBlast prefab rotate towards click
-        lightBlast.transform.LookAt(pointToLook);
-        // addForce in the forward direction so the lightBlast moved towards click
-        lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 20);
+            // make lightBlast prefab rotate towards click
+            lightBlast.transform.LookAt(pointToLook);
+            // addForce in the forward direction so the lightBlast moved towards click
+            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 20);
+        }
     }
 }

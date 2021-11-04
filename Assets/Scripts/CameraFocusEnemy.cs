@@ -14,11 +14,13 @@ public class CameraFocusEnemy : MonoBehaviour
     public GameObject enemy;
     public GameObject rangedEnemy;
     public GameObject enemyRagdoll;
+    public GameObject topButtonPart;
     private GameObject enemRag;
     private CameraFollow camFol;
     private bool doOnce = false;
     private bool moveDoorUp = false;
     private bool moveDoorDown = false;
+    private bool moveButtonDown = false;
 
     private void Start()
     {
@@ -38,12 +40,19 @@ public class CameraFocusEnemy : MonoBehaviour
             float step = 2 * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
             enemyDoor.transform.position = Vector3.MoveTowards(enemyDoor.transform.position, new Vector3(23, 0, 0), step);
         }
+
+        if (moveButtonDown)
+        {
+            float step = 0.075f * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
+            topButtonPart.transform.position = Vector3.MoveTowards(topButtonPart.transform.position, new Vector3(0, 0.066f, 0), step);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+            moveButtonDown = true;
             if (!doOnce) StartCoroutine(panBack());
         }
     }
@@ -53,10 +62,13 @@ public class CameraFocusEnemy : MonoBehaviour
         doOnce = true;
         camFol = cameraObject.GetComponent<CameraFollow>();
         camFol.cameraMoveSpeed = 10;
-        camFol.CameraFollowObject = enemyFocus;
         player.isCutScene = true;
         var newEnem = Instantiate(enemy, enemySpawnPoint.transform.position, new Quaternion(0, 0, 0, 0));
         var newEnem2 = Instantiate(enemy, enemySpawnPoint.transform.position, new Quaternion(0, 0, 0, 0));
+
+        yield return new WaitForSecondsRealtime(1);
+
+        camFol.CameraFollowObject = enemyFocus;
 
         newEnem.GetComponent<EnemyAI>().isWandering = true;
         newEnem.GetComponent<EnemyAI>().state = EnemyAI.State.Wander;
@@ -72,6 +84,7 @@ public class CameraFocusEnemy : MonoBehaviour
         moveDoorUp = true;
         moveDoorDown = false;
         navMeshBlock.enabled = false;
+        moveButtonDown = false;
 
         yield return new WaitForSecondsRealtime(4);
 
@@ -93,6 +106,6 @@ public class CameraFocusEnemy : MonoBehaviour
         newEnem3.GetComponent<EnemyRangedAI>().state = EnemyRangedAI.State.Idle;
         Destroy(enemRag);
         player.isCutScene = false;
-
+        moveDoorDown = false;
     }
 }

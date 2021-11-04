@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PuzzleActive : MonoBehaviour
 {
-    public GameObject discOuter, discMid, discInner, camPuzzle, playerObj, puzzleUI, canvasUI, camMain;
+    public GameObject discOuter, discMid, discInner, camPuzzle, playerObj, puzzleUI, canvasUI, camMain, camGate;
     float inRot, midRot, outRot, startIn, startMid, startOut, time = 0f;
     int selectedPiece = 0;
     public bool finishPuzzle = false;
@@ -86,50 +86,23 @@ public class PuzzleActive : MonoBehaviour
 
     void FixedUpdate()
     {
-        /*if(finishPuzzle && time < 1f)
+        if(finishPuzzle && time < 1f)
         {
             //make all rotations on puzzles 0
             discInner.transform.Rotate(0.0f, 0.0f, startIn, Space.Self);
             discMid.transform.Rotate(0.0f, 0.0f, startMid, Space.Self);
             discOuter.transform.Rotate(0.0f, 0.0f, startOut, Space.Self);
-
-            StartCoroutine(openDoor());
 
             time += Time.fixedDeltaTime;
-        }*/
+        }
 
-        // New code for coroutine
-        if (finishPuzzle)
+        if (time >= 1f)
         {
-            //make all rotations on puzzles 0
-            discInner.transform.Rotate(0.0f, 0.0f, startIn, Space.Self);
-            discMid.transform.Rotate(0.0f, 0.0f, startMid, Space.Self);
-            discOuter.transform.Rotate(0.0f, 0.0f, startOut, Space.Self);
-
+            //disable all puzzle parts, enable view for staircase being unlocked in the second floor
             if (!doOnce) StartCoroutine(openDoorCutscene());
             doOnce = true;
-        }
-
-        //only runs after puzzle is finished
-        /*if (time >= 6f)// && time < 6.25f)
-        {
-            //disable view for staircase being unlocked
-            finishPuzzle = true;//turn back on
-            //enable player
-            playerObj.SetActive(true);
-            canvasUI.SetActive(true);
-            camMain.SetActive(true);
             time += Time.fixedDeltaTime;
         }
-        else if (time >= 1f)
-        {
-            finishPuzzle = false;//stops puzzle rotation
-            //disable all puzzle parts, enable view for staircase being unlocked in the second floor
-            puzzleUI.SetActive(false);
-            camPuzzle.SetActive(false);
-            //set normal camera to pan
-            time += Time.fixedDeltaTime;
-        }*/
 
         if (fadeIn)
         {
@@ -173,8 +146,6 @@ public class PuzzleActive : MonoBehaviour
     {
         //disable all puzzle parts, enable view for staircase being unlocked in the second floor
         puzzleUI.SetActive(false);
-
-        yield return new WaitForSecondsRealtime(2);
 
         fadeOut = true;
         fadeIn = false;

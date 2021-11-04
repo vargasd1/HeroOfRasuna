@@ -15,7 +15,6 @@ public class NewPuzzle : Interactable
     private bool fadeOut = false;
     public Image UICover;
     private float alpha = 0;
-    //int selectedPiece = 0;
 
     void Start()
     {
@@ -24,34 +23,6 @@ public class NewPuzzle : Interactable
         puzzleScript = FindObjectOfType<PuzzleActive>();
         UICover = GameObject.FindGameObjectWithTag("loadingScreen").GetComponent<Image>();
     }
-
-    /*void Update()
-    {
-        //move the puzzle pieces in puzzle mode
-        if (camPuzzle.activeSelf)
-        {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                ++selectedPiece;
-                if (selectedPiece > 2) selectedPiece = 2;
-                HighlightPuzzle();
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                --selectedPiece;
-                if (selectedPiece < 0) selectedPiece = 0;
-                HighlightPuzzle();
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                Debug.Log("Holding A");
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                Debug.Log("Holding D");
-            }
-        }
-    }*/
 
     public override void Interact()//called when the player presses the interact button (G)
     {
@@ -64,26 +35,11 @@ public class NewPuzzle : Interactable
             if (!camPuzzle.activeSelf && discInner.activeSelf && discMid.activeSelf && discOuter.activeSelf)
             {
                 StartCoroutine(switchToPuzzle());
-                // Moved in to Coroutine
-
-                //camMain.SetActive(false);
-                //camPuzzle.SetActive(true);
-                //playerObj.SetActive(false);
-                //puzzleUI.SetActive(true);
-                //canvasUI.SetActive(false);
             }
             //exit puzzle mode
             else if (camPuzzle.activeSelf)
             {
                 StartCoroutine(exitPuzzle());
-                // Moved in to Coroutine
-
-                //playerObj.SetActive(true);
-                //puzzleUI.SetActive(false);
-                //canvasUI.SetActive(true);
-                //camPuzzle.SetActive(false);
-                //camMain.SetActive(true);
-                //shouldn't need to unhighlight since they are children of puzzleUI
             }
             else
             {
@@ -159,24 +115,4 @@ public class NewPuzzle : Interactable
         canvasUI.SetActive(true);
         playerObj.GetComponent<PlayerMovement>().isCutScene = false;
     }
-
-    /*void HighlightPuzzle()
-    {
-        //highlight the currently selected puzzle piece
-        highlightInner.SetActive(false);
-        highlightMid.SetActive(false);
-        highlightOuter.SetActive(false);
-        switch(selectedPiece)
-        {
-            case 0:
-                highlightInner.SetActive(true);
-                break;
-            case 1:
-                highlightMid.SetActive(true);
-                break;
-            case 2:
-                highlightOuter.SetActive(true);
-                break;
-        }
-    }*/
 }

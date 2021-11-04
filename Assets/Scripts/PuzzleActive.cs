@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PuzzleActive : MonoBehaviour
 {
-    public GameObject discOuter, discMid, discInner, camPuzzle, highlightInner, highlightMid, highlightOuter, playerObj, puzzleUI, canvasUI, camMain, camGate;
+    public GameObject discOuter, discMid, discInner, camPuzzle, playerObj, puzzleUI, canvasUI, camMain;
     float inRot, midRot, outRot, startIn, startMid, startOut, time = 0f;
     int selectedPiece = 0;
     public bool finishPuzzle = false;
@@ -87,8 +87,8 @@ public class PuzzleActive : MonoBehaviour
         if(time >= 6f)// && time < 6.25f)
         {
             //disable view for staircase being unlocked
+            finishPuzzle = true;//turn back on
             //enable player
-            camGate.SetActive(false);
             playerObj.SetActive(true);
             canvasUI.SetActive(true);
             camMain.SetActive(true);
@@ -96,11 +96,11 @@ public class PuzzleActive : MonoBehaviour
         }
         else if(time >= 1f)
         {
-            finishPuzzle = false;
+            finishPuzzle = false;//stops puzzle rotation
             //disable all puzzle parts, enable view for staircase being unlocked in the second floor
             puzzleUI.SetActive(false);
             camPuzzle.SetActive(false);
-            camGate.SetActive(true);
+            //set normal camera to pan
             time += Time.fixedDeltaTime;
         }
     }
@@ -117,20 +117,6 @@ public class PuzzleActive : MonoBehaviour
     void HighlightPuzzle()
     {
         //highlight the currently selected puzzle piece
-        highlightInner.SetActive(false);
-        highlightMid.SetActive(false);
-        highlightOuter.SetActive(false);
-        switch (selectedPiece)
-        {
-            case 0:
-                highlightInner.SetActive(true);
-                break;
-            case 1:
-                highlightMid.SetActive(true);
-                break;
-            case 2:
-                highlightOuter.SetActive(true);
-                break;
-        }
+        //
     }
 }

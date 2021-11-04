@@ -36,7 +36,10 @@ public class Interactable : MonoBehaviour
     {
         if(other.gameObject.name == "Player")
         {
-            if (interactionTransform.name == "Puzzle (empty)") textPlace.SetActive(true);
+            if (interactionTransform.name == "Puzzle (empty)")
+            {
+                if (!FindObjectOfType<PuzzleActive>().finishPuzzle) textPlace.SetActive(true);
+            }
             else textPickup.SetActive(true);
         }
     }
@@ -54,7 +57,11 @@ public class Interactable : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            if (interactionTransform.name == "Puzzle (empty)") textPlace.SetActive(true);
+            if (interactionTransform.name == "Puzzle (empty)")
+            {
+                if (!FindObjectOfType<PuzzleActive>().finishPuzzle) textPlace.SetActive(true);
+                else textPlace.SetActive(false);
+            }
             else textPickup.SetActive(true);
         }
     }

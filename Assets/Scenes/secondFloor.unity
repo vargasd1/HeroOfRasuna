@@ -779,12 +779,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55ef32946b4508941a37b1a44d9558a1, type: 3}
---- !u!1 &243531740 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5748455308263414819, guid: 9a170b7f130ab01428aa714656d14a4e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1257721160}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &297087804
 GameObject:
   m_ObjectHideFlags: 0
@@ -4629,12 +4623,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adc58d22f06f0654583042a3e77087ba, type: 3}
---- !u!1 &1633787366 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5748455308471010653, guid: 9a170b7f130ab01428aa714656d14a4e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1257721160}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1649224539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6133,12 +6121,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33559bb8062d3804fb5fe45130a8e6de, type: 3}
---- !u!1 &2069834104 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5748455307603317015, guid: 9a170b7f130ab01428aa714656d14a4e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1257721160}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2095925163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6659,17 +6641,17 @@ PrefabInstance:
         type: 3}
       propertyPath: highlightInner
       value: 
-      objectReference: {fileID: 1633787366}
+      objectReference: {fileID: 0}
     - target: {fileID: 2858253410267180869, guid: 6c521f8dfb3076c4bab64c4357c97dbe,
         type: 3}
       propertyPath: highlightMid
       value: 
-      objectReference: {fileID: 2069834104}
+      objectReference: {fileID: 0}
     - target: {fileID: 2858253410267180869, guid: 6c521f8dfb3076c4bab64c4357c97dbe,
         type: 3}
       propertyPath: highlightOuter
       value: 
-      objectReference: {fileID: 243531740}
+      objectReference: {fileID: 0}
     - target: {fileID: 2858253410267180869, guid: 6c521f8dfb3076c4bab64c4357c97dbe,
         type: 3}
       propertyPath: playerObj

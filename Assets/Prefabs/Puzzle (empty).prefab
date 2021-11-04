@@ -210,6 +210,7 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   canvasUI: {fileID: 0}
   puzzleUI: {fileID: 0}
+  puzzleScript: {fileID: 0}
 --- !u!135 &2858253410267180870
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -239,9 +240,13 @@ MonoBehaviour:
   discMid: {fileID: 3128848924337081265}
   discInner: {fileID: 3128848923365989650}
   camPuzzle: {fileID: 2858253409577203254}
-  highlightInner: {fileID: 0}
-  highlightMid: {fileID: 0}
-  highlightOuter: {fileID: 0}
+  playerObj: {fileID: 0}
+  puzzleUI: {fileID: 5748455307659963148, guid: 9a170b7f130ab01428aa714656d14a4e,
+    type: 3}
+  canvasUI: {fileID: 4687984395228444201, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
+    type: 3}
+  camMain: {fileID: 0}
+  camGate: {fileID: 0}
   finishPuzzle: 0
 --- !u!1 &2858253410527331427
 GameObject:

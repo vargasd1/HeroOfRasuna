@@ -188,7 +188,7 @@ public class SpellInteraction : MonoBehaviour
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-                    FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
+                    //FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                     if (enemIsRanged)
                     {
                         if (enemR.state != EnemyRangedAI.State.Stunned)

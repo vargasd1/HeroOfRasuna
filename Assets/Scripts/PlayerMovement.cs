@@ -193,6 +193,8 @@ public class PlayerMovement : MonoBehaviour
                     overclock = false;
                     overclockTime = 5f;
                 }
+                FindObjectOfType<AudioManager>().ChangePitch("Overclock", .9f);
+                FindObjectOfType<AudioManager>().SlowSounds();
             }
             //transition the time back to normal
             else if (overclockTransition)
@@ -218,6 +220,7 @@ public class PlayerMovement : MonoBehaviour
                     overclockChargedAmt = 0f;
                     FindObjectOfType<AudioManager>().Stop("Overclock");
                     FindObjectOfType<AudioManager>().ChangePitch("Overclock", 1f);
+                    FindObjectOfType<AudioManager>().ResetSounds();
                 }
             }
             else

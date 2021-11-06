@@ -66,8 +66,8 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        if (pauseMenu.GamePaused) s.source.pitch = .5f;
-        else s.source.pitch = 1;
+        //if (pauseMenu.GamePaused) s.source.pitch = .5f;
+        //else s.source.pitch = 1;
 
         s.source.Play();
     }
@@ -89,8 +89,8 @@ public class AudioManager : MonoBehaviour
     IEnumerator playSoundWithDelay(string clip, float delay, Sound s)
     {
         yield return new WaitForSecondsRealtime(delay);
-        if (pauseMenu.GamePaused) s.source.pitch = .5f;
-        else s.source.pitch = 1;
+        //if (pauseMenu.GamePaused) s.source.pitch = .5f;
+        //else s.source.pitch = 1;
         s.source.Play();
     }
 
@@ -120,8 +120,9 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            if (pauseMenu.GamePaused) s.source.pitch = .5f;
-            else s.source.pitch = 1;
+            //if (pauseMenu.GamePaused) s.source.pitch = .5f;
+            //else s.source.pitch = 1;
+            Debug.Log("Sound: " + name);
             s.source.PlayOneShot(s.source.clip, s.source.volume);
         }
     }
@@ -137,7 +138,29 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Changing pitch of " + name);
             s.source.pitch = pitch;
+        }
+    }
+
+    public void SlowSounds()
+    {
+        // TO USE: FindObjectOfType<AudioManager>().SlowSounds();
+        //currently only slows abilities (4-6)
+        for(int x = 4; x < 7; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = .5f;
+        }
+    }
+
+    public void ResetSounds()
+    {
+        //currently only slows abilities (4-6)
+        for (int x = 4; x < 7; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = 1f;
         }
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4331742468459506763}
   - component: {fileID: 842924398834852846}
   - component: {fileID: 3194842208366712612}
+  - component: {fileID: 6201649479917575326}
   m_Layer: 0
   m_Name: HoR_Furniture_circleTable
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3987550989714519793}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -32.98633, y: 0.04, z: 18.412254}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &6201649479917575326
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3987550989714519793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5960225
+  m_Height: 3.07
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.16271608}

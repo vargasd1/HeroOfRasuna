@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5858610586758603335}
   - component: {fileID: 7413537262477635042}
   - component: {fileID: 4685673897352829224}
+  - component: {fileID: 5761338363077891857}
   m_Layer: 0
   m_Name: HoR_Furniture_rug2 (1)
   m_TagString: Untagged
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &5761338363077891857
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6486916179111098621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -790707872549193684, guid: cb92355ae6eedd4479fcccaf2f76b248, type: 3}

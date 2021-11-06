@@ -58,7 +58,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd190e52db054d04792209940059f048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fractured: {fileID: 7154857359773321060, guid: 1dc7bf48e7116d042aa1182955ee2b43,
+  fracturedPot: {fileID: 5211842582362951609, guid: a2b124862783c684db3eb3010712186f,
+    type: 3}
+  fracturedBowl: {fileID: 3650041453122551756, guid: 6867ca79f3fd8dd4c947b481c095de0d,
+    type: 3}
+  fractruedVase: {fileID: 7953515575308673647, guid: 333d81776aab5e843af8665708be4b45,
     type: 3}
   xpOrb: {fileID: 7199548093328757152, guid: ded9bac1f908bc040acc0d6089672c86, type: 3}
 --- !u!114 &668274427800404750

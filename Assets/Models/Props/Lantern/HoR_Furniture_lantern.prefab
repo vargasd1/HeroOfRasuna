@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4475542195598599684}
   - component: {fileID: 699054646846695841}
   - component: {fileID: 3339275322652810603}
+  - component: {fileID: 4665199313777278500}
   m_Layer: 0
   m_Name: HoR_Furniture_lantern
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3843682946835643582}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.604837, y: -0.000045897414, z: 6.5098076}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.02528218, y: 0.02528218, z: 0.02528218}
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4665199313777278500
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843682946835643582}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6349497404779363362, guid: 1c567f8568b7dfe4da4c75beb08803f4, type: 3}

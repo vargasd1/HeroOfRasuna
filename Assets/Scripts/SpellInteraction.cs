@@ -11,7 +11,9 @@ public class SpellInteraction : MonoBehaviour
     public GameObject stunPart;
     public Rigidbody rb;
     public string spellType;
-    public GameObject fractured;
+    public GameObject fracturedBowl;
+    public GameObject fracturedPot;
+    public GameObject fracturedVase;
     public GameObject xpOrb;
     private bool enemIsRanged = false;
     private EnemyAI enem;
@@ -114,9 +116,43 @@ public class SpellInteraction : MonoBehaviour
                     Destroy(gameObject);
                     Instantiate(collisionFlash, transform.position, transform.rotation);
                 }
-                if (hit.tag == "Prop")
+                if (hit.tag == "Prop1")
                 {
-                    GameObject frac = Instantiate(fractured, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                    GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                    foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
+                    {
+                        Vector3 force = (rb.transform.position - transform.position).normalized * 75;
+                        rb.AddForce(force);
+                    }
+                    for (int i = 0; i < Random.Range(2, 4); i++)
+                    {
+                        GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
+                        Vector3 force = new Vector3(Random.Range(-10f, 10f), 0f, Random.Range(-10f, 10f)).normalized * 200;
+                        xp.GetComponent<Rigidbody>().AddForce(force);
+                    }
+                    Destroy(hit.gameObject);
+                }
+
+                if (hit.tag == "Prop2")
+                {
+                    GameObject frac = Instantiate(fracturedBowl, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                    foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
+                    {
+                        Vector3 force = (rb.transform.position - transform.position).normalized * 75;
+                        rb.AddForce(force);
+                    }
+                    for (int i = 0; i < Random.Range(2, 4); i++)
+                    {
+                        GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
+                        Vector3 force = new Vector3(Random.Range(-10f, 10f), 0f, Random.Range(-10f, 10f)).normalized * 200;
+                        xp.GetComponent<Rigidbody>().AddForce(force);
+                    }
+                    Destroy(hit.gameObject);
+                }
+
+                if (hit.tag == "Prop3")
+                {
+                    GameObject frac = Instantiate(fracturedVase, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
                     foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                     {
                         Vector3 force = (rb.transform.position - transform.position).normalized * 75;

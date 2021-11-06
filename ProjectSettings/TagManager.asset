@@ -11,6 +11,9 @@ TagManager:
   - Prop
   - HitBox
   - loadingScreen
+  - Prop1
+  - Prop2
+  - Prop3
   layers:
   - Default
   - TransparentFX

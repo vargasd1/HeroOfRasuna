@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7327815876070120710}
   - component: {fileID: 7327815876070120708}
   - component: {fileID: 7327815876070120711}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Heal_Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4783,7 +4783,7 @@ GameObject:
   - component: {fileID: 7327815876373596367}
   - component: {fileID: 7327815876373596366}
   - component: {fileID: 7327815876373596369}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Heal_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6099,7 +6099,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 0.37878248, g: 0.6037736, b: 0.44190928, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0.37878248, g: 0.6037736, b: 0.44190928, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -9561,7 +9561,7 @@ GameObject:
   - component: {fileID: 7327815876497699729}
   - component: {fileID: 7327815876497699727}
   - component: {fileID: 7327815876497699726}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Heal_Rays
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14315,7 +14315,7 @@ GameObject:
   - component: {fileID: 7327815876616239026}
   - component: {fileID: 7327815876616239024}
   - component: {fileID: 7327815876616239027}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Heal_Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14345,7 +14345,7 @@ ParticleSystem:
   m_GameObject: {fileID: 7327815876616239029}
   serializedVersion: 6
   lengthInSec: 1.5
-  simulationSpeed: 1
+  simulationSpeed: 1.5
   stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
@@ -14359,7 +14359,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.5
+    scalar: 2.5
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -19078,7 +19078,7 @@ GameObject:
   - component: {fileID: 7327815876779475568}
   - component: {fileID: 7327815876779475571}
   - component: {fileID: 7327815876779475570}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: VFX_Heal
   m_TagString: Particles
   m_Icon: {fileID: 0}
@@ -20371,8 +20371,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.6415094, g: 0.18458524, b: 0.30601585, a: 1}
-        key1: {r: 0.6415094, g: 0.18458524, b: 0.30601585, a: 0}
+        key0: {r: 0.03137255, g: 0.15686275, b: 0.20784314, a: 1}
+        key1: {r: 0.07058824, g: 0.5882353, b: 0.54509807, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -20388,8 +20388,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 19661
-        atime1: 65535
-        atime2: 0
+        atime1: 52428
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
@@ -23833,7 +23833,7 @@ GameObject:
   - component: {fileID: 7327815877494797585}
   - component: {fileID: 7327815877494797583}
   - component: {fileID: 7327815877494797582}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Heal_Inner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28605,7 +28605,7 @@ GameObject:
   - component: {fileID: 7327815877908818131}
   - component: {fileID: 7327815877908818129}
   - component: {fileID: 7327815877908818128}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Heal_Outer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33377,7 +33377,7 @@ GameObject:
   - component: {fileID: 7327815878091431544}
   - component: {fileID: 7327815878091431542}
   - component: {fileID: 7327815878091431545}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Heal_Rays2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

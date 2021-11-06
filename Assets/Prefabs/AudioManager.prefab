@@ -85,7 +85,7 @@ MonoBehaviour:
       type: 2}
     source: {fileID: 0}
   - name: Light Burst
-    clip: {fileID: 8300000, guid: 35f259aae2f946d47ab61c4d11d679c7, type: 3}
+    clip: {fileID: 8300000, guid: ebae2435dd6745849ad0794aabb8fe66, type: 3}
     volume: 1
     pitch: 1
     loop: 0

@@ -21,7 +21,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Particle_Sphere
-  m_Shader: {fileID: 10755, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: -6465566751694194690, guid: 26575cf213068d84ea4af9c52a46829f,
+    type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -32,6 +33,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - ScrollingStunTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,11 +61,36 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_282C4FA8_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 620ba9996cad9ee458b25f39df35a4ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_61DB0B72_Texture_1:
+        m_Texture: {fileID: 2800000, guid: d5399f878f86a3f4c8eb50ca717694b3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_B6CE30B2_Texture_1:
+        m_Texture: {fileID: 2800000, guid: d125d94660ce53e4e98bf58f0c7e9cce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_FFB700F1_Texture_1:
+        m_Texture: {fileID: 2800000, guid: d5399f878f86a3f4c8eb50ca717694b3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_1F67EA63: 1
+    - Vector1_2C09BD4A: 0.1
+    - Vector1_2CDC7FE2: 1
+    - Vector1_359BB371: 1
+    - Vector1_659D2105: 1
+    - Vector1_77172D95: 0
+    - Vector1_C0339AFC: 1
+    - Vector1_F8E1B379: 1
+    - Vector1_FE68043: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -90,6 +120,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_5CD35373: {r: 0.6415094, g: 0.1845852, b: 0.3060158, a: 1}
+    - Color_6406E255: {r: 1.443137, g: 0.7058824, b: 1.945098, a: 1}
+    - Color_BE3012C3: {r: 1.119767, g: 0.3209088, b: 0.5325722, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.5686275, g: 0.7647059, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

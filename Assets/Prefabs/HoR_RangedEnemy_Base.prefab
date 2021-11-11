@@ -532,7 +532,7 @@ MonoBehaviour:
   wanderDelay: 0
   health: 100
   stunnedTimer: 0
-  xpOrb: {fileID: 7199548093328757152, guid: ded9bac1f908bc040acc0d6089672c86, type: 3}
+  xpOrb: {fileID: 6113013584564461021, guid: 8ba21d80fb7deb64487bb8b88bc6874e, type: 3}
   orbsDroppedOnce: 0
   alreadyHitPlayer: 0
   alreadyHitByPlayer: 0

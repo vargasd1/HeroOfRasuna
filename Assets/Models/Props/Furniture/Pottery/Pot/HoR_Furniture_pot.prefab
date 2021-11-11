@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5145427230882893684}
   - component: {fileID: 4479917707488881680}
   - component: {fileID: 4659011234239111160}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HoR_Furniture_pot
   m_TagString: Prop1
   m_Icon: {fileID: 0}
@@ -92,9 +92,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.003
-  m_Height: 0.011
+  m_Height: 0.025
   m_Direction: 2
-  m_Center: {x: -0.000000009546056, y: 1.164153e-10, z: 0.004678642}
+  m_Center: {x: -0.000000009546056, y: 1.1753e-10, z: 0.01}
 --- !u!54 &4659011234239111160
 Rigidbody:
   m_ObjectHideFlags: 0

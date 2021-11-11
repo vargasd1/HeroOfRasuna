@@ -11,7 +11,6 @@ public class PropFade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Physics.IgnoreLayerCollision(10, 12);
         foreach (Transform child in transform)
         {
             foreach (Material mat in child.GetComponent<Renderer>().materials)

@@ -44,7 +44,7 @@ public class CameraFocusEnemy : MonoBehaviour
         if (moveButtonDown)
         {
             float step = 0.075f * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
-            topButtonPart.transform.position = Vector3.MoveTowards(topButtonPart.transform.position, new Vector3(0, 0.066f, 0), step);
+            topButtonPart.transform.position = Vector3.MoveTowards(topButtonPart.transform.position, new Vector3(-5, 0.066f, 0), step);
         }
     }
 
@@ -91,6 +91,8 @@ public class CameraFocusEnemy : MonoBehaviour
         moveDoorDown = true;
         moveDoorUp = false;
         navMeshBlock.enabled = true;
+        moveButtonDown = false;
+        topButtonPart.transform.position = new Vector3(-5, 0.066f, 0);
 
         Quaternion rot = Quaternion.Euler(90, -90, 0);
 

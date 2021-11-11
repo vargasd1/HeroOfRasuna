@@ -173,8 +173,9 @@ public class SpellInteraction : MonoBehaviour
                     FindObjectOfType<AudioManager>().Play("Light Burst");
                     Debug.Log("Light burst");
                     Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
-                    GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(-90, 0, 0)) as GameObject;
+                    GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(0, 0, 0)) as GameObject;
                     stun.GetComponent<SpellInteraction>().spellType = "stun";
+                    print(stun.GetComponent<SpellInteraction>().spellType);
                     Destroy(gameObject);
                 }
                 break;

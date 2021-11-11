@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3061637263683959614}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 7258025126474004919}
   m_Father: {fileID: 4870990002894777568}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!198 &2802653323564608368
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9530,6 +9530,7 @@ GameObject:
   - component: {fileID: 4870990002894777568}
   - component: {fileID: 4673206370441805615}
   - component: {fileID: 1733613941183538304}
+  - component: {fileID: -3192698659554177161}
   m_Layer: 13
   m_Name: VFX_LightBurst
   m_TagString: Particles
@@ -9560,7 +9561,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4870990002894777571}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.2
   m_Height: 1.5
@@ -9582,6 +9583,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-3192698659554177161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870990002894777571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef52c2403a062846ab47a0a48a16ffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  collisionFlash: {fileID: 8727104320553381676, guid: e870135343ea1f74fb9bdc6fc63afa9a,
+    type: 3}
+  stunnedPart: {fileID: 0}
+  stunPart: {fileID: 0}
+  rb: {fileID: 0}
+  spellType: 
+  fracturedBowl: {fileID: 3650041453122551756, guid: 6867ca79f3fd8dd4c947b481c095de0d,
+    type: 3}
+  fracturedPot: {fileID: 5211842582362951609, guid: a2b124862783c684db3eb3010712186f,
+    type: 3}
+  fracturedVase: {fileID: 7953515575308673647, guid: 333d81776aab5e843af8665708be4b45,
+    type: 3}
+  xpOrb: {fileID: 6113013584564461021, guid: 8ba21d80fb7deb64487bb8b88bc6874e, type: 3}
+  positionA: {x: 0, y: 0, z: 0}
+  positionB: {x: 0, y: 0, z: 0}
+  handle: {x: 0, y: 0, z: 0}
+  tweenSpeed:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5399445653529878329
 GameObject:
   m_ObjectHideFlags: 0

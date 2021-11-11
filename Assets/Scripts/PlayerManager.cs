@@ -52,6 +52,18 @@ public class PlayerManager : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         playerMove = gameObject.GetComponent<PlayerMovement>();
         canAttack = true;
+
+        // Ignore Collision Boxes/Spheres/Etc. of specified Layers
+        Physics.IgnoreLayerCollision(10, 11); // Props ignore XP
+        Physics.IgnoreLayerCollision(10, 10); // Props ignore other Props
+        Physics.IgnoreLayerCollision(10, 15); // Props ignore PropFrac
+
+        Physics.IgnoreLayerCollision(11, 12); // XP ignores Player
+        Physics.IgnoreLayerCollision(11, 11); // XP ignores other XP
+        Physics.IgnoreLayerCollision(11, 15); // XP ignores PropFrac
+
+        Physics.IgnoreLayerCollision(15, 15); // PropFrac ignore other PropFrac
+        Physics.IgnoreLayerCollision(15, 12); // PropFrac ignore Player
     }
 
     void Update()
@@ -270,7 +282,7 @@ public class PlayerManager : MonoBehaviour
         attackSpellCDTime = 10f;
 
         // Spawn prefab
-        GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, Quaternion.identity, null) as GameObject;
+        GameObject lightBlast = Instantiate(projectile, spellSpawnLoc.position, Quaternion.Euler(0, -90, 0), null) as GameObject;
 
         // make y same height, so it doesn't fall up or down
         pointToLook = new Vector3(pointToLook.x, spellSpawnLoc.position.y, pointToLook.z);
@@ -278,7 +290,8 @@ public class PlayerManager : MonoBehaviour
         // make lightBlast prefab rotate towards click
         lightBlast.transform.LookAt(pointToLook);
         // addForce in the forward direction so the lightBlast moved towards click
-        lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 20);
+        //lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 20);
+        lightBlast.GetComponent<Rigidbody>().AddForce(transform.forward * 20);
 
         // set spell type
         lightBlast.GetComponent<SpellInteraction>().spellType = "attack";

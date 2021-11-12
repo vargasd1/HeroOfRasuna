@@ -11,10 +11,6 @@ public class XpMagnetizeToPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Ignore Collision Boxes/Spheres/Etc. of specified Layers
-        Physics.IgnoreLayerCollision(10, 11);
-        Physics.IgnoreLayerCollision(11, 12);
-        Physics.IgnoreLayerCollision(11, 11);
         // Find Player
         player = FindObjectOfType<PlayerManager>().gameObject;
     }

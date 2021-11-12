@@ -5760,13 +5760,13 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.5
-          inSlope: 7.3818817
-          outSlope: 7.3818817
+          value: 0.50990295
+          inSlope: 4.8341384
+          outSlope: 4.8341384
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.019933555
+          outWeight: 0.09523808
         - serializedVersion: 3
           time: 1
           value: 1
@@ -9530,7 +9530,7 @@ ParticleSystemRenderer:
   m_RenderMode: 2
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 1
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -10532,13 +10532,13 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 7.3818817
-          outSlope: 7.3818817
+          value: 0.50990295
+          inSlope: 4.8341384
+          outSlope: 4.8341384
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.019933555
+          outWeight: 0.09523808
         - serializedVersion: 3
           time: 1
           value: 1
@@ -14359,7 +14359,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 2.5
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -28574,7 +28574,7 @@ ParticleSystemRenderer:
   m_RenderMode: 2
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 1
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -34348,13 +34348,13 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
-          inSlope: 7.3818817
-          outSlope: 7.3818817
+          value: 0.50990295
+          inSlope: 4.8341384
+          outSlope: 4.8341384
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.019933555
+          outWeight: 0.09523808
         - serializedVersion: 3
           time: 1
           value: 1

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+
+//ATTACHED TO: Pause Canvas gameobject/prefab
 
 public class pauseMenu : MonoBehaviour
 {
     public static bool GamePaused = false;
-    public GameObject pauseMenuUI;
+    public GameObject pauseMenuUI, settingsMenuUI;
+    public AudioMixer audioMixer;
     public Image loadingScreen;
     private bool fadeIn = true;
     public float alpha = 1;
@@ -17,6 +21,32 @@ public class pauseMenu : MonoBehaviour
     private PlayerMovement playerMove;
 
     public static pauseMenu instance;
+
+    Resolution[] resolutions;
+    public TMPro.TMP_Dropdown resolutionDropdown;
+    int curRes = 0;
+
+    void Start()
+    {
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> resStr = new List<string>();
+        for(int i = 0; i < resolutions.Length; ++i)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            resStr.Add(option);
+
+            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            {
+                curRes = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(resStr);
+        resolutionDropdown.value = curRes;
+        resolutionDropdown.RefreshShownValue();
+    }
 
     // called right before Start() methods, so sounds can be called in Start()
     void Awake()
@@ -85,11 +115,13 @@ public class pauseMenu : MonoBehaviour
         playerAnim.SetFloat("speedMult", 1);
         GamePaused = false;
         pauseMenuUI.SetActive(false);
+        settingsMenuUI.SetActive(false);
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        settingsMenuUI.SetActive(false);
         playerAnim.SetFloat("speedMult", 0);
         Time.timeScale = 0f;
         GamePaused = true;
@@ -98,6 +130,8 @@ public class pauseMenu : MonoBehaviour
     public void Settings()
     {
         Debug.Log("Opening settings");
+        pauseMenuUI.SetActive(false);
+        settingsMenuUI.SetActive(true);
     }
 
     public void MainMenu()
@@ -111,5 +145,34 @@ public class pauseMenu : MonoBehaviour
     {
         Debug.Log("Quitting game");
         Application.Quit();
+    }
+
+    public void ReturnToPause()
+    {
+        settingsMenuUI.SetActive(false);
+        pauseMenuUI.SetActive(true);
+    }
+
+    public void SetVolume(float vol)
+    {
+        Debug.Log(vol);
+        audioMixer.SetFloat("MasterVolume", vol);
+    }
+
+    public void SetQuality(int q)
+    {
+        QualitySettings.SetQualityLevel(q);
+        Debug.Log("Changed quality");
+    }
+
+    public void SetFullscreen(bool f)
+    {
+        Screen.fullScreen = f;
+    }
+
+    public void SetResolution(int r)
+    {
+        Resolution res = resolutions[r];
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
     }
 }

@@ -15,6 +15,7 @@ public class SuravAI : MonoBehaviour
         ShockwaveAttack,
         ShotgunAttack,
         MinigunAttack,
+        MeteorShower,
         Defeated
     }
     public State state;

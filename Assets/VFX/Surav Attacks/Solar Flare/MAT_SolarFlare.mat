@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MAT_SolarFlare
+  m_Shader: {fileID: -6465566751694194690, guid: 739bb10530c1eaf45a28db272d57633a,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - ScrollingStunTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_5189F156_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ab44bc38d7ccced438c90330b0437ef6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_634B26B1_Texture_1:
+        m_Texture: {fileID: 2800000, guid: f418cc64f8ee8e0428563f719b80d763, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_7D7A1736_Texture_1:
+        m_Texture: {fileID: 2800000, guid: f418cc64f8ee8e0428563f719b80d763, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_A59FA250_Texture_1:
+        m_Texture: {fileID: 2800000, guid: b1e8e50bb71bc5048b28f5c2b469312e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_AB10D267_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ab44bc38d7ccced438c90330b0437ef6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Alpha_: 0.95
+    - FillOffset_: 1
+    - FillTiling_: 1
+    - ScanSize_: 1
+    - ScanSpeed_: 1
+    - ScrollingSpeed_: 0.5
+    - VoronoiScale_: 2
+    - VoronoiSpeed_: 1
+    m_Colors:
+    - ColorFresnel_: {r: 0.44313726, g: 0.24705882, b: 0.06666667, a: 1}
+    - ColorIntensity_: {r: 58.90428, g: 30.274637, b: 26.395786, a: 1}
+    - ColorTexture_: {r: 0.2509804, g: 0.4627451, b: 1.6627451, a: 1}
+    - ScanLineColor_: {r: 0.3018868, g: 0.035599854, b: 0.055215664, a: 1}

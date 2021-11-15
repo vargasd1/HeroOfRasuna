@@ -21,11 +21,13 @@ public class CameraFocusEnemy : MonoBehaviour
     private bool moveDoorUp = false;
     private bool moveDoorDown = false;
     private bool moveButtonDown = false;
+    private AudioManager audioScript;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerMovement>();
         Physics.IgnoreLayerCollision(14, 13);
+        audioScript = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -52,7 +54,19 @@ public class CameraFocusEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            moveButtonDown = true;
+            player.overclock = false;
+            player.overclockTransition = false;
+            player.overclockTransitionTime = 2f;
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = Time.timeScale * .02f;
+            player.overlay.SetActive(false);
+            player.overclockTime = 5;
+            player.overclockChargedAmt = 0f;
+            player.overclockCD.fillAmount = 0;
+            audioScript.Stop("Overclock");
+            audioScript.ChangePitch("Overclock", 1f);
+            audioScript.ResetSounds();
+
             if (!doOnce) StartCoroutine(panBack());
         }
     }

@@ -11,10 +11,10 @@ public class NewPuzzle : Interactable
     InventoryUI ui;
     public GameObject discOuter, discMid, discInner, camPuzzle, camMain, playerObj, canvasUI, puzzleUI;//, highlightInner, highlightMid, highlightOuter;
     public PuzzleActive puzzleScript;
-    private bool fadeIn = false;
-    private bool fadeOut = false;
+    //private bool fadeIn = false;
+    //private bool fadeOut = false;
     public Image UICover;
-    private float alpha = 0;
+    //private float alpha = 0;
 
     void Start()
     {

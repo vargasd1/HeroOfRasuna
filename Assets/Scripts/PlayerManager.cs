@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     public bool canAttack;
     public bool isInvinc = false;
     public float invincTimer = 0;
+    public bool isCheckingForClick = false;
 
     // variables for heal (E)
     public ParticleSystem healParticles;
@@ -47,10 +48,14 @@ public class PlayerManager : MonoBehaviour
     public Image stunCD;
     public LayerMask floorMask;
 
+    //audioManager
+    private AudioManager audioScript;
+
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
         playerMove = gameObject.GetComponent<PlayerMovement>();
+        audioScript = FindObjectOfType<AudioManager>();
         canAttack = true;
 
         // Ignore Collision Boxes/Spheres/Etc. of specified Layers
@@ -93,17 +98,17 @@ public class PlayerManager : MonoBehaviour
                 isInvinc = false;
             }
 
-            if (!playerMove.isAttacking)
+            if (!playerMove.isAttacking && !playerMove.isCasting)
             {
                 // activate heal
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     if (healCDTime <= 0f && playerHealth != playerMaxHealth)
                     {
-                        FindObjectOfType<AudioManager>().PlayUninterrupted("Heal");
+                        audioScript.PlayUninterrupted("Heal");
                         Heal();
                         canAttack = false;
-                        playerMove.isAttacking = true;
+                        playerMove.isCasting = true;
                         anim.SetTrigger("castHeal");
                     }
                 }
@@ -118,7 +123,6 @@ public class PlayerManager : MonoBehaviour
                     {
                         if (hit.transform.gameObject.layer == 9)
                         {
-                            Debug.Log("Q");
                             if (stunCDTime <= 0f) Stun();
                         }
                     }
@@ -130,7 +134,7 @@ public class PlayerManager : MonoBehaviour
                     if (attackSpellCDTime <= 0f)
                     {
                         canAttack = false;
-                        playerMove.isAttacking = true;
+                        playerMove.isCasting = true;
                         if (attackNum == 0) playerMove.lookAtMouse();
                         anim.SetTrigger("castAttack");
                     }
@@ -139,78 +143,27 @@ public class PlayerManager : MonoBehaviour
                 // swing attack
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (attackNum == 0) playerMove.lookAtMouse();
-                    startCombo();
+                    if (canAttack && attackNum == 0)
+                    {
+                        playerMove.lookAtMouse();
+                        attackNum++;
+                        anim.SetInteger("swingCount", attackNum);
+                        audioScript.PlayUninterrupted("Hit 1");
+                    }
+                    else if (attackNum > 0 && isCheckingForClick && canAttack)
+                    {
+                        attackNum++;
+                        isCheckingForClick = false;
+                        anim.SetInteger("swingCount", attackNum);
+                    }
                 }
             }
         }
     }
 
-    void startCombo()
-    {
-        if (canAttack && attackNum == 0)
-        {
-            attackNum++;
-            FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
-        }
-        else if (canAttack && attackNum == 1)
-        {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing"))
-            {
-                attackNum++;
-                FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 2 (clip 3)");
-            }
-        }
-        else if (canAttack && attackNum == 2)
-        {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger"))
-            {
-                attackNum++;
-                FindObjectOfType<AudioManager>().PlayInSeconds("Hit 3 (clip 2)", 0.25f);
-            }
-        }
-
-        if (attackNum == 1)
-        {
-            anim.SetInteger("swingCount", 1);
-        }
-
-        StopAllCoroutines();
-    }
-
     public void checkCombo()
     {
-        canAttack = false;
-
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum == 1)
-        {
-            anim.SetInteger("swingCount", 0);
-            canAttack = true;
-            attackNum = 0;
-        }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("initialSwing") && attackNum >= 2)
-        {
-            anim.SetInteger("swingCount", 2);
-            canAttack = true;
-        }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") && attackNum == 2)
-        {
-            anim.SetInteger("swingCount", 0);
-            canAttack = true;
-            attackNum = 0;
-
-        }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("secondSwingLonger") && attackNum >= 3)
-        {
-            anim.SetInteger("swingCount", 3);
-            canAttack = true;
-        }
-        else if (anim.GetCurrentAnimatorStateInfo(0).IsName("finalSwing"))
-        {
-            anim.SetInteger("swingCount", 0);
-            canAttack = true;
-            attackNum = 0;
-        }
+        isCheckingForClick = true;
     }
 
     void FixedUpdate()

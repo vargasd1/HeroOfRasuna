@@ -64337,7 +64337,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 2.3
-    functionName: isAttackingSet
+    functionName: isCastingSet
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

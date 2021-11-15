@@ -5,14 +5,14 @@ using UnityEngine;
 public class XpMagnetizeToPlayer : MonoBehaviour
 {
 
-    GameObject player;
+    public PlayerMovement player;
     float absorbTimer = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         // Find Player
-        player = FindObjectOfType<PlayerManager>().gameObject;
+        player = FindObjectOfType<PlayerMovement>().GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class XpMagnetizeToPlayer : MonoBehaviour
                 // If super close to the player be absorbed
                 if (Vector3.Distance(player.transform.position, transform.position) < 0.5f)
                 {
-                    player.GetComponent<PlayerMovement>().overclockChargedAmt += 5;
+                    player.overclockChargedAmt += 5;
                     Destroy(gameObject);
                 }
             }

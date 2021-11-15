@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1594653817229096454}
   - component: {fileID: 9007600383710684416}
   - component: {fileID: 6555271513257453897}
+  - component: {fileID: 7995074688746113699}
   m_Layer: 13
   m_Name: VFX_StunGrenade
   m_TagString: Particles
@@ -90,7 +91,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946219102245394387}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.0010405635
@@ -111,6 +112,56 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7995074688746113699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946219102245394387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef52c2403a062846ab47a0a48a16ffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  collisionFlash: {fileID: 0}
+  stunnedPart: {fileID: 0}
+  stunPart: {fileID: 3280531240787268120, guid: 65c3700566d9d054cae330888e3fc6d2,
+    type: 3}
+  rb: {fileID: 0}
+  spellType: 
+  fracturedBowl: {fileID: 0}
+  fracturedPot: {fileID: 0}
+  fracturedVase: {fileID: 0}
+  xpOrb: {fileID: 0}
+  positionA: {x: 0, y: 0, z: 0}
+  positionB: {x: 0, y: 0, z: 0}
+  handle: {x: 0, y: 0, z: 0}
+  tweenSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &4471717439584023665
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +233,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.25
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.5

@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     // bool for animation activation 
     public bool isMoving = false;
     public bool isAttacking = false;
+    public bool isCasting = false;
     public bool playerHit = false;
     public bool isDead = false;
     public bool attackAnimPlaying = false;
@@ -37,14 +38,15 @@ public class PlayerMovement : MonoBehaviour
     public GameObject overlay;
     public Image overclockCD;
     float slowdownFactor = .05f;
-    float overclockTime = 5f;
-    float overclockTransitionTime = 2f;
+    public float overclockTime = 5f;
+    public float overclockTransitionTime = 2f;
     //float overclockCDTime = 0f;
-    public static bool overclock = false;
-    public static bool overclockTransition = false;
-    public float overclockChargedAmt = 0f;
+    public bool overclock = false;
+    public bool overclockTransition = false;
+    public float overclockChargedAmt = 100f;
 
     //public Camera mainCam;
+    private AudioManager audioScript;
 
     private void Start()
     {
@@ -53,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         playerMan = gameObject.GetComponent<PlayerManager>();
         anim.updateMode = AnimatorUpdateMode.UnscaledTime;
+        audioScript = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -77,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //////////////////////////////////////////////////////////// Sprinting Speed
                 playerVelocity.y = 0f;
-                if (!playerHit && !isAttacking && !attackAnimPlaying)
+                if (!playerHit && !isAttacking && !attackAnimPlaying && !isCasting)
                 {
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
@@ -146,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!overclock && overclockChargedAmt >= 100)
                 {
-                    FindObjectOfType<AudioManager>().Play("Overclock");
+                    audioScript.Play("Overclock");
                     SlowTime();
                 }
             }
@@ -193,8 +196,8 @@ public class PlayerMovement : MonoBehaviour
                     overclock = false;
                     overclockTime = 5f;
                 }
-                FindObjectOfType<AudioManager>().ChangePitch("Overclock", .9f);
-                FindObjectOfType<AudioManager>().SlowSounds();
+                audioScript.ChangePitch("Overclock", .9f);
+                audioScript.SlowSounds();
             }
             //transition the time back to normal
             else if (overclockTransition)
@@ -206,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
                 Time.timeScale += (1f / overclockTransitionTime) * Time.unscaledDeltaTime;
                 Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);//prevents timeScale from going above 1/below 0
                 Time.fixedDeltaTime = Time.timeScale * .02f;
-                FindObjectOfType<AudioManager>().ChangePitch("Overclock", 2f + Time.timeScale);
+                audioScript.ChangePitch("Overclock", 2f + Time.timeScale);
 
                 if (overclockTransitionTime <= 1f)
                 {
@@ -218,9 +221,9 @@ public class PlayerMovement : MonoBehaviour
                     Time.fixedDeltaTime = Time.timeScale * .02f;
                     overlay.SetActive(false);
                     overclockChargedAmt = 0f;
-                    FindObjectOfType<AudioManager>().Stop("Overclock");
-                    FindObjectOfType<AudioManager>().ChangePitch("Overclock", 1f);
-                    FindObjectOfType<AudioManager>().ResetSounds();
+                    audioScript.Stop("Overclock");
+                    audioScript.ChangePitch("Overclock", 1f);
+                    audioScript.ResetSounds();
                 }
             }
             else
@@ -283,13 +286,23 @@ public class PlayerMovement : MonoBehaviour
         // in Animator sets the Trigger parameter back to false
         anim.ResetTrigger("Hit");
         playerHit = false;
+        playerMan.isCheckingForClick = false;
         attackAnimPlaying = false;
+        playerMan.canAttack = true;
+        playerMan.attackNum = 0;
+        anim.SetInteger("swingCount", 0);
     }
 
     public void isAttackingSet()
     {
         // Used for the animator to tell the player script if to move or not, and when they frames of the attack are out
         isAttacking = !isAttacking;
+        playerMan.canAttack = true;
+    }
+
+    public void isCastingSet()
+    {
+        isCasting = !isCasting;
         playerMan.canAttack = true;
     }
 

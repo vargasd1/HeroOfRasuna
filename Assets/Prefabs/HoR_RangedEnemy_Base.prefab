@@ -451,7 +451,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4991071082e24be4fbcc659cd8f0a09a, type: 3}
   m_Controller: {fileID: 9100000, guid: 838e6183f2eee6b429027760fb65976f, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
@@ -538,7 +538,7 @@ MonoBehaviour:
   alreadyHitByPlayer: 0
   isAttacking: 0
   attackAnimIsPlaying: 0
-  spellObj: {fileID: 1352447834921957360, guid: fe2800b04a924fd4a8ba38ffd12461c8,
+  spellObj: {fileID: 7788965548619474250, guid: f97762321b5ef9145b4b32fb40472828,
     type: 3}
 --- !u!1 &6199623379402313175
 GameObject:

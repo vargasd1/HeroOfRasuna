@@ -102,6 +102,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4475542195598599684}
     m_Modifications:
+    - target: {fileID: 243169833221615864, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 53.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2593681248846223392, guid: 1741ae0f41d5b6f448d645ccbe416a00,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -131,6 +136,46 @@ PrefabInstance:
         type: 3}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_Range
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 6.8e-43
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005682549539494803, guid: 1741ae0f41d5b6f448d645ccbe416a00,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7202115407375868282, guid: 1741ae0f41d5b6f448d645ccbe416a00,
         type: 3}

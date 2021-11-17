@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5774989368802670799}
   - component: {fileID: 7357945323655091536}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269003071414366045}
   m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0093}
+  m_LocalPosition: {x: 0, y: -0, z: -0.0125}
   m_LocalScale: {x: 0.01, y: 0.010000002, z: 0.010000002}
   m_Children: []
   m_Father: {fileID: 5042238557051654362}
@@ -43,10 +43,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25
+  m_Intensity: 50
   m_Range: 15
-  m_SpotAngle: 53.740055
-  m_InnerSpotAngle: 45.826706
+  m_SpotAngle: 79.062775
+  m_InnerSpotAngle: 25.251995
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6903540502695764406}
   - component: {fileID: 6752342937023489819}
   - component: {fileID: 191171723759435866}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: HoR_Furniture_ Chandelier
   m_TagString: Wall
   m_Icon: {fileID: 0}

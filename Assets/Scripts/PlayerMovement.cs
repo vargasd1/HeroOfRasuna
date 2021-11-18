@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private bool doRotation = false;
 
     //variables for overclock
-    public GameObject overlay;
+    public GameObject overlay, overclockInactive, overclockActive;
     public Image overclockCD;
     float slowdownFactor = .05f;
     public float overclockTime = 5f;
@@ -220,6 +220,8 @@ public class PlayerMovement : MonoBehaviour
                     Time.timeScale = 1f;
                     Time.fixedDeltaTime = Time.timeScale * .02f;
                     overlay.SetActive(false);
+                    overclockInactive.SetActive(true);
+                    overclockActive.SetActive(false);
                     overclockChargedAmt = 0f;
                     audioScript.Stop("Overclock");
                     audioScript.ChangePitch("Overclock", 1f);
@@ -250,6 +252,8 @@ public class PlayerMovement : MonoBehaviour
         overclock = true;
         overclockChargedAmt = 0;
         overlay.SetActive(true);
+        overclockInactive.SetActive(false);
+        overclockActive.SetActive(true);
         //overclockCDTime = 10f;
 
 

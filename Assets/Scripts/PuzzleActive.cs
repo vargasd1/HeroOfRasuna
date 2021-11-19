@@ -95,9 +95,13 @@ public class PuzzleActive : MonoBehaviour
         if(finishPuzzle && time < 1f)
         {
             //make all rotations on puzzles 0
-            discInner.transform.Rotate(0.0f, 0.0f, startIn, Space.Self);
+            /*discInner.transform.Rotate(0.0f, 0.0f, startIn, Space.Self);
             discMid.transform.Rotate(0.0f, 0.0f, startMid, Space.Self);
-            discOuter.transform.Rotate(0.0f, 0.0f, startOut, Space.Self);
+            discOuter.transform.Rotate(0.0f, 0.0f, startOut, Space.Self);*/
+
+            discInner.transform.eulerAngles = discInner.transform.rotation.eulerAngles + new Vector3(0f, 0f, startIn);
+            discMid.transform.eulerAngles = discMid.transform.rotation.eulerAngles + new Vector3(0f, 0f, startMid);
+            discOuter.transform.eulerAngles = discOuter.transform.rotation.eulerAngles + new Vector3(0f, 0f, startOut);
 
             time += Time.fixedDeltaTime;
         }

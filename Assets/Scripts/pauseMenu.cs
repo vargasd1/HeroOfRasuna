@@ -10,7 +10,7 @@ using UnityEngine.Audio;
 public class pauseMenu : MonoBehaviour
 {
     public static bool GamePaused = false;
-    public GameObject pauseMenuUI, settingsMenuUI;
+    public GameObject pauseMenuUI, settingsMenuUI, canvasUI, blur;
     public AudioMixer audioMixer;
     public Image loadingScreen;
     private bool fadeIn = true;
@@ -46,6 +46,8 @@ public class pauseMenu : MonoBehaviour
         resolutionDropdown.AddOptions(resStr);
         resolutionDropdown.value = curRes;
         resolutionDropdown.RefreshShownValue();
+
+        canvasUI = GameObject.Find("Canvas - UI");
     }
 
     // called right before Start() methods, so sounds can be called in Start()
@@ -116,12 +118,16 @@ public class pauseMenu : MonoBehaviour
         GamePaused = false;
         pauseMenuUI.SetActive(false);
         settingsMenuUI.SetActive(false);
+        canvasUI.SetActive(true);
+        blur.SetActive(false);
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
         settingsMenuUI.SetActive(false);
+        canvasUI.SetActive(false);
+        blur.SetActive(true);
         playerAnim.SetFloat("speedMult", 0);
         Time.timeScale = 0f;
         GamePaused = true;

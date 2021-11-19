@@ -55,13 +55,16 @@ public class PuzzleActive : MonoBehaviour
                     switch (selectedPiece)
                     {
                         case 0:
-                            discInner.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
+                            //discInner.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
+                            discInner.transform.eulerAngles = discInner.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
                             break;
                         case 1:
-                            discMid.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
+                            //discMid.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
+                            discMid.transform.eulerAngles = discMid.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
                             break;
                         case 2:
-                            discOuter.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
+                            //discOuter.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
+                            discOuter.transform.eulerAngles = discOuter.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
                             break;
                     }
                 }
@@ -70,13 +73,16 @@ public class PuzzleActive : MonoBehaviour
                     switch (selectedPiece)
                     {
                         case 0:
-                            discInner.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            //discInner.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            discInner.transform.eulerAngles = discInner.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
                             break;
                         case 1:
-                            discMid.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            //discMid.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            discMid.transform.eulerAngles = discMid.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
                             break;
                         case 2:
-                            discOuter.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            //discOuter.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
+                            discOuter.transform.eulerAngles = discOuter.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
                             break;
                     }
                 }

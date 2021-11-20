@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3006054481445578114}
   - component: {fileID: 1177562075628954047}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 8120362680638751605}
   - component: {fileID: 5124684337802955984}
   - component: {fileID: 6988036349187078170}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: HoR_Furniture_ Chandelier_Broken
   m_TagString: Untagged
   m_Icon: {fileID: 0}

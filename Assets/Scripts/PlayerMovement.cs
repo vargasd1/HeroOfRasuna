@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
         playerMan = gameObject.GetComponent<PlayerManager>();
         anim.updateMode = AnimatorUpdateMode.UnscaledTime;
         audioScript = FindObjectOfType<AudioManager>();
+        overclockInactive = GameObject.Find("/Canvas - UI/Overclock/OverclockInactive");
+        overclockActive = GameObject.Find("/Canvas - UI/Overclock/OverclockActive");
+        overclockCD = GameObject.Find("/Canvas - UI/Overclock/OverclockCharge").GetComponent<Image>();
     }
 
     void Update()
@@ -221,7 +224,6 @@ public class PlayerMovement : MonoBehaviour
                     overclockTransitionTime = 2f;
                     Time.timeScale = 1f;
                     Time.fixedDeltaTime = Time.timeScale * .02f;
-                    overlay.SetActive(false);
                     overclockInactive.SetActive(true);
                     overclockActive.SetActive(false);
                     overclockChargedAmt = 0f;

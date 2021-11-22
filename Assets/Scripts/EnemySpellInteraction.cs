@@ -29,7 +29,7 @@ public class EnemySpellInteraction : MonoBehaviour
             Destroy(gameObject);
             Instantiate(collisionFlash, transform.position, transform.rotation);
         }
-        if (hit.gameObject.tag != "Prop" && hit.gameObject.tag != "Enemy" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox")
+        if (hit.gameObject.tag != "Prop" && hit.gameObject.tag != "Boss" && hit.gameObject.tag != "Enemy" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox")
         {
             Destroy(gameObject);
             Instantiate(collisionFlash, transform.position, transform.rotation);

@@ -1003,6 +1003,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_bowl (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1783564210321128601, guid: 947c706cfd411a94f814e13285605bed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1542,7 +1552,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 100
+  m_RootOrder: 99
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &282249248
 PrefabInstance:
@@ -1853,6 +1863,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_bowl (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1783564210321128601, guid: 947c706cfd411a94f814e13285605bed,
         type: 3}
@@ -4190,6 +4210,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_Chest (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2714963438320761363, guid: 08be08dd355b06d4eae473935fb4cbd4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714963438320761363, guid: 08be08dd355b06d4eae473935fb4cbd4,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3379578168732573865, guid: 08be08dd355b06d4eae473935fb4cbd4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4263,6 +4293,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_bowl (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1783564210321128601, guid: 947c706cfd411a94f814e13285605bed,
         type: 3}
@@ -5937,6 +5977,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_Chest (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2714963438320761363, guid: 08be08dd355b06d4eae473935fb4cbd4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714963438320761363, guid: 08be08dd355b06d4eae473935fb4cbd4,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3379578168732573865, guid: 08be08dd355b06d4eae473935fb4cbd4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6383,6 +6433,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_pot (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6658790569433247393, guid: f3d63786c4c090345975f675e052c7bc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658790569433247393, guid: f3d63786c4c090345975f675e052c7bc,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3d63786c4c090345975f675e052c7bc, type: 3}
 --- !u!1001 &778713849
@@ -6451,6 +6511,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_pot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658790569433247393, guid: f3d63786c4c090345975f675e052c7bc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658790569433247393, guid: f3d63786c4c090345975f675e052c7bc,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3d63786c4c090345975f675e052c7bc, type: 3}
@@ -7718,7 +7788,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 93
+  m_RootOrder: 91
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &925405341
 PrefabInstance:
@@ -8006,6 +8076,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_pot (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658790569433247393, guid: f3d63786c4c090345975f675e052c7bc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658790569433247393, guid: f3d63786c4c090345975f675e052c7bc,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3d63786c4c090345975f675e052c7bc, type: 3}
@@ -9603,6 +9683,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_vase (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 665442638128376394, guid: adc58d22f06f0654583042a3e77087ba,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 665442638128376394, guid: adc58d22f06f0654583042a3e77087ba,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adc58d22f06f0654583042a3e77087ba, type: 3}
 --- !u!1001 &1148989532
@@ -10704,7 +10794,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 97
+  m_RootOrder: 96
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &1240577279
 NavMeshObstacle:
@@ -11205,7 +11295,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 122
+  m_RootOrder: 121
   m_LocalEulerAnglesHint: {x: 29.907001, y: 123.30601, z: 0.047000002}
 --- !u!1001 &1404072948
 PrefabInstance:
@@ -11511,6 +11601,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_vase (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 665442638128376394, guid: adc58d22f06f0654583042a3e77087ba,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 665442638128376394, guid: adc58d22f06f0654583042a3e77087ba,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adc58d22f06f0654583042a3e77087ba, type: 3}
 --- !u!1001 &1436998644
@@ -11683,6 +11783,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_RugSquare
       objectReference: {fileID: 0}
+    - target: {fileID: 8167899390409225775, guid: 7930e09d2c0226e4c8a000a0a2ec2e2f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8796063974350711957, guid: 7930e09d2c0226e4c8a000a0a2ec2e2f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11817,7 +11922,7 @@ Transform:
   m_LocalScale: {x: 2.2548232, y: 1, z: 1.7502732}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 196
+  m_RootOrder: 194
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1459167506
 PrefabInstance:
@@ -11830,6 +11935,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_Rug1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213164611697137745, guid: 6e760d85e34c7924785395474d605253,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1989982343891780331, guid: 6e760d85e34c7924785395474d605253,
         type: 3}
@@ -13529,6 +13639,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_vase (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 665442638128376394, guid: adc58d22f06f0654583042a3e77087ba,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 665442638128376394, guid: adc58d22f06f0654583042a3e77087ba,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adc58d22f06f0654583042a3e77087ba, type: 3}
 --- !u!1001 &1638911174
@@ -13612,6 +13732,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_rectangleRug
+      objectReference: {fileID: 0}
+    - target: {fileID: 3044382864878255340, guid: 219a6b68f173ad84c995a89d4bed60e2,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 219a6b68f173ad84c995a89d4bed60e2, type: 3}
@@ -13706,7 +13831,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 103
+  m_RootOrder: 102
   m_LocalEulerAnglesHint: {x: 136.994, y: 34.229996, z: 79.83499}
 --- !u!114 &1643761266
 MonoBehaviour:
@@ -14073,7 +14198,7 @@ Transform:
   m_LocalScale: {x: 1.3479495, y: 0.26034755, z: 1.2666386}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 95
+  m_RootOrder: 93
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1702895101
 MonoBehaviour:
@@ -14730,7 +14855,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 199
+  m_RootOrder: 198
   m_LocalEulerAnglesHint: {x: 13.443001, y: -61.610004, z: -5.3960004}
 --- !u!1001 &1784000415
 PrefabInstance:
@@ -15635,6 +15760,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HoR_Furniture_bowl (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1783564210321128601, guid: 947c706cfd411a94f814e13285605bed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15703,6 +15838,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_Rug1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213164611697137745, guid: 6e760d85e34c7924785395474d605253,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213164611697137745, guid: 6e760d85e34c7924785395474d605253,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1989982343891780331, guid: 6e760d85e34c7924785395474d605253,
         type: 3}
@@ -15929,7 +16074,7 @@ Transform:
   m_Children:
   - {fileID: 1284790972}
   m_Father: {fileID: 0}
-  m_RootOrder: 151
+  m_RootOrder: 150
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1970338044
 BoxCollider:
@@ -16044,6 +16189,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HoR_Furniture_bowl (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408411308771649059, guid: 947c706cfd411a94f814e13285605bed,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1783564210321128601, guid: 947c706cfd411a94f814e13285605bed,
         type: 3}
@@ -16394,7 +16549,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 108
+  m_RootOrder: 107
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2054110467
 PrefabInstance:
@@ -16560,7 +16715,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 197
+  m_RootOrder: 195
   m_LocalEulerAnglesHint: {x: 138.35199, y: 52.471992, z: 93.808}
 --- !u!1001 &2099285331
 PrefabInstance:

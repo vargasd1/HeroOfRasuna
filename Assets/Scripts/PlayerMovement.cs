@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     //variables for overclock
     public GameObject overlay, overclockInactive, overclockActive;
+    public GameObject hourglass;
     public Image overclockCD;
     float slowdownFactor = .05f;
     public float overclockTime = 5f;
@@ -151,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     audioScript.Play("Overclock");
                     SlowTime();
+                    
                 }
             }
 
@@ -226,6 +228,7 @@ public class PlayerMovement : MonoBehaviour
                     audioScript.Stop("Overclock");
                     audioScript.ChangePitch("Overclock", 1f);
                     audioScript.ResetSounds();
+                    
                 }
             }
             else
@@ -246,12 +249,13 @@ public class PlayerMovement : MonoBehaviour
     public void SlowTime()
     {
         //slow down time
+        GameObject chains = Instantiate(hourglass, new Vector3(transform.position.x, 5, transform.position.z), Quaternion.identity, null) as GameObject;
         overclockTime = 5f;
         Time.timeScale = slowdownFactor;
         Time.fixedDeltaTime = Time.timeScale * .02f;
         overclock = true;
         overclockChargedAmt = 0;
-        overlay.SetActive(true);
+        //overlay.SetActive(true);
         overclockInactive.SetActive(false);
         overclockActive.SetActive(true);
         //overclockCDTime = 10f;

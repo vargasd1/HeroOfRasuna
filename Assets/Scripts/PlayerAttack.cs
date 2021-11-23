@@ -60,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
             }
             else if (hit.tag == "Prop1")
             {
-                GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -77,7 +77,7 @@ public class PlayerAttack : MonoBehaviour
 
             else if (hit.tag == "Prop2")
             {
-                GameObject frac = Instantiate(fracturedBowl, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                GameObject frac = Instantiate(fracturedBowl, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -93,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
             }
             else if (hit.tag == "Prop3")
             {
-                GameObject frac = Instantiate(fractruedVase, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                GameObject frac = Instantiate(fractruedVase, hit.gameObject.transform.position + new Vector3(0, 1.25f, 0), hit.gameObject.transform.rotation, null);
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;

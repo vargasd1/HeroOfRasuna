@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1935611752157737027}
   - component: {fileID: 23944536420203332}
   - component: {fileID: 3235031688486593817}
+  - component: {fileID: -8174296719173317426}
   m_Layer: 0
   m_Name: VFX_Graph_Impact
   m_TagString: Untagged
@@ -109,3 +110,15 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-8174296719173317426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727104320553381676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4e7e81793fbef44abaf7d9a7a55a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

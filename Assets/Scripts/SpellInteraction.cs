@@ -119,7 +119,7 @@ public class SpellInteraction : MonoBehaviour
                         }
                         break;
                     case "Prop1":
-                        GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                        GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
                         foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -134,7 +134,7 @@ public class SpellInteraction : MonoBehaviour
                         Destroy(hit.gameObject);
                         break;
                     case "Prop2":
-                        GameObject frac2 = Instantiate(fracturedBowl, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                        GameObject frac2 = Instantiate(fracturedBowl, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
                         foreach (Rigidbody rb in frac2.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -149,7 +149,7 @@ public class SpellInteraction : MonoBehaviour
                         Destroy(hit.gameObject);
                         break;
                     case "Prop3":
-                        GameObject frac3 = Instantiate(fracturedVase, hit.gameObject.transform.position, hit.gameObject.transform.rotation, null);
+                        GameObject frac3 = Instantiate(fracturedVase, hit.gameObject.transform.position + new Vector3(0, 1.25f, 0), hit.gameObject.transform.rotation, null);
                         foreach (Rigidbody rb in frac3.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;

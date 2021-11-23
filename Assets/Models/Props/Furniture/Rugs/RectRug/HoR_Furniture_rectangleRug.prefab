@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7527424207262071147}
   m_Layer: 0
   m_Name: HoR_Furniture_rectangleRug
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5998823082663483043}
   - component: {fileID: 536671935368248115}
   m_Layer: 0
-  m_Name: HoR_Furniture_tornRug
-  m_TagString: Untagged
+  m_Name: HoR_Furniture_TornRug
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

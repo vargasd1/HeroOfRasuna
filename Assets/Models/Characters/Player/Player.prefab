@@ -179,6 +179,7 @@ MonoBehaviour:
   canAttack: 1
   isInvinc: 0
   invincTimer: 0
+  isCheckingForClick: 0
   healParticles: {fileID: 7327815876779475571, guid: 48427a172c623ca40afa57fbf5cba2c2,
     type: 3}
   healCD: {fileID: 0}
@@ -227,13 +228,21 @@ MonoBehaviour:
   anim: {fileID: 0}
   isMoving: 0
   isAttacking: 0
+  isCasting: 0
   playerHit: 0
   isDead: 0
   attackAnimPlaying: 0
   isCutScene: 0
   playerSpeed: 6
   overlay: {fileID: 0}
+  overclockInactive: {fileID: 0}
+  overclockActive: {fileID: 0}
+  hourglass: {fileID: 0}
   overclockCD: {fileID: 0}
+  overclockTime: 5
+  overclockTransitionTime: 2
+  overclock: 0
+  overclockTransition: 0
   overclockChargedAmt: 100
 --- !u!1001 &4224693185366422904
 PrefabInstance:

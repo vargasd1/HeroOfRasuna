@@ -28,7 +28,7 @@ public class SceneSwitcher : MonoBehaviour
             if (loadScreen.color.a >= 1)
             {
                 loadingScreenScript.scene = "FirstFloor";
-                SceneManager.LoadScene(5);
+                SceneManager.LoadScene(4);//must change depending on included scenes in build
             }
         }
     }

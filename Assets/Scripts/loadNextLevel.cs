@@ -28,7 +28,7 @@ public class loadNextLevel : MonoBehaviour
             loadScreen.color = new Color(0, 0, 0, alpha);
             if (loadScreen.color.a >= 1)
             {
-                SceneManager.LoadScene(5);
+                SceneManager.LoadScene(4);//also needs to change by build
             }
         }
     }
@@ -40,13 +40,13 @@ public class loadNextLevel : MonoBehaviour
             player.isCutScene = true;
             fadeOut = true;
             loadScreen.gameObject.SetActive(true);
-            switch (SceneManager.GetActiveScene().buildIndex)
+            switch (SceneManager.GetActiveScene().buildIndex)//case numbers change by build
             {
-                case 2:
+                case 1:
                     NextFloorPlayer.SaveValues(player.gameObject);
                     loadingScreenScript.scene = "SecondFloor";
                     break;
-                case 3:
+                case 2:
                     NextFloorPlayer.SaveValues(player.gameObject);
                     loadingScreenScript.scene = "ThirdFloor";
                     break;

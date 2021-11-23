@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     public float overclockChargedAmt = 100f;
 
     //public Camera mainCam;
-    private AudioManager audioScript;
+    //private AudioManager audioScript;
 
     private void Start()
     {
@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         playerMan = gameObject.GetComponent<PlayerManager>();
         anim.updateMode = AnimatorUpdateMode.UnscaledTime;
-        audioScript = FindObjectOfType<AudioManager>();
+        //audioScript = FindObjectOfType<AudioManager>();
         overclockInactive = GameObject.Find("/Canvas - UI/Overclock/OverclockInactive");
         overclockActive = GameObject.Find("/Canvas - UI/Overclock/OverclockActive");
         overclockCD = GameObject.Find("/Canvas - UI/Overclock/OverclockCharge").GetComponent<Image>();
@@ -153,7 +153,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!overclock && overclockChargedAmt >= 100)
                 {
-                    audioScript.Play("Overclock");
+                    //audioScript.Play("Overclock");
+                    //AudioAnywhere.PlayAnywhere("Overclock");
+                    FindObjectOfType<AudioManager>().Play("Overclock");
                     SlowTime();
                     
                 }
@@ -201,8 +203,11 @@ public class PlayerMovement : MonoBehaviour
                     overclock = false;
                     overclockTime = 5f;
                 }
-                audioScript.ChangePitch("Overclock", .9f);
-                audioScript.SlowSounds();
+                /*audioScript.ChangePitch("Overclock", .9f);
+                audioScript.SlowSounds();*/
+                AudioManager aud = FindObjectOfType<AudioManager>();
+                aud.ChangePitch("Overclock", .9f);
+                aud.SlowSounds();
             }
             //transition the time back to normal
             else if (overclockTransition)
@@ -214,7 +219,8 @@ public class PlayerMovement : MonoBehaviour
                 Time.timeScale += (1f / overclockTransitionTime) * Time.unscaledDeltaTime;
                 Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);//prevents timeScale from going above 1/below 0
                 Time.fixedDeltaTime = Time.timeScale * .02f;
-                audioScript.ChangePitch("Overclock", 2f + Time.timeScale);
+                //audioScript.ChangePitch("Overclock", 2f + Time.timeScale);
+                FindObjectOfType<AudioManager>().ChangePitch("Overclock", 2f + Time.timeScale);
 
                 if (overclockTransitionTime <= 1f)
                 {
@@ -227,10 +233,14 @@ public class PlayerMovement : MonoBehaviour
                     overclockInactive.SetActive(true);
                     overclockActive.SetActive(false);
                     overclockChargedAmt = 0f;
-                    audioScript.Stop("Overclock");
+                    /*audioScript.Stop("Overclock");
                     audioScript.ChangePitch("Overclock", 1f);
-                    audioScript.ResetSounds();
-                    
+                    audioScript.ResetSounds();*/
+                    AudioManager aud = FindObjectOfType<AudioManager>();
+                    aud.Stop("Overclock");
+                    aud.ChangePitch("Overclock", 1f);
+                    aud.ResetSounds();
+
                 }
             }
             else

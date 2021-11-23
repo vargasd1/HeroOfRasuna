@@ -20,8 +20,6 @@ public class pauseMenu : MonoBehaviour
     private Animator playerAnim;
     private PlayerMovement playerMove;
 
-    public static pauseMenu instance;
-
     Resolution[] resolutions;
     public TMPro.TMP_Dropdown resolutionDropdown;
     int curRes = 0;
@@ -53,15 +51,6 @@ public class pauseMenu : MonoBehaviour
     // called right before Start() methods, so sounds can be called in Start()
     void Awake()
     {
-        // don't destroy on scene change
-        if (instance == null) instance = this;
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
-
         player = FindObjectOfType<PlayerManager>().gameObject;
         playerAnim = player.GetComponent<Animator>();
         playerMove = player.GetComponent<PlayerMovement>();

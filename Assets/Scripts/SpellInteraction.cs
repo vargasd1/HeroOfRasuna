@@ -69,6 +69,7 @@ public class SpellInteraction : MonoBehaviour
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
                     FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
+                    //AudioAnywhere.PlayUninterruptedAnywhere("Stun");
                     if (enemIsRanged)
                     {
                         if (enemR.state != EnemyRangedAI.State.Stunned)
@@ -171,6 +172,7 @@ public class SpellInteraction : MonoBehaviour
                 if (hit.gameObject.tag == "Ground")
                 {
                     FindObjectOfType<AudioManager>().Play("Light Burst");
+                    //AudioAnywhere.PlayAnywhere("Light Burst");
                     Debug.Log("Light burst");
                     Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
                     GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(0, 0, 0)) as GameObject;

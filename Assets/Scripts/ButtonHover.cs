@@ -11,11 +11,13 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         FindObjectOfType<AudioManager>().PlayUninterrupted("HoverOn");
+        //AudioAnywhere.PlayUninterruptedAnywhere("Hover On");
     }
 
     //Detect when Cursor leaves the GameObject
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         FindObjectOfType<AudioManager>().PlayUninterrupted("HoverOff");
+        //AudioAnywhere.PlayUninterruptedAnywhere("Hover Off");
     }
 }

@@ -16,6 +16,8 @@ public class loadNextLevel : MonoBehaviour
     {
         player = FindObjectOfType<PlayerMovement>();
         loadScreen = GameObject.FindGameObjectWithTag("loadingScreen").GetComponent<Image>();
+
+        NextFloorPlayer.FillValues(player.gameObject);
     }
 
     private void Update()
@@ -41,9 +43,11 @@ public class loadNextLevel : MonoBehaviour
             switch (SceneManager.GetActiveScene().buildIndex)
             {
                 case 2:
+                    NextFloorPlayer.SaveValues(player.gameObject);
                     loadingScreenScript.scene = "SecondFloor";
                     break;
                 case 3:
+                    NextFloorPlayer.SaveValues(player.gameObject);
                     loadingScreenScript.scene = "ThirdFloor";
                     break;
                 default:

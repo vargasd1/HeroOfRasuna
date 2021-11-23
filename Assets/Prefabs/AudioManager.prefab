@@ -112,7 +112,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d40021d941fc02f448eb0321f133c0ee, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a9020ef0f4b0d54419b2fe1b01e2af6c, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: de11cd4a9147333468c7b6a7b69bce52, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e2e161b05d4485e4fa3ba96ca3f5dd0f, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 74ab210c527ea2845841ce1988875035, type: 3}
     volume: 1
     pitch: 1
-    loop: 0
+    loop: 1
     audioMixerGroup: {fileID: 7599103824634102996, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}

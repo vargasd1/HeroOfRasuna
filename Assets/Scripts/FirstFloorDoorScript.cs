@@ -17,7 +17,7 @@ public class FirstFloorDoorScript : MonoBehaviour
     private float alpha = 0;
     private bool openDoor = false;
     private bool doOnce = false;
-    private AudioManager audioScript;
+    //private AudioManager audioScript;
 
 
     // Start is called before the first frame update
@@ -26,7 +26,7 @@ public class FirstFloorDoorScript : MonoBehaviour
         player = FindObjectOfType<PlayerManager>().gameObject;
         playerManager = player.GetComponent<PlayerManager>();
         playerMove = player.GetComponent<PlayerMovement>();
-        audioScript = FindObjectOfType<AudioManager>();
+        //audioScript = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -41,13 +41,17 @@ public class FirstFloorDoorScript : MonoBehaviour
             playerMove.overclockTransitionTime = 2f;
             Time.timeScale = 1f;
             Time.fixedDeltaTime = Time.timeScale * .02f;
-            playerMove.overlay.SetActive(false);
+            //playerMove.overlay.SetActive(false);
             playerMove.overclockTime = 5;
             playerMove.overclockChargedAmt = 0f;
             playerMove.overclockCD.fillAmount = 0;
-            audioScript.Stop("Overclock");
+            /*audioScript.Stop("Overclock");
             audioScript.ChangePitch("Overclock", 1f);
-            audioScript.ResetSounds();
+            audioScript.ResetSounds();*/
+            AudioManager aud = FindObjectOfType<AudioManager>();
+            aud.Stop("Overclock");
+            aud.ChangePitch("Overclock", 1f);
+            aud.ResetSounds();
 
             StartCoroutine(doorCutScene());
             doOnce = true;

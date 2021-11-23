@@ -29,20 +29,20 @@ public class PlayerManager : MonoBehaviour
     public float playerTargetHealth = 100f;
     float playerMaxHealth = 100f;
     float healAmount = 25f;
-    float healCDTime = 0f;
+    public float healCDTime = 0f;
     public bool isDead;
 
     // variables for attack spell (Right Click)
     public GameObject projectile;
     public Transform spellSpawnLoc;
     public Image attackSpellCD;
-    private float attackSpellCDTime = 0f;
+    public float attackSpellCDTime = 0f;
     public Vector3 normalForward;
     public Quaternion normalRotation;
 
     // variables for stun (Q)
     public GameObject stunGren;
-    private float stunCDTime = 0f;
+    public float stunCDTime = 0f;
     private Vector3 pointToLook;
     private float rayLength;
     public Image stunCD;
@@ -105,7 +105,9 @@ public class PlayerManager : MonoBehaviour
                 {
                     if (healCDTime <= 0f && playerHealth != playerMaxHealth)
                     {
-                        audioScript.PlayUninterrupted("Heal");
+                        //audioScript.PlayUninterrupted("Heal");
+                        //AudioAnywhere.PlayUninterruptedAnywhere("Heal");
+                        FindObjectOfType<AudioManager>().PlayUninterrupted("Heal");
                         Heal();
                         canAttack = false;
                         playerMove.isCasting = true;
@@ -148,7 +150,9 @@ public class PlayerManager : MonoBehaviour
                         playerMove.lookAtMouse();
                         attackNum++;
                         anim.SetInteger("swingCount", attackNum);
-                        audioScript.PlayUninterrupted("Hit 1");
+                        //audioScript.PlayUninterrupted("Hit 1");
+                        //AudioAnywhere.PlayUninterruptedAnywhere("Hit 1");
+                        FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
                     }
                     else if (attackNum > 0 && isCheckingForClick && canAttack)
                     {

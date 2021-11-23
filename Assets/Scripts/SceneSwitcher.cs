@@ -39,6 +39,7 @@ public class SceneSwitcher : MonoBehaviour
         loadScreen.gameObject.SetActive(true);
         FindObjectOfType<AudioManager>().Stop("Theme");
         FindObjectOfType<AudioManager>().Play("Ambient1");
+        //AudioAnywhere.PlayAnywhere("Ambient1");
     }
 
     public void quitGame()

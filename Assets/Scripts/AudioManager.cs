@@ -86,7 +86,7 @@ public class AudioManager : MonoBehaviour
         s.source.Stop();
     }
 
-    IEnumerator playSoundWithDelay(string clip, float delay, Sound s)
+    /*IEnumerator playSoundWithDelay(string clip, float delay, Sound s)
     {
         yield return new WaitForSecondsRealtime(delay);
         //if (pauseMenu.GamePaused) s.source.pitch = .5f;
@@ -107,7 +107,7 @@ public class AudioManager : MonoBehaviour
         {
             StartCoroutine(playSoundWithDelay(name, seconds, s));
         }
-    }
+    }*/
 
     public void PlayUninterrupted(string name)
     {

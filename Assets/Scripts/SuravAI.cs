@@ -117,7 +117,7 @@ public class SuravAI : MonoBehaviour
                 if (attackDelay <= 0)
                 {
                     //pickAttack();
-                    MeteorAttack();
+                    ShockwaveAttack();
                 }
                 break;
             case State.MoveToNewLocation:

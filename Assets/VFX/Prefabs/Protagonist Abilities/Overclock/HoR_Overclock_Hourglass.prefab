@@ -1320,10 +1320,10 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 6554
+        atime1: 3277
         atime2: 58982
         atime3: 65535
-        atime4: 0
+        atime4: 65535
         atime5: 0
         atime6: 0
         atime7: 0
@@ -9630,7 +9630,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 4
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -11007,10 +11007,10 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 6554
+        atime1: 3277
         atime2: 58982
         atime3: 65535
-        atime4: 0
+        atime4: 65535
         atime5: 0
         atime6: 0
         atime7: 0
@@ -15782,7 +15782,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 6554
+        atime1: 3277
         atime2: 58982
         atime3: 65535
         atime4: 0
@@ -19338,7 +19338,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 4
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -20717,7 +20717,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 6554
+        atime1: 3277
         atime2: 58982
         atime3: 65535
         atime4: 0
@@ -25473,7 +25473,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 6554
+        atime1: 3277
         atime2: 58982
         atime3: 65535
         atime4: 0
@@ -35036,10 +35036,10 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 6554
+        atime1: 3277
         atime2: 58982
         atime3: 65535
-        atime4: 0
+        atime4: 65535
         atime5: 0
         atime6: 0
         atime7: 0
@@ -38592,7 +38592,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 4
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

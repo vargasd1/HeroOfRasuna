@@ -18,6 +18,7 @@ public class SpellInteraction : MonoBehaviour
     private bool enemIsRanged = false;
     private EnemyAI enem;
     private EnemyRangedAI enemR;
+    private SuravAI boss;
 
     //Grenade Vars
     public Vector3 positionA;
@@ -119,6 +120,12 @@ public class SpellInteraction : MonoBehaviour
                             enem.state = EnemyAI.State.hitStunned;
                         }
                         break;
+                    case "Boss":
+
+                        boss = hit.gameObject.GetComponent<SuravAI>();
+                        boss.health -= 20;
+                        break;
+
                     case "Prop1":
                         GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
                         foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())

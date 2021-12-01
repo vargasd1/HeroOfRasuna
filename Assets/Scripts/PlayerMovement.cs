@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isDead = false;
     public bool attackAnimPlaying = false;
     public bool isCutScene = false;
+    public bool isCutSceneMoving = false;
 
     public float playerSpeed = 5.0f;
 
@@ -157,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
                     //AudioAnywhere.PlayAnywhere("Overclock");
                     FindObjectOfType<AudioManager>().Play("Overclock");
                     SlowTime();
-                    
+
                 }
             }
 
@@ -167,9 +168,15 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Fixed Delta Time: " + Time.fixedDeltaTime + "\nFixed Unscaled Delta Time: " + Time.fixedUnscaledDeltaTime);
             }
         }
-        else if (!isDead && !pauseMenu.GamePaused && isCutScene)
+        else if (!isDead && !pauseMenu.GamePaused && isCutScene && !isCutSceneMoving)
         {
             anim.SetBool("isMoving", false);
+            playerSpeed = 0;
+            anim.SetFloat("Speed", playerSpeed);
+        }
+        else if (!isDead && !pauseMenu.GamePaused && isCutScene && isCutSceneMoving)
+        {
+            anim.SetBool("isMoving", true);
             playerSpeed = 0;
             anim.SetFloat("Speed", playerSpeed);
         }

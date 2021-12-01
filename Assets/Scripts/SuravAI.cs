@@ -11,7 +11,6 @@ public class SuravAI : MonoBehaviour
     {
         Talking,
         Idle,
-        MoveToNewLocation,
         ShockwaveAttack,
         ShotgunAttack,
         MinigunAttack,
@@ -46,7 +45,7 @@ public class SuravAI : MonoBehaviour
 
     // Other Vars
     private float bounceCounter = 0.8f;
-    private float health = 200;
+    public float health = 400;
 
     private bool lowerWeight = false;
     private bool raiseWeight = false;
@@ -56,7 +55,7 @@ public class SuravAI : MonoBehaviour
     public float attackDelay = 5;
 
     // Intro Cutscene Var
-    private int voiceLineStage = 0;
+    public bool startFight = false;
     public GameObject bossRoomObst;
     public GameObject mainRoomObst;
 
@@ -67,7 +66,6 @@ public class SuravAI : MonoBehaviour
         anim = GetComponent<Animator>();
         state = SuravAI.State.Talking;
         player = FindObjectOfType<PlayerManager>().gameObject.transform;
-        voiceLineStage = 0;
     }
 
     // Update is called once per frame
@@ -105,23 +103,15 @@ public class SuravAI : MonoBehaviour
         switch (state)
         {
             case State.Talking:
-                if (voiceLineStage > 5) state = State.Idle;
+                if (startFight) state = State.Idle;
                 break;
             case State.Idle:
-                //if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
-                //if (wanderDelay <= 0)
-                //{
-                //    state = State.MoveToNewLocation;
-                //}
+                //findNewLocation();
                 if (attackDelay > 0) attackDelay -= Time.deltaTime;
                 if (attackDelay <= 0)
                 {
-                    //pickAttack();
-                    ShockwaveAttack();
+                    pickAttack();
                 }
-                break;
-            case State.MoveToNewLocation:
-                //findNewLocation();
                 break;
             case State.MinigunAttack:
                 MinigunAttack();
@@ -145,7 +135,7 @@ public class SuravAI : MonoBehaviour
     {
         int rand = Mathf.FloorToInt(UnityEngine.Random.Range(0, 10));
         // If the player is "close"
-        if (Vector3.Distance(player.transform.position, transform.position) <= 4)
+        if (Vector3.Distance(player.transform.position, transform.position) <= 5)
         {
             switch (rand)
             {
@@ -193,6 +183,7 @@ public class SuravAI : MonoBehaviour
                     break;
             }
         }
+        print(state);
     }
 
     private void ShockwaveAttack()

@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private bool enemIsRanged = false;
     private EnemyAI enem;
     private EnemyRangedAI enemR;
+    private SuravAI boss;
 
     void Start()
     {
@@ -57,6 +58,11 @@ public class PlayerAttack : MonoBehaviour
                         enem.state = EnemyAI.State.hitStunned;
                     }
                 }
+            }
+            else if (hit.tag == "Boss")
+            {
+                boss = hit.gameObject.GetComponent<SuravAI>();
+                boss.health -= 20;
             }
             else if (hit.tag == "Prop1")
             {

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 919132148106517197}
   - component: {fileID: 919132148106517196}
   - component: {fileID: 8543143971074826392}
+  - component: {fileID: 1089939763715221810}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -185,14 +186,17 @@ MonoBehaviour:
   healCD: {fileID: 0}
   playerHealth: 75
   playerTargetHealth: 75
+  healCDTime: 0
   isDead: 0
   projectile: {fileID: 4870990002894777571, guid: 6b4e90556c3ed144ca9cbf9b8a27e5bc,
     type: 3}
   spellSpawnLoc: {fileID: 6373780133727385098}
   attackSpellCD: {fileID: 0}
+  attackSpellCDTime: 0
   normalForward: {x: 0, y: 0, z: 0}
   normalRotation: {x: 0, y: 0, z: 0, w: 0}
   stunGren: {fileID: 946219102245394387, guid: f5a81117554c64e43a2374a03438e463, type: 3}
+  stunCDTime: 0
   stunCD: {fileID: 0}
   floorMask:
     serializedVersion: 2
@@ -233,6 +237,7 @@ MonoBehaviour:
   isDead: 0
   attackAnimPlaying: 0
   isCutScene: 0
+  isCutSceneMoving: 0
   playerSpeed: 6
   overlay: {fileID: 0}
   overclockInactive: {fileID: 0}
@@ -244,6 +249,28 @@ MonoBehaviour:
   overclock: 0
   overclockTransition: 0
   overclockChargedAmt: 100
+--- !u!195 &1089939763715221810
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7956242243108525122}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 999
+  avoidancePriority: 50
+  m_AngularSpeed: 999
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &4224693185366422904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -634,7 +661,7 @@ PrefabInstance:
     - target: {fileID: 3511206996808088517, guid: 6329a03a3be8cae4ca3bbba06547075e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0035894876
+      value: -0.0035894858
       objectReference: {fileID: 0}
     - target: {fileID: 3511206996808088517, guid: 6329a03a3be8cae4ca3bbba06547075e,
         type: 3}
@@ -644,7 +671,7 @@ PrefabInstance:
     - target: {fileID: 3511206996808088517, guid: 6329a03a3be8cae4ca3bbba06547075e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0020536373
+      value: 0.002054211
       objectReference: {fileID: 0}
     - target: {fileID: 3511206996808088517, guid: 6329a03a3be8cae4ca3bbba06547075e,
         type: 3}
@@ -654,7 +681,7 @@ PrefabInstance:
     - target: {fileID: 3511206996808088517, guid: 6329a03a3be8cae4ca3bbba06547075e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.042053226
+      value: -0.04205132
       objectReference: {fileID: 0}
     - target: {fileID: 3806291543603988566, guid: 6329a03a3be8cae4ca3bbba06547075e,
         type: 3}

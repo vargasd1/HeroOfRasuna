@@ -56,10 +56,10 @@ GameObject:
   - component: {fileID: 8288143252392683476}
   - component: {fileID: 6116329377656099614}
   - component: {fileID: 4836870982965852767}
-  - component: {fileID: 4836870982965852766}
   - component: {fileID: 4836870982965852762}
+  - component: {fileID: 314314767930661744}
   m_Layer: 0
-  m_Name: HOR_Broken_PIllar1
+  m_Name: HoR_PillarBroken1
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,20 +144,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &4836870982965852766
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5756002031984046795}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5194336286857776367, guid: 04d6443c06c7e8748a64d932a17f9cb4, type: 3}
 --- !u!114 &4836870982965852762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +159,19 @@ MonoBehaviour:
   alpha: 1
   fadeOut: 0
   fadeIn: 0
+--- !u!65 &314314767930661744
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5756002031984046795}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 200, y: 800, z: 200}
+  m_Center: {x: 0, y: 400, z: 0}
 --- !u!1 &8603923836588577842
 GameObject:
   m_ObjectHideFlags: 0

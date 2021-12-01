@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -43,6 +44,10 @@ public class EnemyAI : MonoBehaviour
     public bool isAttacking = false;
     public bool attackAnimIsPlaying = false;
 
+    //Third Floor Variables
+    private bool thirdLevel = false;
+    private BossGate bossDoor;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -51,7 +56,14 @@ public class EnemyAI : MonoBehaviour
         player = FindObjectOfType<PlayerManager>().gameObject.transform;
     }
 
-    private void Start() { }
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "ThirdFloor")
+        {
+            thirdLevel = true;
+            bossDoor = FindObjectOfType<BossGate>();
+        }
+    }
 
     void Update()
     {
@@ -132,9 +144,11 @@ public class EnemyAI : MonoBehaviour
                         }
                         orbsDroppedOnce = true;
                         player.gameObject.GetComponent<PlayerManager>().enemiesKilled++;
+                        if (thirdLevel) bossDoor.enemiesKilled++;
                     }
                     // Remove Collider
                     GetComponent<CapsuleCollider>().enabled = false;
+                    GetComponent<NavMeshAgent>().enabled = false;
                     break;
             }
         }

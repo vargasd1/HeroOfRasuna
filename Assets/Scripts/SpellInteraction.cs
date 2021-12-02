@@ -105,6 +105,7 @@ public class SpellInteraction : MonoBehaviour
                 {
                     case "Enemy":
                         print(hit.gameObject);
+                        FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                         if (enemIsRanged)
                         {
                             enemR.health -= 34;
@@ -121,9 +122,11 @@ public class SpellInteraction : MonoBehaviour
                         }
                         break;
                     case "Boss":
-
-                        boss = hit.gameObject.GetComponent<SuravAI>();
-                        boss.health -= 20;
+                        if(boss.state != SuravAI.State.Talking)
+                        {
+                            boss = hit.gameObject.GetComponent<SuravAI>();
+                            boss.health -= 20;
+                        }
                         break;
 
                     case "Prop1":

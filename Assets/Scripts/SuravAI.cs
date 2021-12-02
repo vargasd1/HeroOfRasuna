@@ -45,7 +45,7 @@ public class SuravAI : MonoBehaviour
 
     // Other Vars
     private float bounceCounter = 0.8f;
-    public float health = 400;
+    public float health = 800;
 
     private bool lowerWeight = false;
     private bool raiseWeight = false;
@@ -145,6 +145,8 @@ public class SuravAI : MonoBehaviour
                 case 3:
                 case 4:
                     state = State.ShockwaveAttack;
+                    spawnShockOnce = true;
+                    spawnChargeOnce = true;
                     break;
                 case 5:
                 case 6:
@@ -156,6 +158,7 @@ public class SuravAI : MonoBehaviour
                     break;
                 case 9:
                     state = State.MeteorShower;
+                    spawnMeteorOnce = true;
                     break;
             }
         }
@@ -165,6 +168,8 @@ public class SuravAI : MonoBehaviour
             {
                 case 0:
                     state = State.ShockwaveAttack;
+                    spawnShockOnce = true;
+                    spawnChargeOnce = true;
                     break;
                 case 1:
                 case 2:
@@ -180,6 +185,7 @@ public class SuravAI : MonoBehaviour
                 case 8:
                 case 9:
                     state = State.MeteorShower;
+                    spawnMeteorOnce = true;
                     break;
             }
         }
@@ -200,6 +206,8 @@ public class SuravAI : MonoBehaviour
             {
                 GameObject shockwave = Instantiate(solarFlareObj, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity, null) as GameObject;
                 spawnShockOnce = false;
+                state = State.Idle;
+                attackDelay = 10;//check for animation time and reset this
             }
         }
         else
@@ -253,6 +261,8 @@ public class SuravAI : MonoBehaviour
         {
             GameObject meteor = Instantiate(meteorObj, new Vector3(player.transform.position.x, 0, player.transform.position.z), Quaternion.identity, null) as GameObject;
             spawnMeteorOnce = false;
+            state = State.Idle;
+            attackDelay = 10;//check for animation time and reset this
         }
     }
 

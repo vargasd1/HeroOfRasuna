@@ -11,6 +11,7 @@ public class HealthBar : MonoBehaviour
     //deplete rhombus1 -> rect1 -> rhombus2 -> etc
     public Image rect1, rect2, rect3, rect4, rect5, rect6, kite1, kite2, kite3, kite4, kite5, kite6, kite7;
     Color healthColor;
+    Renderer colorRender;
     float health;
     float runningTotal = 0f;
 
@@ -25,7 +26,10 @@ public class HealthBar : MonoBehaviour
     {
         health = player.playerHealth / 100f;
         runningTotal = 0f;
-        healthColor = new Color(Mathf.Lerp(1f, 0f, (Mathf.Clamp(health, 0.5f, 1f) - .5f) / .5f), Mathf.Lerp(0f, 1f, Mathf.Clamp(health, 0f, .5f) / .5f), 0f);
+        //healthColor = new Color(Mathf.Lerp(1f, 0f, (Mathf.Clamp(health, 0.5f, 1f) - .5f) / .5f), Mathf.Lerp(0f, 1f, Mathf.Clamp(health, 0f, .5f) / .5f), 0f);
+        //0-120/360, .75, .85
+
+        healthColor = Color.HSVToRGB(Mathf.Lerp(0f, .33f, Mathf.Clamp(health, 0f, 1f)), .75f, .85f);
 
         /*
          * each rect is worth 13.84% of health

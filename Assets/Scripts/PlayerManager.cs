@@ -87,6 +87,7 @@ public class PlayerManager : MonoBehaviour
             // Lerps health
             playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.05f);
             if (playerHealth > 99.8f) playerHealth = 100;
+            else if (playerHealth < 1f) playerHealth = 0f;
 
             // Lowers invinc tiemr
             if (isInvinc) invincTimer -= Time.unscaledDeltaTime;
@@ -156,6 +157,9 @@ public class PlayerManager : MonoBehaviour
                     }
                     else if (attackNum > 0 && isCheckingForClick && canAttack)
                     {
+                        //FindObjectOfType<AudioManager>().PlayUninterrupted("Hit " + (attackNum == 1 ? 2 : 3) + " (clip " + (attackNum == 1 ? 3 : 2) + ")");
+                        if(attackNum == 1) FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 2 (clip 3)");
+                        else FindObjectOfType<AudioManager>().PlayInSeconds("Hit 3 (clip 2)", .3f);
                         attackNum++;
                         isCheckingForClick = false;
                         anim.SetInteger("swingCount", attackNum);

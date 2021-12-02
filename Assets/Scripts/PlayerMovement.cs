@@ -158,7 +158,6 @@ public class PlayerMovement : MonoBehaviour
                     //AudioAnywhere.PlayAnywhere("Overclock");
                     FindObjectOfType<AudioManager>().Play("Overclock");
                     SlowTime();
-
                 }
             }
 

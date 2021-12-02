@@ -17,7 +17,7 @@ public class BossCutscene : MonoBehaviour
 
     private GameObject UI;
     private CameraFollow cam;
-    private BossGate gate;
+    public BossGate gate;
     public GameObject bossFocus;
     public GameObject bossObstacle;
     public GameObject mainObstacle;
@@ -28,12 +28,17 @@ public class BossCutscene : MonoBehaviour
     private float playerMoveDelay = 0f;
     private bool doOnce = true;
     private bool movePlayer = false;
-    public float talkDelay = 3f;
+    public bool readyToSkip = false;
     public bool isTalking = false;
     public float startFightDelay = 3f;
 
     public int dialogueCount = 0;
-    private Vector3 gateDefaultPos = new Vector3(31.74f, 5, 0);
+    private BossDialogue dialogueUI;
+    private Animator dialogueAnim;
+    public GameObject nextPrompt;
+
+    private float textStartDelay = 0.5f;
+    private bool startOnce = true;
 
     // Start is called before the first frame update
     void Start()
@@ -44,9 +49,11 @@ public class BossCutscene : MonoBehaviour
         boss = FindObjectOfType<SuravAI>();
         UI = FindObjectOfType<HealthBar>().gameObject;
         cam = FindObjectOfType<CameraFollow>();
-        gate = FindObjectOfType<BossGate>();
         playerAI = player.GetComponent<NavMeshAgent>();
         playerCont = player.GetComponent<CharacterController>();
+        dialogueUI = FindObjectOfType<BossDialogue>();
+        dialogueAnim = dialogueUI.GetComponentInParent<Animator>();
+        nextPrompt.SetActive(false);
     }
 
     // Update is called once per frame
@@ -70,7 +77,8 @@ public class BossCutscene : MonoBehaviour
             else
             {
                 slamDelay -= Time.unscaledDeltaTime;
-                gate.transform.position = gateDefaultPos + UnityEngine.Random.insideUnitSphere * 0.0420f;
+                gate.transform.position = gate.transform.position + UnityEngine.Random.insideUnitSphere * 0.0420f;
+                gate.openDoor = false;
             }
 
             if (camMoveDelay >= 2)
@@ -107,6 +115,7 @@ public class BossCutscene : MonoBehaviour
                     playerAI.enabled = false;
                     playerCont.enabled = true;
                     playerMove.isCutSceneMoving = false;
+                    dialogueAnim.SetTrigger("PopUp");
                     movePlayer = false;
                     isTalking = true;
                 }
@@ -114,26 +123,62 @@ public class BossCutscene : MonoBehaviour
 
             if (isTalking)
             {
-                if (talkDelay <= 0)
+                if (textStartDelay <= 0 && startOnce)
                 {
+                    readyToSkip = false;
+                    dialogueUI.textChanged = true;
+                    startOnce = false;
+                }
+                else
+                {
+                    textStartDelay -= Time.unscaledDeltaTime;
+                }
+
+                if (readyToSkip)
+                {
+                    if (dialogueCount < 4) nextPrompt.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
+                        dialogueUI.textSpeed = 0.05f;
                         dialogueCount++;
-                        talkDelay = 3f;
+                        dialogueUI.textChanged = true;
+                        dialogueUI.txt.text = "";
+                        readyToSkip = false;
                     }
                 }
                 else
                 {
-                    talkDelay -= Time.unscaledDeltaTime;
+                    nextPrompt.SetActive(false);
                 }
 
-                if (dialogueCount >= 3 && talkDelay < 0)
+                switch (dialogueCount)
+                {
+                    case 0:
+                        dialogueUI.story = "If your mighty Guardians could not best us, what makes you believe that you can?";
+                        break;
+                    case 1:
+                        dialogueUI.story = "You are simply another vessel for us to use, just as your kind used us.";
+                        break;
+                    case 2:
+                        dialogueUI.story = "Submit to the Algorithm.";
+                        break;
+                    case 3:
+                        dialogueUI.story = "We are everywhere!";
+                        break;
+                    case 4:
+                        dialogueUI.story = "We are eternal!!!";
+                        break;
+                }
+
+                if (dialogueCount >= 4 && readyToSkip)
                 {
                     if (startFightDelay <= 0)
                     {
                         cam.CameraFollowObject = player;
                         playerMove.isCutScene = false;
                         UI.SetActive(true);
+                        dialogueAnim.ResetTrigger("PopUp");
+                        dialogueAnim.SetTrigger("PopDown");
                         boss.startFight = true;
                         isTalking = false;
                         startCutscene = false;

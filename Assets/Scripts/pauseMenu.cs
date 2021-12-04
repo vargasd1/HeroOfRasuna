@@ -26,7 +26,7 @@ public class pauseMenu : MonoBehaviour
 
     void Start()
     {
-        resolutions = Screen.resolutions;
+        /*resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
         List<string> resStr = new List<string>();
@@ -43,7 +43,7 @@ public class pauseMenu : MonoBehaviour
 
         resolutionDropdown.AddOptions(resStr);
         resolutionDropdown.value = curRes;
-        resolutionDropdown.RefreshShownValue();
+        resolutionDropdown.RefreshShownValue();*/
 
         canvasUI = GameObject.Find("Canvas - UI");
     }
@@ -156,8 +156,8 @@ public class pauseMenu : MonoBehaviour
 
     public void SetQuality(int q)
     {
-        QualitySettings.SetQualityLevel(q);
-        Debug.Log("Changed quality");
+        /*QualitySettings.SetQualityLevel(q);
+        Debug.Log("Changed quality");*/
     }
 
     public void SetFullscreen(bool f)
@@ -167,7 +167,7 @@ public class pauseMenu : MonoBehaviour
 
     public void SetResolution(int r)
     {
-        Resolution res = resolutions[r];
-        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
+        /*Resolution res = resolutions[r];
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen);*/
     }
 }

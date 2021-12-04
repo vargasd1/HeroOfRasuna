@@ -123,8 +123,8 @@ public class PlayerMovement : MonoBehaviour
 
                 move = Quaternion.Euler(new Vector3(0, 90, 0)) * northSouthDir;
 
-                Vector3 rightMovement = eastWestDir * playerSpeed * Input.GetAxis("Horizontal");
-                Vector3 upMovement = northSouthDir * playerSpeed * Input.GetAxis("Vertical");
+                Vector3 rightMovement = eastWestDir * playerSpeed * Input.GetAxisRaw("Horizontal");
+                Vector3 upMovement = northSouthDir * playerSpeed * Input.GetAxisRaw("Vertical");
 
                 move = Vector3.Normalize(rightMovement + upMovement);
 
@@ -199,7 +199,6 @@ public class PlayerMovement : MonoBehaviour
             //decrement overclock time
             if (overclock)
             {
-                //Debug.Log("Overclock");
                 overclockTime -= Time.fixedUnscaledDeltaTime;
                 overclockChargedAmt = ((overclockTime + 1f) / 6f) * 100f;
                 if (overclockTime <= 0f)
@@ -218,7 +217,6 @@ public class PlayerMovement : MonoBehaviour
             //transition the time back to normal
             else if (overclockTransition)
             {
-                Debug.Log("Overclock Transition");
                 overclockTransitionTime -= Time.fixedUnscaledDeltaTime;
                 overclockChargedAmt = ((overclockTransitionTime - 1f) / 6f) * 100f;
                 //slowly return back to normal time. increase pitches of sounds as time goes back
@@ -231,7 +229,6 @@ public class PlayerMovement : MonoBehaviour
                 if (overclockTransitionTime <= 1f)
                 {
                     //set everything back to normal time
-                    //Debug.Log("Overclock off");
                     overclockTransition = false;
                     overclockTransitionTime = 2f;
                     Time.timeScale = 1f;

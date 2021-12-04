@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
                     // Find the look at rotation for the player
                     Quaternion toRotation = Quaternion.LookRotation(move, Vector3.up);
                     // Slerp the player's rotation towards the toRotation
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 1000 * Time.unscaledDeltaTime);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, 1000f * Time.unscaledDeltaTime);
                 }
             }
             else

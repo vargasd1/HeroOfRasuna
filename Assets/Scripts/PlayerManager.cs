@@ -87,7 +87,11 @@ public class PlayerManager : MonoBehaviour
             // Lerps health
             playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.05f);
             if (playerHealth > 99.8f) playerHealth = 100;
-            else if (playerHealth < 1f) playerHealth = 0f;
+            else if (playerHealth < 1f)
+            {
+                playerHealth = 0f;
+                FindObjectOfType<loadNextLevel>().RestartLevel();
+            }
 
             // Lowers invinc tiemr
             if (isInvinc) invincTimer -= Time.unscaledDeltaTime;

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PuzzleActive : MonoBehaviour
 {
     public GameObject discOuter, discMid, discInner, camPuzzle, playerObj, puzzleUI, canvasUI, camMain, camGate;
+    public Image innerImg, midImg, outImg;
     float inRot, midRot, outRot, startIn, startMid, startOut, time = 0f;
     int selectedPiece = 0;
     public bool finishPuzzle = false;
@@ -40,12 +41,34 @@ public class PuzzleActive : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.W))
                 {
+                    switch(selectedPiece)
+                    {
+                        case 0:
+                            innerImg.rectTransform.localScale = Vector3.one;
+                            midImg.rectTransform.localScale = Vector3.one * 2f;
+                            break;
+                        case 1:
+                            midImg.rectTransform.localScale = Vector3.one;
+                            outImg.rectTransform.localScale = Vector3.one * 2f;
+                            break;
+                    }
                     ++selectedPiece;
                     if (selectedPiece > 2) selectedPiece = 2;
                     HighlightPuzzle();
                 }
                 else if (Input.GetKeyDown(KeyCode.S))
                 {
+                    switch (selectedPiece)
+                    {
+                        case 1:
+                            innerImg.rectTransform.localScale = Vector3.one * 2f;
+                            midImg.rectTransform.localScale = Vector3.one;
+                            break;
+                        case 2:
+                            midImg.rectTransform.localScale = Vector3.one * 2f;
+                            outImg.rectTransform.localScale = Vector3.one;
+                            break;
+                    }
                     --selectedPiece;
                     if (selectedPiece < 0) selectedPiece = 0;
                     HighlightPuzzle();

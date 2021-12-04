@@ -242,7 +242,8 @@ MonoBehaviour:
   overlay: {fileID: 0}
   overclockInactive: {fileID: 0}
   overclockActive: {fileID: 0}
-  hourglass: {fileID: 0}
+  hourglass: {fileID: 8112623543166573764, guid: b6fa9a674c2cc1245b77bc9f2665572c,
+    type: 3}
   overclockCD: {fileID: 0}
   overclockTime: 5
   overclockTransitionTime: 2

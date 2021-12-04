@@ -6097,6 +6097,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8112623543166573764, guid: b6fa9a674c2cc1245b77bc9f2665572c,
         type: 3}
+    - target: {fileID: 8543143971074826392, guid: 0506de41b2cee054f99d864d24463030,
+        type: 3}
+      propertyPath: overclockChargedAmt
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0506de41b2cee054f99d864d24463030, type: 3}
 --- !u!1001 &702759278

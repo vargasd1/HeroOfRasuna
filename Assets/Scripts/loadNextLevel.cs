@@ -57,4 +57,29 @@ public class loadNextLevel : MonoBehaviour
 
         }
     }
+
+    public void RestartLevel()
+    {
+        StartCoroutine(Restart());
+    }
+
+    IEnumerator Restart()
+    {
+        yield return new WaitForSeconds(2f);
+        player.isCutScene = true;
+        fadeOut = true;
+        loadScreen.gameObject.SetActive(true);
+        switch (SceneManager.GetActiveScene().buildIndex)//case numbers change by build
+        {
+            case 1:
+                loadingScreenScript.scene = "FirstFloor";
+                break;
+            case 2:
+                loadingScreenScript.scene = "SecondFloor";
+                break;
+            case 3:
+                loadingScreenScript.scene = "ThirdFloor";
+                break;
+        }
+    }
 }

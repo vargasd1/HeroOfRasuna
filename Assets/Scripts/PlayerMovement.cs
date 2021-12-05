@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isCutSceneMoving = false;
 
     public float playerSpeed = 5.0f;
+    public GameObject swingPart;
 
     private Vector3 northSouthDir, eastWestDir, playerVelocity;
     private Vector3 move;
@@ -314,6 +315,7 @@ public class PlayerMovement : MonoBehaviour
         playerMan.canAttack = true;
         playerMan.attackNum = 0;
         anim.SetInteger("swingCount", 0);
+        swingPart.gameObject.SetActive(false);
     }
 
     public void isAttackingSet()
@@ -321,6 +323,22 @@ public class PlayerMovement : MonoBehaviour
         // Used for the animator to tell the player script if to move or not, and when they frames of the attack are out
         isAttacking = !isAttacking;
         playerMan.canAttack = true;
+    }
+
+    public void playAttackSound()
+    {
+        switch (playerMan.attackNum)
+        {
+            case 1:
+                FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
+                break;
+            case 2:
+                FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 2 (clip 3)");
+                break;
+            case 3:
+                FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 3 (clip 2)");
+                break;
+        }
     }
 
     public void isCastingSet()

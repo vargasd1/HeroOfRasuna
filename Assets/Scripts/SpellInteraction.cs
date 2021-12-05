@@ -32,6 +32,7 @@ public class SpellInteraction : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerManager>().gameObject.transform;
+        boss = FindObjectOfType<SuravAI>();
         if (spellType == "attack")
         {
             rb = GetComponent<Rigidbody>();
@@ -110,6 +111,7 @@ public class SpellInteraction : MonoBehaviour
                         {
                             enemR.health -= 34;
                             enemR.alreadyHitByPlayer = true;
+                            enemR.hitDelay = 0.15f;
                             enemR.anim.SetTrigger("Hit");
                             enemR.state = EnemyRangedAI.State.hitStunned;
                         }
@@ -117,15 +119,18 @@ public class SpellInteraction : MonoBehaviour
                         {
                             enem.health -= 34;
                             enem.alreadyHitByPlayer = true;
+                            enem.hitDelay = 0.15f;
                             enem.anim.SetTrigger("Hit");
                             enem.state = EnemyAI.State.hitStunned;
                         }
                         break;
                     case "Boss":
-                        if(boss.state != SuravAI.State.Talking)
+                        if (boss.state != SuravAI.State.Talking)
                         {
                             boss = hit.gameObject.GetComponent<SuravAI>();
                             boss.health -= 20;
+                            boss.wasHitByPlayer = true;
+                            boss.hitDelay = 0.5f;
                         }
                         break;
 

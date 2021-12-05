@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviour
     public bool isInvinc = false;
     public float invincTimer = 0;
     public bool isCheckingForClick = false;
+    public GameObject swingPart;
 
     // variables for heal (E)
     public ParticleSystem healParticles;
@@ -55,8 +56,9 @@ public class PlayerManager : MonoBehaviour
     {
         anim = gameObject.GetComponent<Animator>();
         playerMove = gameObject.GetComponent<PlayerMovement>();
-        audioScript = FindObjectOfType<AudioManager>();
+        //audioScript = FindObjectOfType<AudioManager>();
         canAttack = true;
+        swingPart.gameObject.SetActive(false);
 
         // Ignore Collision Boxes/Spheres/Etc. of specified Layers
         Physics.IgnoreLayerCollision(10, 11); // Props ignore XP
@@ -157,13 +159,15 @@ public class PlayerManager : MonoBehaviour
                         anim.SetInteger("swingCount", attackNum);
                         //audioScript.PlayUninterrupted("Hit 1");
                         //AudioAnywhere.PlayUninterruptedAnywhere("Hit 1");
-                        FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
+                        //FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
+                        swingPart.gameObject.SetActive(true);
                     }
                     else if (attackNum > 0 && isCheckingForClick && canAttack)
                     {
                         //FindObjectOfType<AudioManager>().PlayUninterrupted("Hit " + (attackNum == 1 ? 2 : 3) + " (clip " + (attackNum == 1 ? 3 : 2) + ")");
-                        if(attackNum == 1) FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 2 (clip 3)");
-                        else FindObjectOfType<AudioManager>().PlayInSeconds("Hit 3 (clip 2)", .3f);
+                        //if (attackNum == 1) FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 2 (clip 3)");
+                        //else FindObjectOfType<AudioManager>().PlayInSeconds("Hit 3 (clip 2)", .3f);
+                        swingPart.gameObject.SetActive(true);
                         attackNum++;
                         isCheckingForClick = false;
                         anim.SetInteger("swingCount", attackNum);

@@ -44,7 +44,6 @@ public class FirstFloorDoorScript : MonoBehaviour
             //playerMove.overlay.SetActive(false);
             playerMove.overclockTime = 5;
             playerMove.overclockChargedAmt = 0f;
-            playerMove.overclockCD.fillAmount = 0;
             /*audioScript.Stop("Overclock");
             audioScript.ChangePitch("Overclock", 1f);
             audioScript.ResetSounds();*/

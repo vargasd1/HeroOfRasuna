@@ -59,10 +59,8 @@ public class CameraFocusEnemy : MonoBehaviour
             player.overclockTransitionTime = 2f;
             Time.timeScale = 1f;
             Time.fixedDeltaTime = Time.timeScale * .02f;
-            //player.overlay.SetActive(false);
             player.overclockTime = 5;
             player.overclockChargedAmt = 0f;
-            player.overclockCD.fillAmount = 0;
             /*audioScript.Stop("Overclock");
             audioScript.ChangePitch("Overclock", 1f);
             audioScript.ResetSounds();*/

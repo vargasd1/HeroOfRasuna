@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
     // variables for heal (E)
     public ParticleSystem healParticles;
     //public Image healthUI;
-    public Image healCD;
+    public Image healCD, healthImg;
     public float playerHealth = 100f;
     public float playerTargetHealth = 100f;
     float playerMaxHealth = 100f;
@@ -69,6 +69,8 @@ public class PlayerManager : MonoBehaviour
 
         Physics.IgnoreLayerCollision(15, 15); // PropFrac ignore other PropFrac
         Physics.IgnoreLayerCollision(15, 12); // PropFrac ignore Player
+
+        healthImg = GameObject.Find("/Canvas - UI/Overclock_And_Health/Health").GetComponent<Image>();
     }
 
     void Update()
@@ -86,6 +88,7 @@ public class PlayerManager : MonoBehaviour
         {
             // Lerps health
             playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.05f);
+            healthImg.fillAmount = playerHealth / 100f;
             if (playerHealth > 99.8f) playerHealth = 100;
             else if (playerHealth < 1f)
             {

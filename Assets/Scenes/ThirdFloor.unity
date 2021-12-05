@@ -3144,6 +3144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Cavnas
       objectReference: {fileID: 0}
+    - target: {fileID: 2372850871929768412, guid: 7aef2827df431ea419faccf497a26dfb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aef2827df431ea419faccf497a26dfb, type: 3}
 --- !u!114 &238772393 stripped
@@ -4170,12 +4175,12 @@ PrefabInstance:
         type: 3}
       propertyPath: overclockInactive
       value: 
-      objectReference: {fileID: 1145331635}
+      objectReference: {fileID: 0}
     - target: {fileID: 8543143971074826392, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: overclockActive
       value: 
-      objectReference: {fileID: 1021158773}
+      objectReference: {fileID: 0}
     - target: {fileID: 8543143971074826392, guid: 0506de41b2cee054f99d864d24463030,
         type: 3}
       propertyPath: overclockCD
@@ -10941,12 +10946,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33559bb8062d3804fb5fe45130a8e6de, type: 3}
---- !u!1 &1021158773 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8094645548900953026, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1379914633}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1026430408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12529,12 +12528,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adc58d22f06f0654583042a3e77087ba, type: 3}
---- !u!1 &1145331635 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8133444350005158168, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1379914633}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1146464443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14597,11 +14590,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 615004240753365862, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -214
-      objectReference: {fileID: 0}
     - target: {fileID: 4687984395228444201, guid: 248adf66eb43b8a44aa7c95d3ab4efc4,
         type: 3}
       propertyPath: m_Name

@@ -36,16 +36,14 @@ public class PlayerMovement : MonoBehaviour
     private bool doRotation = false;
 
     //variables for overclock
-    public GameObject overlay, overclockInactive, overclockActive;
     public GameObject hourglass;
-    public Image overclockCD;
     float slowdownFactor = .05f;
     public float overclockTime = 5f;
     public float overclockTransitionTime = 2f;
     //float overclockCDTime = 0f;
     public bool overclock = false;
     public bool overclockTransition = false;
-    public float overclockChargedAmt = 100f;
+    public float overclockChargedAmt = 0f;
 
     //public Camera mainCam;
     //private AudioManager audioScript;
@@ -57,10 +55,6 @@ public class PlayerMovement : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         playerMan = gameObject.GetComponent<PlayerManager>();
         anim.updateMode = AnimatorUpdateMode.UnscaledTime;
-        //audioScript = FindObjectOfType<AudioManager>();
-        overclockInactive = GameObject.Find("/Canvas - UI/Overclock/OverclockInactive");
-        overclockActive = GameObject.Find("/Canvas - UI/Overclock/OverclockActive");
-        overclockCD = GameObject.Find("/Canvas - UI/Overclock/OverclockCharge").GetComponent<Image>();
     }
 
     void Update()
@@ -233,8 +227,6 @@ public class PlayerMovement : MonoBehaviour
                     overclockTransitionTime = 2f;
                     Time.timeScale = 1f;
                     Time.fixedDeltaTime = Time.timeScale * .02f;
-                    overclockInactive.SetActive(true);
-                    overclockActive.SetActive(false);
                     overclockChargedAmt = 0f;
                     /*audioScript.Stop("Overclock");
                     audioScript.ChangePitch("Overclock", 1f);
@@ -246,18 +238,6 @@ public class PlayerMovement : MonoBehaviour
 
                 }
             }
-            else
-            {
-                //only edit the cooldown shadows/effects for OVERCLOCK SPECIFICALLY here when not actively using overclock
-                //overclockCDTime -= Time.fixedUnscaledDeltaTime;
-                //if (overclockCDTime < 0f) overclockCDTime = 0f;
-                //float chargeHeight = AnimMath.Map((100f - overclockChargedAmt) / 1.4285f, 0, 100, 70, 0);
-                //float chargeHeight = Mathf.Lerp(70f, 0f, (overclockChargedAmt / 100f));
-                //overclockCD.rectTransform.sizeDelta = new Vector2(70, chargeHeight);
-                //overclockCD.fillAmount = Mathf.Clamp(overclockChargedAmt / 100f, 0f, 1f);
-                //Debug.Log("chargeHeight: " + chargeHeight);
-            }
-            overclockCD.fillAmount = Mathf.Clamp(overclockChargedAmt / 100f, 0f, 1f);
         }//(!isDead && !isPaused)
     }//FixedUpdate()
 
@@ -270,10 +250,6 @@ public class PlayerMovement : MonoBehaviour
         Time.fixedDeltaTime = Time.timeScale * .02f;
         overclock = true;
         overclockChargedAmt = 0;
-        //overlay.SetActive(true);
-        overclockInactive.SetActive(false);
-        overclockActive.SetActive(true);
-        //overclockCDTime = 10f;
 
 
         //slowing down decrease pitches of sounds - adjust for later

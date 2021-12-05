@@ -181,6 +181,7 @@ MonoBehaviour:
   isInvinc: 0
   invincTimer: 0
   isCheckingForClick: 0
+  swingPart: {fileID: 6157102515922175020}
   healParticles: {fileID: 7327815876779475571, guid: 48427a172c623ca40afa57fbf5cba2c2,
     type: 3}
   healCD: {fileID: 0}
@@ -239,6 +240,7 @@ MonoBehaviour:
   isCutScene: 0
   isCutSceneMoving: 0
   playerSpeed: 6
+  swingPart: {fileID: 6157102515922175020}
   overlay: {fileID: 0}
   overclockInactive: {fileID: 0}
   overclockActive: {fileID: 0}
@@ -1179,6 +1181,12 @@ PrefabInstance:
 --- !u!4 &5065180638292061737 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9001009990681680721, guid: 6329a03a3be8cae4ca3bbba06547075e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4224693185366422904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6157102515922175020 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8057867773892882772, guid: 6329a03a3be8cae4ca3bbba06547075e,
     type: 3}
   m_PrefabInstance: {fileID: 4224693185366422904}
   m_PrefabAsset: {fileID: 0}

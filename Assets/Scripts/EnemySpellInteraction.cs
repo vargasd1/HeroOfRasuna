@@ -8,22 +8,24 @@ public class EnemySpellInteraction : MonoBehaviour
     private PlayerMovement playerMove;
     public GameObject collisionFlash;
     public Rigidbody rb;
+    public bool isBossMinigun = false;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerManager>();
         playerMove = player.GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * 20;
+        //rb.velocity = transform.forward * 20;
     }
 
     void OnTriggerEnter(Collider hit)
     {
-        if (hit.gameObject.tag == "Player")
+        if (hit.gameObject.tag == "Player" && !player.isInvinc)
         {
-            player.playerTargetHealth -= 25;
+            if (isBossMinigun) player.playerTargetHealth -= 10;
+            else player.playerTargetHealth -= 25;
             player.isInvinc = true;
-            player.invincTimer = 5;
+            player.invincTimer = 1f;
             player.anim.SetTrigger("Hit");
             playerMove.playerHit = true;
             Destroy(gameObject);

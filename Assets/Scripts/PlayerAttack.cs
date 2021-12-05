@@ -43,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
                     if (!enemR.alreadyHitByPlayer)
                     {
                         enemR.health -= 34;
+                        enemR.hitDelay = 0.15f;
                         enemR.alreadyHitByPlayer = true;
                         enemR.anim.SetTrigger("Hit");
                         enemR.state = EnemyRangedAI.State.hitStunned;
@@ -53,6 +54,7 @@ public class PlayerAttack : MonoBehaviour
                     if (!enem.alreadyHitByPlayer)
                     {
                         enem.health -= 34;
+                        enem.hitDelay = 0.15f;
                         enem.alreadyHitByPlayer = true;
                         enem.anim.SetTrigger("Hit");
                         enem.state = EnemyAI.State.hitStunned;
@@ -62,7 +64,12 @@ public class PlayerAttack : MonoBehaviour
             else if (hit.tag == "Boss")
             {
                 boss = hit.gameObject.GetComponent<SuravAI>();
-                boss.health -= 20;
+                if (!boss.wasHitByPlayer)
+                {
+                    boss.health -= 20;
+                    boss.wasHitByPlayer = true;
+                    boss.hitDelay = 0.2f;
+                }
             }
             else if (hit.tag == "Prop1")
             {

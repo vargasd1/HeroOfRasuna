@@ -41,6 +41,7 @@ public class EnemyRangedAI : MonoBehaviour
     private float timeBetweenAttacks = 0f;
     public bool alreadyHitPlayer = false;
     public bool alreadyHitByPlayer = false;
+    public float hitDelay = 0f;
     public bool isAttacking = false;
     public bool attackAnimIsPlaying = false;
     public GameObject spellObj;
@@ -77,6 +78,19 @@ public class EnemyRangedAI : MonoBehaviour
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
         if (!pauseMenu.GamePaused)
         {
+            if (alreadyHitByPlayer)
+            {
+                if (hitDelay <= 0)
+                {
+                    anim.ResetTrigger("Hit");
+                    alreadyHitByPlayer = false;
+                }
+                else
+                {
+                    hitDelay -= Time.unscaledDeltaTime;
+                }
+            }
+
             switch (state)
             {
                 case State.Spawning:
@@ -253,17 +267,9 @@ public class EnemyRangedAI : MonoBehaviour
         attackAnimIsPlaying = false;
     }
 
-    public void resetHitStun()
-    {
-        alreadyHitByPlayer = false;
-        anim.ResetTrigger("Hit");
-    }
-
     public void resetDamageEnemy()
     {
         state = State.Idle;
-        anim.ResetTrigger("Hit");
-        alreadyHitByPlayer = false;
         anim.SetBool("HitAgain", false);
         attackAnimIsPlaying = false;
     }
@@ -290,7 +296,7 @@ public class EnemyRangedAI : MonoBehaviour
             // make lightBlast prefab rotate towards click
             lightBlast.transform.LookAt(pointToLook);
             // addForce in the forward direction so the lightBlast moved towards click
-            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 20);
+            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1500);
         }
     }
 }

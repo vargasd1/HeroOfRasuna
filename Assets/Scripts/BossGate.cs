@@ -9,6 +9,8 @@ public class BossGate : MonoBehaviour
     public bool openDoor = false;
     private bool openOnce = true;
     public bool closeDoor = false;
+    public GameObject dust;
+    private bool doOnce = true;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,11 @@ public class BossGate : MonoBehaviour
             if (Vector3.Distance(transform.position, new Vector3(31.74f, 0, 0)) < .05f)
             {
                 transform.position = new Vector3(31.74f, 0, 0);
+                if (doOnce)
+                {
+                    Instantiate(dust, new Vector3(31.74f, 0, 0), Quaternion.identity, null);
+                    doOnce = false;
+                }
                 closeDoor = false;
             }
         }

@@ -41,6 +41,7 @@ public class EnemyAI : MonoBehaviour
     private float timeBetweenAttacks = 0f;
     public bool alreadyHitPlayer = false;
     public bool alreadyHitByPlayer = false;
+    public float hitDelay = 0f;
     public bool isAttacking = false;
     public bool attackAnimIsPlaying = false;
 
@@ -75,6 +76,19 @@ public class EnemyAI : MonoBehaviour
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
         if (!pauseMenu.GamePaused)
         {
+            if (alreadyHitByPlayer)
+            {
+                if (hitDelay <= 0)
+                {
+                    anim.ResetTrigger("Hit");
+                    alreadyHitByPlayer = false;
+                }
+                else
+                {
+                    hitDelay -= Time.unscaledDeltaTime;
+                }
+            }
+
             switch (state)
             {
                 case State.Spawning:
@@ -119,7 +133,6 @@ public class EnemyAI : MonoBehaviour
                     anim.SetBool("isMoving", false);
                     anim.SetBool("Stunned", true);
                     resetAttackEnemy();
-                    resetHitStun();
                     resetDamageEnemy();
                     // Decrement stun timer
                     stunnedTimer -= Time.deltaTime;
@@ -252,18 +265,10 @@ public class EnemyAI : MonoBehaviour
         attackAnimIsPlaying = false;
     }
 
-    public void resetHitStun()
-    {
-        alreadyHitByPlayer = false;
-        anim.ResetTrigger("Hit");
-    }
-
     public void resetDamageEnemy()
     {
         if (stunnedTimer >= 0) state = State.Stunned;
         else state = State.Idle;
-        anim.ResetTrigger("Hit");
-        alreadyHitByPlayer = false;
         anim.SetBool("HitAgain", false);
         attackAnimIsPlaying = false;
     }

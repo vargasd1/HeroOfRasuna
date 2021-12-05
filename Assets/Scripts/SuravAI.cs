@@ -42,6 +42,13 @@ public class SuravAI : MonoBehaviour
     private bool spawnChargeOnce = true;
     private bool spawnShockOnce = true;
     private bool spawnMeteorOnce = true;
+    public bool wasHitByPlayer = false;
+    public float hitDelay = 0f;
+    private float minigunWindUp = 2f;
+    private float shotgunWindUp = 2f;
+    private bool startMinigun = false;
+    private bool startShotgun = false;
+    GameObject shockwaveCharge;
 
     // Other Vars
     private float bounceCounter = 0.8f;
@@ -53,6 +60,8 @@ public class SuravAI : MonoBehaviour
     private float resetLayerAmt = 0;
     private float resetLayerAlpha = 0;
     public float attackDelay = 5;
+
+    public bool phaseTwo = false;
 
     // Intro Cutscene Var
     public bool startFight = false;
@@ -97,6 +106,23 @@ public class SuravAI : MonoBehaviour
             if (raiseWeight)
             {
                 raiseLayerWeight();
+            }
+
+            if (wasHitByPlayer)
+            {
+                if (hitDelay <= 0)
+                {
+                    wasHitByPlayer = false;
+                }
+                else
+                {
+                    hitDelay -= Time.unscaledDeltaTime;
+                }
+            }
+
+            if (health <= (health / 2))
+            {
+                phaseTwo = true;
             }
         }
 
@@ -143,18 +169,26 @@ public class SuravAI : MonoBehaviour
                 case 1:
                 case 2:
                 case 3:
-                case 4:
                     state = State.ShockwaveAttack;
                     spawnShockOnce = true;
                     spawnChargeOnce = true;
+                    if (!phaseTwo) shockwaveWindUpTimer = 3;
+                    else shockwaveWindUpTimer = 1.5f;
                     break;
+                case 4:
                 case 5:
                 case 6:
-                case 7:
                     state = State.MinigunAttack;
+                    spawnChargeOnce = true;
+                    if (!phaseTwo) minigunWindUp = 1.5f;
+                    else minigunWindUp = 0.5f;
                     break;
+                case 7:
                 case 8:
                     state = State.ShotgunAttack;
+                    spawnChargeOnce = true;
+                    if (!phaseTwo) shotgunWindUp = 1.5f;
+                    else shotgunWindUp = 0.5f;
                     break;
                 case 9:
                     state = State.MeteorShower;
@@ -170,33 +204,40 @@ public class SuravAI : MonoBehaviour
                     state = State.ShockwaveAttack;
                     spawnShockOnce = true;
                     spawnChargeOnce = true;
+                    if (!phaseTwo) shockwaveWindUpTimer = 3;
+                    else shockwaveWindUpTimer = 1.5f;
                     break;
                 case 1:
                 case 2:
                 case 3:
-                    state = State.MinigunAttack;
-                    break;
                 case 4:
+                    state = State.MinigunAttack;
+                    spawnChargeOnce = true;
+                    if (!phaseTwo) minigunWindUp = 1.5f;
+                    else minigunWindUp = 0.5f;
+                    break;
                 case 5:
                 case 6:
-                    state = State.ShotgunAttack;
-                    break;
                 case 7:
                 case 8:
+                    state = State.ShotgunAttack;
+                    spawnChargeOnce = true;
+                    if (!phaseTwo) shotgunWindUp = 1.5f;
+                    else shotgunWindUp = 0.5f;
+                    break;
                 case 9:
                     state = State.MeteorShower;
                     spawnMeteorOnce = true;
                     break;
             }
         }
-        print(state);
     }
 
     private void ShockwaveAttack()
     {
         if (spawnChargeOnce)
         {
-            GameObject shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
+            shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
             spawnChargeOnce = false;
         }
 
@@ -207,7 +248,8 @@ public class SuravAI : MonoBehaviour
                 GameObject shockwave = Instantiate(solarFlareObj, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity, null) as GameObject;
                 spawnShockOnce = false;
                 state = State.Idle;
-                attackDelay = 10;//check for animation time and reset this
+                if (!phaseTwo) attackDelay = 5;//check for animation time and reset this
+                else attackDelay = 2;
             }
         }
         else
@@ -218,40 +260,81 @@ public class SuravAI : MonoBehaviour
 
     private void MinigunAttack()
     {
-        if (miniGunTimer > 0) miniGunTimer -= Time.deltaTime;
-
-        if (miniGunTimer <= 0 && shotCount < 10)
+        if (spawnChargeOnce)
         {
-            SpawnProjectile();
-            miniGunTimer = 0.25f;
-            shotCount++;
+            shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
+            spawnChargeOnce = false;
         }
-        else if (miniGunTimer <= 0 && shotCount >= 10)
+
+        if (minigunWindUp <= 0)
         {
-            state = State.Idle;
-            attackDelay = 5;
-            shotCount = 0;
-            miniGunTimer = 0.3f;
+            Destroy(shockwaveCharge);
+            startMinigun = true;
+        }
+        else
+        {
+            minigunWindUp -= Time.unscaledDeltaTime;
+        }
+
+        if (startMinigun)
+        {
+            if (miniGunTimer > 0) miniGunTimer -= Time.deltaTime;
+
+            if (miniGunTimer <= 0 && shotCount < 10)
+            {
+                SpawnProjectile();
+                miniGunTimer = 0.25f;
+                shotCount++;
+            }
+            else if (miniGunTimer <= 0 && shotCount >= 10)
+            {
+                state = State.Idle;
+                attackDelay = 1;
+                shotCount = 0;
+                miniGunTimer = 0.3f;
+                startMinigun = false;
+            }
         }
     }
 
     private void ShotgunAttack()
     {
-        if (shotGunTimer > 0) shotGunTimer -= Time.deltaTime;
+        if (spawnChargeOnce)
+        {
+            shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
+            spawnChargeOnce = false;
+        }
 
-        if (shotGunTimer <= 0 && shotCount < 4)
+        if (shotgunWindUp <= 0)
         {
-            SpawnTripleProjectile();
-            shotGunTimer = 0.75f;
-            shotCount++;
+            Destroy(shockwaveCharge);
+            startShotgun = true;
         }
-        else if (shotGunTimer <= 0 && shotCount >= 4)
+        else
         {
-            state = State.Idle;
-            attackDelay = 5;
-            shotCount = 0;
-            shotGunTimer = 0.75f;
+            shotgunWindUp -= Time.unscaledDeltaTime;
         }
+
+        if (startShotgun)
+        {
+            if (shotGunTimer > 0) shotGunTimer -= Time.deltaTime;
+
+            if (shotGunTimer <= 0 && shotCount < 4)
+            {
+                SpawnTripleProjectile();
+                shotGunTimer = 0.75f;
+                shotCount++;
+            }
+            else if (shotGunTimer <= 0 && shotCount >= 4)
+            {
+                state = State.Idle;
+                attackDelay = 1;
+                shotCount = 0;
+                shotGunTimer = 0.75f;
+                startShotgun = false;
+            }
+        }
+
     }
 
     private void MeteorAttack()
@@ -262,7 +345,8 @@ public class SuravAI : MonoBehaviour
             GameObject meteor = Instantiate(meteorObj, new Vector3(player.transform.position.x, 0, player.transform.position.z), Quaternion.identity, null) as GameObject;
             spawnMeteorOnce = false;
             state = State.Idle;
-            attackDelay = 10;//check for animation time and reset this
+            if (!phaseTwo) attackDelay = 3;//check for animation time and reset this
+            else attackDelay = 1;
         }
     }
 
@@ -293,6 +377,7 @@ public class SuravAI : MonoBehaviour
     {
         // Spawn prefab
         GameObject lightBlast = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity, null) as GameObject;
+        lightBlast.GetComponent<EnemySpellInteraction>().isBossMinigun = true;
 
         // make y same height, so it doesn't fall up or down
         pointToLook = new Vector3(player.transform.position.x, 1, player.transform.position.z);
@@ -300,7 +385,8 @@ public class SuravAI : MonoBehaviour
         // make lightBlast prefab rotate towards player
         lightBlast.transform.LookAt(pointToLook);
         // addForce in the forward direction so the lightBlast moved towards click
-        lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 50);
+        if (!phaseTwo) lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1000);
+        else lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);
     }
 
     private void SpawnTripleProjectile()
@@ -322,9 +408,18 @@ public class SuravAI : MonoBehaviour
         lightBlast3.transform.Rotate(0, -45, 0);
 
         // addForce in the forward direction so the lightBlast moved towards click
-        lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 50);
-        lightBlast2.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 50);
-        lightBlast3.GetComponent<Rigidbody>().AddForce(lightBlast3.transform.forward * 50);
+        if (!phaseTwo)
+        {
+            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1000);
+            lightBlast2.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1000);
+            lightBlast3.GetComponent<Rigidbody>().AddForce(lightBlast3.transform.forward * 1000);
+        }
+        else
+        {
+            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);
+            lightBlast2.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 4000);
+            lightBlast3.GetComponent<Rigidbody>().AddForce(lightBlast3.transform.forward * 4000);
+        }
     }
 
     void lowerLayerWeight()

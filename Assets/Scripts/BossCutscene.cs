@@ -30,7 +30,7 @@ public class BossCutscene : MonoBehaviour
     private bool movePlayer = false;
     public bool readyToSkip = false;
     public bool isTalking = false;
-    public float startFightDelay = 3f;
+    public float startFightDelay = 2f;
 
     public int dialogueCount = 0;
     private BossDialogue dialogueUI;
@@ -136,14 +136,18 @@ public class BossCutscene : MonoBehaviour
 
                 if (readyToSkip)
                 {
-                    if (dialogueCount < 4) nextPrompt.SetActive(true);
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    if (dialogueCount < 4)
                     {
-                        dialogueUI.textSpeed = 0.05f;
-                        dialogueCount++;
-                        dialogueUI.textChanged = true;
-                        dialogueUI.txt.text = "";
-                        readyToSkip = false;
+                        nextPrompt.SetActive(true);
+
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            dialogueUI.textSpeed = 0.05f;
+                            dialogueCount++;
+                            dialogueUI.textChanged = true;
+                            dialogueUI.txt.text = "";
+                            readyToSkip = false;
+                        }
                     }
                 }
                 else

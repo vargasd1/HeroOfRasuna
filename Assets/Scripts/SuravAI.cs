@@ -62,6 +62,7 @@ public class SuravAI : MonoBehaviour
     public float attackDelay = 5;
 
     public bool phaseTwo = false;
+    bool defeatedOnce = false;
 
     // Intro Cutscene Var
     public bool startFight = false;
@@ -83,6 +84,12 @@ public class SuravAI : MonoBehaviour
         if (health <= 0)
         {
             state = State.Defeated;
+            if (!defeatedOnce)
+            {
+                FindObjectOfType<AudioManager>().Stop("Boss Fight");
+                FindObjectOfType<AudioManager>().Play("Exploration3");
+                defeatedOnce = true;
+            }
         }
         else
         {

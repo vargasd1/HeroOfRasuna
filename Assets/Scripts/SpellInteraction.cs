@@ -186,8 +186,7 @@ public class SpellInteraction : MonoBehaviour
             case "grenade":
                 if (hit.gameObject.tag == "Ground")
                 {
-                    FindObjectOfType<AudioManager>().Play("Light Burst");
-                    //AudioAnywhere.PlayAnywhere("Light Burst");
+                    FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                     Debug.Log("Light burst");
                     Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
                     GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(0, 0, 0)) as GameObject;

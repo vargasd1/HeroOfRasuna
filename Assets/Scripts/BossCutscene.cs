@@ -186,6 +186,8 @@ public class BossCutscene : MonoBehaviour
                         boss.startFight = true;
                         isTalking = false;
                         startCutscene = false;
+                        FindObjectOfType<AudioManager>().Stop("Exploration3");
+                        FindObjectOfType<AudioManager>().Play("Boss Fight");
                     }
                     else
                     {

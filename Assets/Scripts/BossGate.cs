@@ -48,7 +48,7 @@ public class BossGate : MonoBehaviour
                 transform.position = new Vector3(31.74f, 0, 0);
                 if (doOnce)
                 {
-                    Instantiate(dust, new Vector3(31.74f, 0, 0), Quaternion.identity, null);
+                    Instantiate(dust, new Vector3(31.74f, 0, 0), Quaternion.Euler(-90, 90, 0), null);
                     doOnce = false;
                 }
                 closeDoor = false;

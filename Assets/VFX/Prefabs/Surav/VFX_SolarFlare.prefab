@@ -4836,6 +4836,8 @@ GameObject:
   - component: {fileID: 8544595693412219472}
   - component: {fileID: 4528193779436290798}
   - component: {fileID: 823007558015752174}
+  - component: {fileID: 1121971715540892040}
+  - component: {fileID: 987530417972695768}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -4937,6 +4939,36 @@ CapsuleCollider:
   m_Height: 10
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1121971715540892040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879052102372024015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efffdce37e65604984cdbea4157d731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  collisionFlash: {fileID: 0}
+  rb: {fileID: 0}
+  isBossMinigun: 0
+  isShockwave: 0
+--- !u!135 &987530417972695768
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879052102372024015}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6283123738553107895
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,7 +5011,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6283123738553107895}
   serializedVersion: 6
-  lengthInSec: 3.3
+  lengthInSec: 2.3
   simulationSpeed: 1
   stopAction: 2
   cullingMode: 0

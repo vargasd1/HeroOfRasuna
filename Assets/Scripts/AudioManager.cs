@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         // add audio source component to each sound
-        foreach(Sound s in sounds)
+        foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -39,7 +39,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Start theme");
+        //Debug.Log("Start theme");
         Play("Theme");
     }
 
@@ -62,7 +62,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.Log("Sound: " + name + " not found");
+            //Debug.Log("Sound: " + name + " not found");
             return;
         }
 
@@ -80,7 +80,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.Log("Sound: " + name + " not found");
+            //Debug.Log("Sound: " + name + " not found");
             return;
         }
         s.source.Stop();
@@ -116,14 +116,15 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.Log("Sound: " + name + " not found");
+            //Debug.Log("Sound: " + name + " not found");
+            //Debug.Log("Sound: " + name + " not found");
             return;
         }
         else
         {
             //if (pauseMenu.GamePaused) s.source.pitch = .5f;
             //else s.source.pitch = 1;
-            Debug.Log("Sound: " + name);
+            //Debug.Log("Sound: " + name);
             s.source.PlayOneShot(s.source.clip, s.source.volume);
         }
     }
@@ -134,12 +135,12 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.Log("Sound: " + name + " not found");
+            //Debug.Log("Sound: " + name + " not found");
             return;
         }
         else
         {
-            Debug.Log("Changing pitch of " + name);
+            //Debug.Log("Changing pitch of " + name);
             s.source.pitch = pitch;
         }
     }
@@ -148,7 +149,7 @@ public class AudioManager : MonoBehaviour
     {
         // TO USE: FindObjectOfType<AudioManager>().SlowSounds();
         //currently only slows abilities (4-6)
-        for(int x = 4; x < 7; ++x)
+        for (int x = 4; x < 7; ++x)
         {
             Sound s = sounds[x];
             s.source.pitch = .5f;

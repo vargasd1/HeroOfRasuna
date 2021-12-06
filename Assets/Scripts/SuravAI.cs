@@ -48,11 +48,12 @@ public class SuravAI : MonoBehaviour
     private float shotgunWindUp = 2f;
     private bool startMinigun = false;
     private bool startShotgun = false;
-    GameObject shockwaveCharge;
+    private GameObject shockwaveCharge;
+    public float stunTimer = 0;
 
     // Other Vars
     private float bounceCounter = 0.8f;
-    public float health = 800;
+    public float health = 500;
 
     private bool lowerWeight = false;
     private bool raiseWeight = false;
@@ -62,6 +63,10 @@ public class SuravAI : MonoBehaviour
     public float attackDelay = 5;
 
     public bool phaseTwo = false;
+    public bool applyTextureOnce = true;
+    public SkinnedMeshRenderer[] skinnedRends;
+    public MeshRenderer[] meshRends;
+    public Material phaseTwoText;
 
     // Intro Cutscene Var
     public bool startFight = false;
@@ -86,6 +91,23 @@ public class SuravAI : MonoBehaviour
         }
         else
         {
+            if (health <= 400)
+            {
+                if (applyTextureOnce)
+                {
+                    phaseTwo = true;
+                    foreach (SkinnedMeshRenderer i in skinnedRends)
+                    {
+                        i.material = phaseTwoText;
+                    }
+                    foreach (MeshRenderer i in meshRends)
+                    {
+                        i.material = phaseTwoText;
+                    }
+                    applyTextureOnce = false;
+                }
+            }
+
             // Make Surav Bounce up and down
             bounceCounter += Time.deltaTime;
             if (bounceCounter >= Mathf.PI * 2) bounceCounter -= Mathf.PI * 2;
@@ -119,42 +141,50 @@ public class SuravAI : MonoBehaviour
                     hitDelay -= Time.unscaledDeltaTime;
                 }
             }
+        }
 
-            if (health <= (health / 2))
+        if (stunTimer <= 0)
+        {
+            switch (state)
             {
-                phaseTwo = true;
+                case State.Talking:
+                    if (startFight) state = State.Idle;
+                    break;
+                case State.Idle:
+                    if (attackDelay > 0)
+                    {
+                        attackDelay -= Time.deltaTime;
+                        findNewLocation();
+                    }
+                    else
+                    {
+                        pickAttack();
+                        isWandering = false;
+                    }
+                    break;
+                case State.MinigunAttack:
+                    MinigunAttack();
+                    break;
+                case State.ShotgunAttack:
+                    ShotgunAttack();
+                    break;
+                case State.ShockwaveAttack:
+                    ShockwaveAttack();
+                    break;
+                case State.MeteorShower:
+                    MeteorAttack();
+                    break;
+                case State.Defeated:
+                    break;
             }
         }
-
-        switch (state)
+        else
         {
-            case State.Talking:
-                if (startFight) state = State.Idle;
-                break;
-            case State.Idle:
-                //findNewLocation();
-                if (attackDelay > 0) attackDelay -= Time.deltaTime;
-                if (attackDelay <= 0)
-                {
-                    pickAttack();
-                }
-                break;
-            case State.MinigunAttack:
-                MinigunAttack();
-                break;
-            case State.ShotgunAttack:
-                ShotgunAttack();
-                break;
-            case State.ShockwaveAttack:
-                ShockwaveAttack();
-                break;
-            case State.MeteorShower:
-                MeteorAttack();
-                break;
-            case State.Defeated:
-                break;
+            state = State.Idle;
+            attackDelay = 2f;
+            stunTimer -= Time.deltaTime;
+            agent.SetDestination(transform.position);
         }
-
     }
 
     private void pickAttack()
@@ -173,21 +203,21 @@ public class SuravAI : MonoBehaviour
                     spawnShockOnce = true;
                     spawnChargeOnce = true;
                     if (!phaseTwo) shockwaveWindUpTimer = 3;
-                    else shockwaveWindUpTimer = 1.5f;
+                    else shockwaveWindUpTimer = 1f;
                     break;
                 case 4:
                 case 5:
                 case 6:
                     state = State.MinigunAttack;
                     spawnChargeOnce = true;
-                    if (!phaseTwo) minigunWindUp = 1.5f;
+                    if (!phaseTwo) minigunWindUp = 2f;
                     else minigunWindUp = 0.5f;
                     break;
                 case 7:
                 case 8:
                     state = State.ShotgunAttack;
                     spawnChargeOnce = true;
-                    if (!phaseTwo) shotgunWindUp = 1.5f;
+                    if (!phaseTwo) shotgunWindUp = 2f;
                     else shotgunWindUp = 0.5f;
                     break;
                 case 9:
@@ -205,7 +235,7 @@ public class SuravAI : MonoBehaviour
                     spawnShockOnce = true;
                     spawnChargeOnce = true;
                     if (!phaseTwo) shockwaveWindUpTimer = 3;
-                    else shockwaveWindUpTimer = 1.5f;
+                    else shockwaveWindUpTimer = 1f;
                     break;
                 case 1:
                 case 2:
@@ -213,7 +243,7 @@ public class SuravAI : MonoBehaviour
                 case 4:
                     state = State.MinigunAttack;
                     spawnChargeOnce = true;
-                    if (!phaseTwo) minigunWindUp = 1.5f;
+                    if (!phaseTwo) minigunWindUp = 2f;
                     else minigunWindUp = 0.5f;
                     break;
                 case 5:
@@ -222,7 +252,7 @@ public class SuravAI : MonoBehaviour
                 case 8:
                     state = State.ShotgunAttack;
                     spawnChargeOnce = true;
-                    if (!phaseTwo) shotgunWindUp = 1.5f;
+                    if (!phaseTwo) shotgunWindUp = 2f;
                     else shotgunWindUp = 0.5f;
                     break;
                 case 9:
@@ -238,19 +268,22 @@ public class SuravAI : MonoBehaviour
         if (spawnChargeOnce)
         {
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
+            shockwaveCharge.GetComponent<EnemySpellInteraction>().isChargeUp = true;
             spawnChargeOnce = false;
         }
 
-        if (shockwaveWindUpTimer <= 0)
+        if (shockwaveWindUpTimer <= 0 && health > 0)
         {
             if (spawnShockOnce)
             {
                 GameObject shockwave = Instantiate(solarFlareObj, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.identity, null) as GameObject;
+                shockwave.GetComponentInChildren<EnemySpellInteraction>().isShockwave = true;
                 spawnShockOnce = false;
                 state = State.Idle;
-                if (!phaseTwo) attackDelay = 5;//check for animation time and reset this
-                else attackDelay = 2;
+                if (!phaseTwo) attackDelay = 4;//check for animation time and reset this
+                else attackDelay = 1.5f;
             }
+            Destroy(shockwaveCharge);
         }
         else
         {
@@ -263,12 +296,12 @@ public class SuravAI : MonoBehaviour
         if (spawnChargeOnce)
         {
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
+            shockwaveCharge.GetComponent<EnemySpellInteraction>().isChargeUp = true;
             spawnChargeOnce = false;
         }
 
         if (minigunWindUp <= 0)
         {
-            Destroy(shockwaveCharge);
             startMinigun = true;
         }
         else
@@ -289,10 +322,11 @@ public class SuravAI : MonoBehaviour
             else if (miniGunTimer <= 0 && shotCount >= 10)
             {
                 state = State.Idle;
-                attackDelay = 1;
+                attackDelay = 1.5f;
                 shotCount = 0;
                 miniGunTimer = 0.3f;
                 startMinigun = false;
+                Destroy(shockwaveCharge);
             }
         }
     }
@@ -302,12 +336,12 @@ public class SuravAI : MonoBehaviour
         if (spawnChargeOnce)
         {
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
+            shockwaveCharge.GetComponent<EnemySpellInteraction>().isChargeUp = true;
             spawnChargeOnce = false;
         }
 
         if (shotgunWindUp <= 0)
         {
-            Destroy(shockwaveCharge);
             startShotgun = true;
         }
         else
@@ -328,10 +362,11 @@ public class SuravAI : MonoBehaviour
             else if (shotGunTimer <= 0 && shotCount >= 4)
             {
                 state = State.Idle;
-                attackDelay = 1;
+                attackDelay = 1.5f;
                 shotCount = 0;
                 shotGunTimer = 0.75f;
                 startShotgun = false;
+                Destroy(shockwaveCharge);
             }
         }
 
@@ -366,10 +401,7 @@ public class SuravAI : MonoBehaviour
 
         if (Vector3.Distance(transform.position, wanderDest) <= 2f)
         {
-            state = State.Idle;
             agent.SetDestination(transform.position);
-            wanderDelay = 5;
-            isWandering = false;
         }
     }
 
@@ -410,9 +442,9 @@ public class SuravAI : MonoBehaviour
         // addForce in the forward direction so the lightBlast moved towards click
         if (!phaseTwo)
         {
-            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1000);
-            lightBlast2.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1000);
-            lightBlast3.GetComponent<Rigidbody>().AddForce(lightBlast3.transform.forward * 1000);
+            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1500);
+            lightBlast2.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1500);
+            lightBlast3.GetComponent<Rigidbody>().AddForce(lightBlast3.transform.forward * 1500);
         }
         else
         {

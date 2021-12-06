@@ -70,7 +70,7 @@ public class SpellInteraction : MonoBehaviour
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-                    FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
+
                     //AudioAnywhere.PlayUninterruptedAnywhere("Stun");
                     if (enemIsRanged)
                     {
@@ -81,6 +81,7 @@ public class SpellInteraction : MonoBehaviour
                             enemR.GetComponent<NavMeshAgent>().SetDestination(enemR.transform.position);
                             Vector3 stunnedPos = new Vector3(enemR.transform.position.x, enemR.transform.position.y + 2, enemR.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enemR.gameObject.transform);
+                            FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                         }
                     }
                     else
@@ -92,8 +93,13 @@ public class SpellInteraction : MonoBehaviour
                             enem.GetComponent<NavMeshAgent>().SetDestination(enem.transform.position);
                             Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
+                            FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                         }
                     }
+                }
+                else if (hit.gameObject.tag == "Boss" && hit.gameObject.tag != "Particles")
+                {
+                    boss.stunTimer = 3f;
                 }
                 break;
             case "attack":
@@ -105,7 +111,6 @@ public class SpellInteraction : MonoBehaviour
                 switch (hit.gameObject.tag)
                 {
                     case "Enemy":
-                        print(hit.gameObject);
                         FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                         if (enemIsRanged)
                         {
@@ -192,7 +197,7 @@ public class SpellInteraction : MonoBehaviour
                     Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
                     GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(0, 0, 0)) as GameObject;
                     stun.GetComponent<SpellInteraction>().spellType = "stun";
-                    print(stun.GetComponent<SpellInteraction>().spellType);
+                    //print(stun.GetComponent<SpellInteraction>().spellType);
                     Destroy(gameObject);
                 }
                 break;

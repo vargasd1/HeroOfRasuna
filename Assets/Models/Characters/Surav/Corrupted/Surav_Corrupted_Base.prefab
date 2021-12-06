@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 6936112930915308315}
   m_Layer: 0
   m_Name: Surav_Corrupted_Base
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -816,7 +816,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8205924092154298455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.934, y: 0, z: -2.51}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3961705442011478649}
@@ -888,8 +888,21 @@ MonoBehaviour:
   solarFlareObj: {fileID: 0}
   chargeObj: {fileID: 0}
   meteorObj: {fileID: 0}
+  wasHitByPlayer: 0
+  hitDelay: 0
   health: 400
   attackDelay: 5
+  phaseTwo: 0
+  applyTextureOnce: 1
+  skinnedRends:
+  - {fileID: 7150622415943204937}
+  meshRends:
+  - {fileID: 7726713234197788759}
+  - {fileID: 714488332564905670}
+  - {fileID: 1456468139728642353}
+  - {fileID: 8090823890638789322}
+  - {fileID: 939044095688998480}
+  phaseTwoText: {fileID: 2100000, guid: 48970d3cc37836c428aaaec5854dd07d, type: 2}
   startFight: 0
   bossRoomObst: {fileID: 0}
   mainRoomObst: {fileID: 0}
@@ -1105,6 +1118,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 285978231626120629}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &1456468139728642353 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: fa6d8d95d097a5549a5a1da6da3aa458,
+    type: 3}
+  m_PrefabInstance: {fileID: 285978231626120629}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1930269632222651092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1184,6 +1203,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daf100bcec68c62449115feed1821f8c, type: 3}
+--- !u!23 &939044095688998480 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: daf100bcec68c62449115feed1821f8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1930269632222651092}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2108541684653983039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: daf100bcec68c62449115feed1821f8c,
@@ -1290,6 +1315,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2174054426804986434}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &714488332564905670 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 533622c838fbeee418dea1c00a3799de,
+    type: 3}
+  m_PrefabInstance: {fileID: 2174054426804986434}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7460763466121758286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1372,6 +1403,12 @@ PrefabInstance:
 --- !u!4 &6918458847423832485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d7f58ab8b56ded94e9ebe0984b3327e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7460763466121758286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8090823890638789322 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: d7f58ab8b56ded94e9ebe0984b3327e5,
     type: 3}
   m_PrefabInstance: {fileID: 7460763466121758286}
   m_PrefabAsset: {fileID: 0}
@@ -1472,6 +1509,12 @@ PrefabInstance:
 --- !u!4 &8895137455002665784 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: edafb69f17a6e1945931c0f3b148d988,
+    type: 3}
+  m_PrefabInstance: {fileID: 9005889867238450387}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7726713234197788759 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: edafb69f17a6e1945931c0f3b148d988,
     type: 3}
   m_PrefabInstance: {fileID: 9005889867238450387}
   m_PrefabAsset: {fileID: 0}

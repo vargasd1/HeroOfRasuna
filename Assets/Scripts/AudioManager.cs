@@ -37,23 +37,52 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // called first
+    void OnEnable()
+    {
+        Debug.Log("OnEnable called");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     void Start()
     {
         //Debug.Log("Start theme");
-        Play("Theme");
+        //Play("Theme");
     }
 
     // play BGM
-    /*void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
-        if (scene.name == "MainMenu") Play("Theme");
-        else
+        switch (SceneManager.GetActiveScene().buildIndex)//case numbers change by build
         {
-            Stop("Theme");
-            Play("Ambient1");
+            case 1:
+                Stop("Theme");
+                Stop("Exploration1");
+                Play("Exploration1");
+                break;
+            case 2:
+                Stop("Exploration1");
+                Stop("Exploration2");
+                Play("Exploration2");
+                break;
+            case 3:
+                Stop("Exploration2");
+                Stop("Exploration3");
+                Stop("Boss Fight");
+                Play("Exploration3");
+                break;
+            case 4:
+                break;
+            default:
+                Stop("Exploration1");
+                Stop("Exploration2");
+                Stop("Exploration3");
+                Stop("Boss Fight");
+                Play("Theme");
+                break;
         }
-    }*/
+    }
 
     // play sound based on input name
     public void Play(string name)
@@ -148,18 +177,34 @@ public class AudioManager : MonoBehaviour
     public void SlowSounds()
     {
         // TO USE: FindObjectOfType<AudioManager>().SlowSounds();
-        //currently only slows abilities (4-6)
-        for (int x = 4; x < 7; ++x)
+        //currently only slows abilities (4-6) and (15-18)
+        for(int x = 4; x < 7; ++x)
         {
             Sound s = sounds[x];
-            s.source.pitch = .5f;
+            s.source.pitch = .4f;
+        }
+        for (int x = 17; x < 19; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = .4f;
+        }
+        //Surav's abilities need to be pitched to the slowed time, but since there's a transition, just use .1
+        for (int x = 15; x < 17; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = .1f;
         }
     }
 
     public void ResetSounds()
     {
-        //currently only slows abilities (4-6)
+        //currently only slows abilities (4-6) and (15-18)
         for (int x = 4; x < 7; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = 1f;
+        }
+        for (int x = 15; x < 19; ++x)
         {
             Sound s = sounds[x];
             s.source.pitch = 1f;

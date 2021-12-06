@@ -29,7 +29,7 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         //health = player.playerHealth / 100f;
-        overclockCharge = player.overclockChargedAmt / 100f;
+        overclockCharge = Mathf.Clamp(player.overclockChargedAmt / 100f, 0f, 1f);
         runningTotal = 0f;
         if (overclockCharge == 1f) notification.SetActive(true);
         else notification.SetActive(false);

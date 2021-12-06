@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonHover : MonoBehaviour, IPointerEnterHandler
+    //IPointerExitHandler
 {
     //Attach this script to the GameObject you would like to have mouse hovering detected on
     //https://gamedev.stackexchange.com/questions/116801/how-can-i-detect-that-the-mouse-is-over-a-button-so-that-i-can-display-some-ui-t
@@ -15,9 +16,9 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     //Detect when Cursor leaves the GameObject
-    public void OnPointerExit(PointerEventData pointerEventData)
+    /*public void OnPointerExit(PointerEventData pointerEventData)
     {
         FindObjectOfType<AudioManager>().PlayUninterrupted("HoverOff");
         //AudioAnywhere.PlayUninterruptedAnywhere("Hover Off");
-    }
+    }*/
 }

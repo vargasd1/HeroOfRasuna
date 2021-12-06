@@ -115,8 +115,6 @@ public class PlayerManager : MonoBehaviour
                 {
                     if (healCDTime <= 0f && playerHealth != playerMaxHealth)
                     {
-                        //audioScript.PlayUninterrupted("Heal");
-                        //AudioAnywhere.PlayUninterruptedAnywhere("Heal");
                         FindObjectOfType<AudioManager>().PlayUninterrupted("Heal");
                         Heal();
                         canAttack = false;
@@ -160,16 +158,10 @@ public class PlayerManager : MonoBehaviour
                         playerMove.lookAtMouse();
                         attackNum++;
                         anim.SetInteger("swingCount", attackNum);
-                        //audioScript.PlayUninterrupted("Hit 1");
-                        //AudioAnywhere.PlayUninterruptedAnywhere("Hit 1");
-                        //FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
                         swingPart.gameObject.SetActive(true);
                     }
                     else if (attackNum > 0 && isCheckingForClick && canAttack)
                     {
-                        //FindObjectOfType<AudioManager>().PlayUninterrupted("Hit " + (attackNum == 1 ? 2 : 3) + " (clip " + (attackNum == 1 ? 3 : 2) + ")");
-                        //if (attackNum == 1) FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 2 (clip 3)");
-                        //else FindObjectOfType<AudioManager>().PlayInSeconds("Hit 3 (clip 2)", .3f);
                         swingPart.gameObject.SetActive(true);
                         attackNum++;
                         isCheckingForClick = false;

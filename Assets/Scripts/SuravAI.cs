@@ -67,6 +67,7 @@ public class SuravAI : MonoBehaviour
     public SkinnedMeshRenderer[] skinnedRends;
     public MeshRenderer[] meshRends;
     public Material phaseTwoText;
+    bool defeatedOnce = false;
 
     // Intro Cutscene Var
     public bool startFight = false;
@@ -88,6 +89,12 @@ public class SuravAI : MonoBehaviour
         if (health <= 0)
         {
             state = State.Defeated;
+            if (!defeatedOnce)
+            {
+                FindObjectOfType<AudioManager>().Stop("Boss Fight");
+                FindObjectOfType<AudioManager>().Play("Exploration3");
+                defeatedOnce = true;
+            }
         }
         else
         {
@@ -270,6 +277,7 @@ public class SuravAI : MonoBehaviour
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
             shockwaveCharge.GetComponent<EnemySpellInteraction>().isChargeUp = true;
             spawnChargeOnce = false;
+            FindObjectOfType<AudioManager>().PlayUninterrupted("SolarFlare");
         }
 
         if (shockwaveWindUpTimer <= 0 && health > 0)
@@ -318,6 +326,7 @@ public class SuravAI : MonoBehaviour
                 SpawnProjectile();
                 miniGunTimer = 0.25f;
                 shotCount++;
+                FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyProjectile");
             }
             else if (miniGunTimer <= 0 && shotCount >= 10)
             {
@@ -358,6 +367,7 @@ public class SuravAI : MonoBehaviour
                 SpawnTripleProjectile();
                 shotGunTimer = 0.75f;
                 shotCount++;
+                FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyProjectile");
             }
             else if (shotGunTimer <= 0 && shotCount >= 4)
             {
@@ -380,6 +390,7 @@ public class SuravAI : MonoBehaviour
             GameObject meteor = Instantiate(meteorObj, new Vector3(player.transform.position.x, 0, player.transform.position.z), Quaternion.identity, null) as GameObject;
             spawnMeteorOnce = false;
             state = State.Idle;
+            FindObjectOfType<AudioManager>().PlayUninterrupted("ArrowRain");
             if (!phaseTwo) attackDelay = 3;//check for animation time and reset this
             else attackDelay = 1;
         }

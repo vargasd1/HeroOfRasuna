@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
             //activate overclock
             if (Input.GetKeyDown(KeyCode.R) && !isDead)
             {
-                if (!overclock && overclockChargedAmt >= 100)
+                if (!overclock && overclockChargedAmt >= 100f)
                 {
                     //audioScript.Play("Overclock");
                     //AudioAnywhere.PlayAnywhere("Overclock");

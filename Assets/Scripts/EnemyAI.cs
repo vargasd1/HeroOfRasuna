@@ -36,6 +36,7 @@ public class EnemyAI : MonoBehaviour
     private float spawnTimer = 2f;
     public GameObject xpOrb;
     public bool orbsDroppedOnce = false;
+    bool dieSoundOnce = false;
 
     // Attack Variables
     private float timeBetweenAttacks = 0f;
@@ -44,6 +45,7 @@ public class EnemyAI : MonoBehaviour
     public float hitDelay = 0f;
     public bool isAttacking = false;
     public bool attackAnimIsPlaying = false;
+    float hitSoundTime = 1f;
 
     //Third Floor Variables
     private bool thirdLevel = false;
@@ -123,6 +125,13 @@ public class EnemyAI : MonoBehaviour
                     break;
                 case State.Attacking:
                     AttackPlayer();
+                    if (hitSoundTime < 0f)
+                    {
+                        FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
+                        hitSoundTime = 1f;
+                    }
+                    else if (hitSoundTime > 0.6f) { }//do nothing
+                    else hitSoundTime -= Time.deltaTime;
                     break;
                 case State.hitStunned:
                     agent.speed = 0f;
@@ -145,6 +154,11 @@ public class EnemyAI : MonoBehaviour
                 case State.Dead:
                     // Play Death Animation
                     anim.SetTrigger("Died");
+                    if (!dieSoundOnce)
+                    {
+                        FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyDissolve");
+                        dieSoundOnce = true;
+                    }
                     // STOP MOVING
                     agent.speed = 0f;
                     if (!orbsDroppedOnce)
@@ -239,6 +253,7 @@ public class EnemyAI : MonoBehaviour
                     anim.SetTrigger("Attack");
                     timeBetweenAttacks = 3f;
                     agent.speed = 0f;
+                    hitSoundTime = 0.6f;
                 }
                 else
                 {

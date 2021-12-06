@@ -176,18 +176,34 @@ public class AudioManager : MonoBehaviour
     public void SlowSounds()
     {
         // TO USE: FindObjectOfType<AudioManager>().SlowSounds();
-        //currently only slows abilities (4-6)
+        //currently only slows abilities (4-6) and (15-18)
         for(int x = 4; x < 7; ++x)
         {
             Sound s = sounds[x];
-            s.source.pitch = .5f;
+            s.source.pitch = .4f;
+        }
+        for (int x = 17; x < 19; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = .4f;
+        }
+        //Surav's abilities need to be pitched to the slowed time, but since there's a transition, just use .1
+        for (int x = 15; x < 17; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = .1f;
         }
     }
 
     public void ResetSounds()
     {
-        //currently only slows abilities (4-6)
+        //currently only slows abilities (4-6) and (15-18)
         for (int x = 4; x < 7; ++x)
+        {
+            Sound s = sounds[x];
+            s.source.pitch = 1f;
+        }
+        for (int x = 15; x < 19; ++x)
         {
             Sound s = sounds[x];
             s.source.pitch = 1f;

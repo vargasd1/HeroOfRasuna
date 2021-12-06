@@ -18,29 +18,6 @@ public class loadNextLevel : MonoBehaviour
         loadScreen = GameObject.FindGameObjectWithTag("loadingScreen").GetComponent<Image>();
 
         NextFloorPlayer.FillValues(player.gameObject);
-
-        /*switch (SceneManager.GetActiveScene().buildIndex)//case numbers change by build
-        {
-            case 1:
-                FindObjectOfType<AudioManager>().Stop("Theme");
-                FindObjectOfType<AudioManager>().Play("Exploration1");
-                break;
-            case 2:
-                FindObjectOfType<AudioManager>().Stop("Exploration1");
-                FindObjectOfType<AudioManager>().Play("Exploration2");
-                break;
-            case 3:
-                FindObjectOfType<AudioManager>().Stop("Exploration2");
-                FindObjectOfType<AudioManager>().Play("Exploration3");
-                break;
-            default:
-                FindObjectOfType<AudioManager>().Stop("Exploration1");
-                FindObjectOfType<AudioManager>().Stop("Exploration2");
-                FindObjectOfType<AudioManager>().Stop("Exploration3");
-                FindObjectOfType<AudioManager>().Stop("Boss Fight");
-                FindObjectOfType<AudioManager>().Play("Theme");
-                break;
-        }*/
     }
 
     private void Update()

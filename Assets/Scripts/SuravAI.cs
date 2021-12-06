@@ -159,6 +159,7 @@ public class SuravAI : MonoBehaviour
                 MeteorAttack();
                 break;
             case State.Defeated:
+                FindObjectOfType<AudioManager>().Stop("SolarFlare");
                 break;
         }
 
@@ -246,6 +247,7 @@ public class SuravAI : MonoBehaviour
         {
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
             spawnChargeOnce = false;
+            FindObjectOfType<AudioManager>().PlayUninterrupted("SolarFlare");
         }
 
         if (shockwaveWindUpTimer <= 0)
@@ -292,6 +294,7 @@ public class SuravAI : MonoBehaviour
                 SpawnProjectile();
                 miniGunTimer = 0.25f;
                 shotCount++;
+                FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyProjectile");
             }
             else if (miniGunTimer <= 0 && shotCount >= 10)
             {
@@ -331,6 +334,7 @@ public class SuravAI : MonoBehaviour
                 SpawnTripleProjectile();
                 shotGunTimer = 0.75f;
                 shotCount++;
+                FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyProjectile");
             }
             else if (shotGunTimer <= 0 && shotCount >= 4)
             {
@@ -352,6 +356,7 @@ public class SuravAI : MonoBehaviour
             GameObject meteor = Instantiate(meteorObj, new Vector3(player.transform.position.x, 0, player.transform.position.z), Quaternion.identity, null) as GameObject;
             spawnMeteorOnce = false;
             state = State.Idle;
+            FindObjectOfType<AudioManager>().PlayUninterrupted("ArrowRain");
             if (!phaseTwo) attackDelay = 3;//check for animation time and reset this
             else attackDelay = 1;
         }

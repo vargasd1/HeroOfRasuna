@@ -26,24 +26,28 @@ public class pauseMenu : MonoBehaviour
 
     void Start()
     {
-        /*resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
         List<string> resStr = new List<string>();
         for(int i = 0; i < resolutions.Length; ++i)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
-            resStr.Add(option);
-
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if ((resolutions[i].width == 2560 && resolutions[i].height == 1440) || (resolutions[i].width == 1920 && resolutions[i].height == 1080) || (resolutions[i].width == 1280 && resolutions[i].height == 720))
             {
-                curRes = i;
+                resStr.Add(option);
+                curRes++;
             }
+
+            //if(resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+            //{
+                //curRes = i;
+            //}
         }
 
         resolutionDropdown.AddOptions(resStr);
         resolutionDropdown.value = curRes;
-        resolutionDropdown.RefreshShownValue();*/
+        resolutionDropdown.RefreshShownValue();
 
         canvasUI = GameObject.Find("Canvas - UI");
     }
@@ -89,7 +93,7 @@ public class pauseMenu : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if (SceneManager.GetActiveScene().buildIndex != 5)
+        if (SceneManager.GetActiveScene().buildIndex != 4)
         {
             player = FindObjectOfType<PlayerManager>().gameObject;
             playerAnim = player.GetComponent<Animator>();
@@ -156,18 +160,18 @@ public class pauseMenu : MonoBehaviour
 
     public void SetQuality(int q)
     {
-        /*QualitySettings.SetQualityLevel(q);
-        Debug.Log("Changed quality");*/
+        QualitySettings.SetQualityLevel(q);
+        Debug.Log("Changed quality");
     }
 
     public void SetFullscreen(bool f)
     {
-        Screen.fullScreen = f;
+        Screen.fullScreen = !Screen.fullScreen;
     }
 
     public void SetResolution(int r)
     {
-        /*Resolution res = resolutions[r];
-        Screen.SetResolution(res.width, res.height, Screen.fullScreen);*/
+        Resolution res = resolutions[r];
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen);
     }
 }

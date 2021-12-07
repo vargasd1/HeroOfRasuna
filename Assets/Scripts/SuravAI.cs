@@ -182,6 +182,7 @@ public class SuravAI : MonoBehaviour
                     MeteorAttack();
                     break;
                 case State.Defeated:
+                    FindObjectOfType<AudioManager>().Stop("SolarFlare");
                     break;
             }
         }

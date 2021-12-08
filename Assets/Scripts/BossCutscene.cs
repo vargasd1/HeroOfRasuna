@@ -72,13 +72,15 @@ public class BossCutscene : MonoBehaviour
 
             if (slamDelay <= 0)
             {
+                gate.stopDoor = false;
                 gate.closeDoor = true;
             }
             else
             {
                 slamDelay -= Time.unscaledDeltaTime;
-                gate.transform.position = gate.transform.position + UnityEngine.Random.insideUnitSphere * 0.0420f;
+                gate.transform.position = gate.transform.position + UnityEngine.Random.insideUnitSphere * 0.025f;
                 gate.openDoor = false;
+                gate.stopDoor = true;
             }
 
             if (camMoveDelay >= 2)
@@ -142,11 +144,11 @@ public class BossCutscene : MonoBehaviour
 
                         if (Input.GetKeyDown(KeyCode.Mouse0))
                         {
-                            dialogueUI.textSpeed = 0.05f;
                             dialogueCount++;
                             dialogueUI.textChanged = true;
                             dialogueUI.txt.text = "";
                             readyToSkip = false;
+                            dialogueUI.textSpeed = 0.025f;
                         }
                     }
                 }

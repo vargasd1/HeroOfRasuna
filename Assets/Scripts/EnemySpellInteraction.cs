@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpellInteraction : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class EnemySpellInteraction : MonoBehaviour
         player = FindObjectOfType<PlayerManager>();
         playerMove = player.GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
-        surav = FindObjectOfType<SuravAI>().gameObject;
+        if (SceneManager.GetActiveScene().name == "ThirdFloor") surav = FindObjectOfType<SuravAI>().gameObject;
     }
 
     private void Update()

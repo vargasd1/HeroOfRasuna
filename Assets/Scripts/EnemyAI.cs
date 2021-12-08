@@ -154,6 +154,7 @@ public class EnemyAI : MonoBehaviour
                 case State.Dead:
                     // Play Death Animation
                     anim.SetTrigger("Died");
+                    isAttacking = false;
                     if (!dieSoundOnce)
                     {
                         FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyDissolve");

@@ -7,20 +7,27 @@ public class BossDialogue : MonoBehaviour
 {
 
     public TextMeshProUGUI txt;
+    public TextMeshProUGUI rasunaTxt;
+    public TextMeshProUGUI englTxt;
     public string story;
+    public string story2;
     public float textDelay = 0;
     public bool textChanged = false;
     public bool doOnce = true;
     private BossCutscene cutscene;
-    public float textSpeed = 0.05f;
+    private BossEndCutscene endCutscene;
+    public float textSpeed = 0.025f;
+    public bool isFinalLine = false;
 
     // Start is called before the first frame update
     void Start()
     {
         txt = GetComponent<TextMeshProUGUI>();
-        story = txt.text;
+        story = "";
+        story2 = "";
         txt.text = "";
         cutscene = FindObjectOfType<BossCutscene>();
+        endCutscene = FindObjectOfType<BossEndCutscene>();
     }
 
     // Update is called once per frame
@@ -29,6 +36,7 @@ public class BossDialogue : MonoBehaviour
         if (textChanged && doOnce)
         {
             StartCoroutine(playText());
+            if (isFinalLine) StartCoroutine(playTranslatedText());
             doOnce = false;
         }
 
@@ -37,22 +45,44 @@ public class BossDialogue : MonoBehaviour
             textChanged = false;
             doOnce = true;
             cutscene.readyToSkip = true;
+            endCutscene.readyToSkip = true;
         }
-        else
+
+        if (isFinalLine && englTxt.text == story2)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                textSpeed = 0.01f;
-            }
+            endCutscene.readyToSkip = true;
         }
     }
 
     IEnumerator playText()
     {
-        foreach (char c in story)
+        if (!isFinalLine)
         {
-            txt.text += c;
-            yield return new WaitForSecondsRealtime(textSpeed);
+            foreach (char c in story)
+            {
+                txt.text += c;
+                yield return new WaitForSecondsRealtime(textSpeed);
+            }
+        }
+        else
+        {
+            foreach (char c in story)
+            {
+                rasunaTxt.text += c;
+
+                yield return new WaitForSecondsRealtime(textSpeed);
+            }
+
+
+        }
+    }
+    IEnumerator playTranslatedText()
+    {
+        foreach (char c in story2)
+        {
+            englTxt.text += c;
+
+            yield return new WaitForSecondsRealtime(textSpeed - 0.01f);
         }
     }
 }

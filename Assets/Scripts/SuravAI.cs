@@ -86,6 +86,11 @@ public class SuravAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Make Surav Bounce up and down
+        bounceCounter += Time.deltaTime;
+        if (bounceCounter >= Mathf.PI * 2) bounceCounter -= Mathf.PI * 2;
+        agent.baseOffset = 1 + Mathf.Sin(bounceCounter) * 0.4f;
+
         if (health <= 0)
         {
             state = State.Defeated;
@@ -115,11 +120,6 @@ public class SuravAI : MonoBehaviour
                 }
             }
 
-            // Make Surav Bounce up and down
-            bounceCounter += Time.deltaTime;
-            if (bounceCounter >= Mathf.PI * 2) bounceCounter -= Mathf.PI * 2;
-            agent.baseOffset = 1 + Mathf.Sin(bounceCounter) * 0.4f;
-
             if (player)
             {
                 Vector3 lookVector = player.position;
@@ -148,50 +148,50 @@ public class SuravAI : MonoBehaviour
                     hitDelay -= Time.unscaledDeltaTime;
                 }
             }
-        }
 
-        if (stunTimer <= 0)
-        {
-            switch (state)
+            if (stunTimer <= 0)
             {
-                case State.Talking:
-                    if (startFight) state = State.Idle;
-                    break;
-                case State.Idle:
-                    if (attackDelay > 0)
-                    {
-                        attackDelay -= Time.deltaTime;
-                        findNewLocation();
-                    }
-                    else
-                    {
-                        pickAttack();
-                        isWandering = false;
-                    }
-                    break;
-                case State.MinigunAttack:
-                    MinigunAttack();
-                    break;
-                case State.ShotgunAttack:
-                    ShotgunAttack();
-                    break;
-                case State.ShockwaveAttack:
-                    ShockwaveAttack();
-                    break;
-                case State.MeteorShower:
-                    MeteorAttack();
-                    break;
-                case State.Defeated:
-                    FindObjectOfType<AudioManager>().Stop("SolarFlare");
-                    break;
+                switch (state)
+                {
+                    case State.Talking:
+                        if (startFight) state = State.Idle;
+                        break;
+                    case State.Idle:
+                        if (attackDelay > 0)
+                        {
+                            attackDelay -= Time.deltaTime;
+                            findNewLocation();
+                        }
+                        else
+                        {
+                            pickAttack();
+                            isWandering = false;
+                        }
+                        break;
+                    case State.MinigunAttack:
+                        MinigunAttack();
+                        break;
+                    case State.ShotgunAttack:
+                        ShotgunAttack();
+                        break;
+                    case State.ShockwaveAttack:
+                        ShockwaveAttack();
+                        break;
+                    case State.MeteorShower:
+                        MeteorAttack();
+                        break;
+                    case State.Defeated:
+                        FindObjectOfType<AudioManager>().Stop("SolarFlare");
+                        break;
+                }
             }
-        }
-        else
-        {
-            state = State.Idle;
-            attackDelay = 2f;
-            stunTimer -= Time.deltaTime;
-            agent.SetDestination(transform.position);
+            else
+            {
+                state = State.Idle;
+                attackDelay = 2f;
+                stunTimer -= Time.deltaTime;
+                agent.SetDestination(transform.position);
+            }
         }
     }
 

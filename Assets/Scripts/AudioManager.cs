@@ -74,6 +74,13 @@ public class AudioManager : MonoBehaviour
                 break;
             case 4:
                 break;
+            case 5:
+                Stop("Theme");
+                Stop("Exploration1");
+                Stop("Exploration2");
+                Stop("Exploration3");
+                Stop("Boss Fight");
+                break;
             default:
                 Stop("Exploration1");
                 Stop("Exploration2");
@@ -178,7 +185,7 @@ public class AudioManager : MonoBehaviour
     {
         // TO USE: FindObjectOfType<AudioManager>().SlowSounds();
         //currently only slows abilities (4-6) and (15-18)
-        for(int x = 4; x < 7; ++x)
+        for (int x = 4; x < 7; ++x)
         {
             Sound s = sounds[x];
             s.source.pitch = .4f;

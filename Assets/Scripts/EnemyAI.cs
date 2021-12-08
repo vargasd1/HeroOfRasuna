@@ -61,7 +61,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "ThirdFloor")
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             thirdLevel = true;
             bossDoor = FindObjectOfType<BossGate>();
@@ -154,6 +154,7 @@ public class EnemyAI : MonoBehaviour
                 case State.Dead:
                     // Play Death Animation
                     anim.SetTrigger("Died");
+                    isAttacking = false;
                     if (!dieSoundOnce)
                     {
                         FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyDissolve");

@@ -70,8 +70,7 @@ public class SpellInteraction : MonoBehaviour
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-                    //FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
-                    //AudioAnywhere.PlayUninterruptedAnywhere("Stun");
+
                     if (enemIsRanged)
                     {
                         if (enemR.state != EnemyRangedAI.State.Stunned)
@@ -82,6 +81,7 @@ public class SpellInteraction : MonoBehaviour
                             Vector3 stunnedPos = new Vector3(enemR.transform.position.x, enemR.transform.position.y + 2, enemR.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enemR.gameObject.transform);
                             FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
+                            FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                         }
                     }
                     else
@@ -94,6 +94,7 @@ public class SpellInteraction : MonoBehaviour
                             Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
                             FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
+                            FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                         }
                     }
                 }
@@ -111,7 +112,6 @@ public class SpellInteraction : MonoBehaviour
                 switch (hit.gameObject.tag)
                 {
                     case "Enemy":
-                        print(hit.gameObject);
                         //FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                         if (enemIsRanged)
                         {

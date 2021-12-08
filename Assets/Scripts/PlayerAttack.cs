@@ -66,6 +66,7 @@ public class PlayerAttack : MonoBehaviour
                 boss = hit.gameObject.GetComponent<SuravAI>();
                 if (!boss.wasHitByPlayer)
                 {
+                    //boss.health -= 800;
                     boss.health -= 20;
                     boss.wasHitByPlayer = true;
                     boss.hitDelay = 0.2f;

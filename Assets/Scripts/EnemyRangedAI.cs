@@ -47,7 +47,6 @@ public class EnemyRangedAI : MonoBehaviour
     public bool attackAnimIsPlaying = false;
     public GameObject spellObj;
     private Vector3 pointToLook;
-    float hitSoundTime = 1f;
 
     //Third Floor Variables
     private bool thirdLevel = false;
@@ -63,7 +62,7 @@ public class EnemyRangedAI : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "ThirdFloor")
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             thirdLevel = true;
             bossDoor = FindObjectOfType<BossGate>();
@@ -127,13 +126,6 @@ public class EnemyRangedAI : MonoBehaviour
                     break;
                 case State.Attacking:
                     AttackPlayer();
-                    if(hitSoundTime <= 0f)
-                    {
-                        FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyProjectile");
-                        hitSoundTime = 1f;
-                    }
-                    else if (hitSoundTime > 0.5f) { }//do nothing
-                    else hitSoundTime -= Time.deltaTime;
                     break;
                 case State.hitStunned:
                     agent.speed = 0f;
@@ -254,7 +246,6 @@ public class EnemyRangedAI : MonoBehaviour
                     anim.SetTrigger("Attack");
                     timeBetweenAttacks = 10f;
                     agent.speed = 0f;
-                    hitSoundTime = 0.5f;
                 }
                 else
                 {
@@ -311,8 +302,8 @@ public class EnemyRangedAI : MonoBehaviour
             // make lightBlast prefab rotate towards click
             lightBlast.transform.LookAt(pointToLook);
             // addForce in the forward direction so the lightBlast moved towards click
-            //lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1500);
             lightBlast.GetComponent<Rigidbody>().velocity = Vector3.zero + (lightBlast.transform.forward * 25f);
+            FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyProjectile");
         }
     }
 }

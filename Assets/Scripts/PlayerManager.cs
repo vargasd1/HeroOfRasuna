@@ -80,6 +80,20 @@ public class PlayerManager : MonoBehaviour
         // player dies
         if (playerHealth <= 0)
         {
+            //if overclocked, reset overclock
+            if (playerMove.overclock || playerMove.overclockTransition)
+            {
+                playerMove.overclockTime = 5f;
+                playerMove.overclockTransitionTime = 2f;
+                playerMove.overclock = false;
+                playerMove.overclockTransition = false;
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = Time.timeScale * .02f;
+                AudioManager aud = FindObjectOfType<AudioManager>();
+                aud.Stop("Overclock");
+                aud.ChangePitch("Overclock", 1f);
+                aud.ResetSounds();
+            }
             isDead = true;
             anim.SetTrigger("Died");
         }

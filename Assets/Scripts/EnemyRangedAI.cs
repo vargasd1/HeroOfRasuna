@@ -311,7 +311,8 @@ public class EnemyRangedAI : MonoBehaviour
             // make lightBlast prefab rotate towards click
             lightBlast.transform.LookAt(pointToLook);
             // addForce in the forward direction so the lightBlast moved towards click
-            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1500);
+            //lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1500);
+            lightBlast.GetComponent<Rigidbody>().velocity = Vector3.zero + (lightBlast.transform.forward * 25f);
         }
     }
 }

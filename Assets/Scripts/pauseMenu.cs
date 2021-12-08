@@ -93,7 +93,7 @@ public class pauseMenu : MonoBehaviour
 
     private void OnLevelWasLoaded(int level)
     {
-        if (SceneManager.GetActiveScene().buildIndex != 4)
+        if (SceneManager.GetActiveScene().buildIndex < 4 && SceneManager.GetActiveScene().buildIndex > 0)
         {
             player = FindObjectOfType<PlayerManager>().gameObject;
             playerAnim = player.GetComponent<Animator>();

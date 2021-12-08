@@ -429,8 +429,10 @@ public class SuravAI : MonoBehaviour
         // make lightBlast prefab rotate towards player
         lightBlast.transform.LookAt(pointToLook);
         // addForce in the forward direction so the lightBlast moved towards click
-        if (!phaseTwo) lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1000);
-        else lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);
+        /*if (!phaseTwo) lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1000);
+        else lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);*/
+        if (!phaseTwo) lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f * (2f / 3f));
+        else lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f * (8f / 3f));
     }
 
     private void SpawnTripleProjectile()
@@ -454,15 +456,17 @@ public class SuravAI : MonoBehaviour
         // addForce in the forward direction so the lightBlast moved towards click
         if (!phaseTwo)
         {
-            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1500);
-            lightBlast2.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1500);
-            lightBlast3.GetComponent<Rigidbody>().AddForce(lightBlast3.transform.forward * 1500);
+            //lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1500);
+            lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f);
+            lightBlast2.GetComponent<Rigidbody>().velocity = (lightBlast2.transform.forward * 25f);
+            lightBlast3.GetComponent<Rigidbody>().velocity = (lightBlast3.transform.forward * 25f);
         }
         else
         {
-            lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);
-            lightBlast2.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 4000);
-            lightBlast3.GetComponent<Rigidbody>().AddForce(lightBlast3.transform.forward * 4000);
+            //lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);
+            lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f * (8f / 3f));
+            lightBlast2.GetComponent<Rigidbody>().velocity = (lightBlast2.transform.forward * 25f * (8f / 3f));
+            lightBlast3.GetComponent<Rigidbody>().velocity = (lightBlast3.transform.forward * 25f * (8f / 3f));
         }
     }
 

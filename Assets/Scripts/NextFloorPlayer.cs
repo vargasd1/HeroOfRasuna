@@ -9,7 +9,6 @@ public class NextFloorPlayer
     
     public static void SaveValues(GameObject player)
     {
-        Debug.Log("Saving values from previous floor.");
         hp = player.GetComponent<PlayerManager>().playerTargetHealth;
         healCooldown = player.GetComponent<PlayerManager>().healCDTime;
         attackSpellCooldown = player.GetComponent<PlayerManager>().attackSpellCDTime;
@@ -20,7 +19,6 @@ public class NextFloorPlayer
 
     public static void FillValues(GameObject player)
     {
-        Debug.Log("Filling values from previous floor.");
         player.GetComponent<PlayerManager>().playerTargetHealth = hp;
         player.GetComponent<PlayerManager>().healCDTime = healCooldown;
         player.GetComponent<PlayerManager>().attackSpellCDTime = attackSpellCooldown;

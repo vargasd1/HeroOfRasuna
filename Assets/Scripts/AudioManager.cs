@@ -40,20 +40,17 @@ public class AudioManager : MonoBehaviour
     // called first
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Start()
     {
-        //Debug.Log("Start theme");
         //Play("Theme");
     }
 
     // play BGM
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
         switch (SceneManager.GetActiveScene().buildIndex)//case numbers change by build
         {
             case 1:
@@ -98,7 +95,6 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            //Debug.Log("Sound: " + name + " not found");
             return;
         }
 
@@ -116,7 +112,6 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            //Debug.Log("Sound: " + name + " not found");
             return;
         }
         s.source.Stop();
@@ -160,7 +155,6 @@ public class AudioManager : MonoBehaviour
         {
             //if (pauseMenu.GamePaused) s.source.pitch = .5f;
             //else s.source.pitch = 1;
-            //Debug.Log("Sound: " + name);
             s.source.PlayOneShot(s.source.clip, s.source.volume);
         }
     }

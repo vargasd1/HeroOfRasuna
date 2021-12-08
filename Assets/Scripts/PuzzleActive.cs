@@ -10,6 +10,8 @@ public class PuzzleActive : MonoBehaviour
     float inRot, midRot, outRot, startIn, startMid, startOut, time = 0f;
     int selectedPiece = 0;
     public bool finishPuzzle = false;
+    bool moveLeft = false;
+    bool moveRight = false;
     private Image UICover;
     public bool fadeIn = false;
     public bool fadeOut = false;
@@ -29,7 +31,10 @@ public class PuzzleActive : MonoBehaviour
         if (camPuzzle.activeSelf)
         {
             //if puzzle is close enough to complete. Give the euler angles
-            if (Mathf.Abs(discInner.transform.rotation.z) <= 6f * (Mathf.PI / 180f) && Mathf.Abs(discMid.transform.rotation.z) <= 6f * (Mathf.PI / 180f) && Mathf.Abs(discOuter.transform.rotation.z) <= 6f * (Mathf.PI / 180f))
+            //if (Mathf.Abs(discInner.transform.rotation.z) <= 6f * (Mathf.PI / 180f) && Mathf.Abs(discMid.transform.rotation.z) <= 6f * (Mathf.PI / 180f) && Mathf.Abs(discOuter.transform.rotation.z) <= 6f * (Mathf.PI / 180f))
+            if ((discInner.transform.eulerAngles.z <= 6f || discInner.transform.eulerAngles.z >= 354f) &&
+                (discMid.transform.eulerAngles.z <= 6f || discMid.transform.eulerAngles.z >= 354f) &&
+                (discOuter.transform.eulerAngles.z <= 6f || discOuter.transform.eulerAngles.z >= 354f))
             {
                 finishPuzzle = true;
                 startIn = GetAngle(discInner.transform.eulerAngles.z);
@@ -37,6 +42,7 @@ public class PuzzleActive : MonoBehaviour
                 startOut = GetAngle(discOuter.transform.eulerAngles.z);
             }
             //allow player to move puzzle
+            //else
             else
             {
                 if (Input.GetKeyDown(KeyCode.W))
@@ -54,7 +60,6 @@ public class PuzzleActive : MonoBehaviour
                     }
                     ++selectedPiece;
                     if (selectedPiece > 2) selectedPiece = 2;
-                    HighlightPuzzle();
                 }
                 else if (Input.GetKeyDown(KeyCode.S))
                 {
@@ -71,43 +76,37 @@ public class PuzzleActive : MonoBehaviour
                     }
                     --selectedPiece;
                     if (selectedPiece < 0) selectedPiece = 0;
-                    HighlightPuzzle();
                 }
                 else if (Input.GetKey(KeyCode.A))
                 {
-                    switch (selectedPiece)
-                    {
-                        case 0:
-                            //discInner.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
-                            discInner.transform.eulerAngles = discInner.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
-                            break;
-                        case 1:
-                            //discMid.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
-                            discMid.transform.eulerAngles = discMid.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
-                            break;
-                        case 2:
-                            //discOuter.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
-                            discOuter.transform.eulerAngles = discOuter.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
-                            break;
-                    }
+                    moveLeft = true;
                 }
                 else if (Input.GetKey(KeyCode.D))
+                {
+                    moveRight = true;
+                }
+                else if (Input.GetKey(KeyCode.T))
                 {
                     switch (selectedPiece)
                     {
                         case 0:
-                            //discInner.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
-                            discInner.transform.eulerAngles = discInner.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
+                            Debug.Log("Inner: " + discInner.transform.eulerAngles.z);
                             break;
                         case 1:
-                            //discMid.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
-                            discMid.transform.eulerAngles = discMid.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
+                            Debug.Log("Mid: " + discMid.transform.eulerAngles.z);
                             break;
                         case 2:
-                            //discOuter.transform.Rotate(0.0f, 0.0f, -2.0f, Space.Self);
-                            discOuter.transform.eulerAngles = discOuter.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
+                            Debug.Log("Outer: " + discOuter.transform.eulerAngles.z);
                             break;
                     }
+                }
+                else if(Input.GetKeyUp(KeyCode.A))
+                {
+                    moveLeft = false;
+                }
+                else if(Input.GetKeyUp(KeyCode.D))
+                {
+                    moveRight = false;
                 }
             }//else allow player to move puzzle
         }//if(camPuzzle.activeSelf)
@@ -115,6 +114,41 @@ public class PuzzleActive : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!finishPuzzle)
+        {
+            if (moveLeft)
+            {
+                switch (selectedPiece)
+                {
+                    case 0:
+                        //discInner.transform.Rotate(0.0f, 0.0f, 2.0f, Space.Self);
+                        discInner.transform.eulerAngles = discInner.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
+                        break;
+                    case 1:
+                        discMid.transform.eulerAngles = discMid.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
+                        break;
+                    case 2:
+                        discOuter.transform.eulerAngles = discOuter.transform.rotation.eulerAngles + new Vector3(0f, 0f, 2f);
+                        break;
+                }
+            }
+            else if (moveRight)
+            {
+                switch (selectedPiece)
+                {
+                    case 0:
+                        discInner.transform.eulerAngles = discInner.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
+                        break;
+                    case 1:
+                        discMid.transform.eulerAngles = discMid.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
+                        break;
+                    case 2:
+                        discOuter.transform.eulerAngles = discOuter.transform.rotation.eulerAngles + new Vector3(0f, 0f, -2f);
+                        break;
+                }
+            }
+        }
+
         if(finishPuzzle && time < 1f)
         {
             //make all rotations on puzzles 0
@@ -167,12 +201,6 @@ public class PuzzleActive : MonoBehaviour
         if (starting <= 6f) return -starting * Time.fixedDeltaTime;
         //[354, 360]
         else return (360f - starting) * Time.fixedDeltaTime;
-    }
-
-    void HighlightPuzzle()
-    {
-        //highlight the currently selected puzzle piece
-        //
     }
 
     IEnumerator openDoorCutscene()

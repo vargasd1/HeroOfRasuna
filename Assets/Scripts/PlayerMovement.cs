@@ -155,12 +155,6 @@ public class PlayerMovement : MonoBehaviour
                     SlowTime();
                 }
             }
-
-            //display time
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                Debug.Log("Fixed Delta Time: " + Time.fixedDeltaTime + "\nFixed Unscaled Delta Time: " + Time.fixedUnscaledDeltaTime);
-            }
         }
         else if (!isDead && !pauseMenu.GamePaused && isCutScene && !isCutSceneMoving)
         {

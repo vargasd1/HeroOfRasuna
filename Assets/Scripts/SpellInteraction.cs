@@ -19,6 +19,7 @@ public class SpellInteraction : MonoBehaviour
     private EnemyAI enem;
     private EnemyRangedAI enemR;
     private SuravAI boss;
+    private float soundChoice;
 
     //Grenade Vars
     public Vector3 positionA;
@@ -141,12 +142,18 @@ public class SpellInteraction : MonoBehaviour
                         break;
 
                     case "Prop1":
-                        GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
+                        GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position , Quaternion.identity, null);
+                        soundChoice = UnityEngine.Random.Range(0, 2);
+                        if(soundChoice < 1)FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
+                        else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
+                        frac.transform.localScale = hit.gameObject.transform.localScale/100;
                         foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                             rb.AddForce(force);
                         }
+
+
                         for (int i = 0; i < Random.Range(2, 4); i++)
                         {
                             GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
@@ -156,12 +163,18 @@ public class SpellInteraction : MonoBehaviour
                         Destroy(hit.gameObject);
                         break;
                     case "Prop2":
-                        GameObject frac2 = Instantiate(fracturedBowl, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
+                        GameObject frac2 = Instantiate(fracturedBowl, hit.gameObject.transform.position, Quaternion.identity, null);
+                        soundChoice = UnityEngine.Random.Range(0, 2);
+                        if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
+                        else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
+                        frac2.transform.localScale = hit.gameObject.transform.localScale/100;
                         foreach (Rigidbody rb in frac2.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                             rb.AddForce(force);
                         }
+
+
                         for (int i = 0; i < Random.Range(2, 4); i++)
                         {
                             GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
@@ -171,12 +184,18 @@ public class SpellInteraction : MonoBehaviour
                         Destroy(hit.gameObject);
                         break;
                     case "Prop3":
-                        GameObject frac3 = Instantiate(fracturedVase, hit.gameObject.transform.position + new Vector3(0, 1.25f, 0), hit.gameObject.transform.rotation, null);
+                        GameObject frac3 = Instantiate(fracturedVase, hit.gameObject.transform.position, Quaternion.identity, null);
+                        soundChoice = UnityEngine.Random.Range(0, 2);
+                        if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
+                        else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
+                        frac3.transform.localScale = hit.gameObject.transform.localScale/100;
                         foreach (Rigidbody rb in frac3.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                             rb.AddForce(force);
                         }
+
+
                         for (int i = 0; i < Random.Range(2, 4); i++)
                         {
                             GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);

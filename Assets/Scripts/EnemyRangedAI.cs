@@ -135,12 +135,15 @@ public class EnemyRangedAI : MonoBehaviour
                     agent.speed = 0f;
                     anim.SetBool("isMoving", false);
                     anim.SetBool("Stunned", true);
-                    resetAttackEnemy();
+
                     // Decrement stun timer
                     stunnedTimer -= Time.deltaTime;
                     if (stunnedTimer <= 0)
                     {
                         state = State.Idle;
+                        isAttacking = false;
+                        anim.ResetTrigger("Attack");
+                        attackAnimIsPlaying = false;
                         anim.SetBool("Stunned", false);
                     }
                     break;
@@ -267,7 +270,6 @@ public class EnemyRangedAI : MonoBehaviour
 
     public void resetAttackEnemy()
     {
-        state = State.Idle;
         isAttacking = false;
         anim.ResetTrigger("Attack");
         attackAnimIsPlaying = false;

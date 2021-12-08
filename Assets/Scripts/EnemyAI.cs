@@ -125,13 +125,13 @@ public class EnemyAI : MonoBehaviour
                     break;
                 case State.Attacking:
                     AttackPlayer();
-                    if (hitSoundTime < 0f)
+                    /*if (hitSoundTime < 0f)
                     {
-                        FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
+                        
                         hitSoundTime = 1f;
                     }
                     else if (hitSoundTime > 0.6f) { }//do nothing
-                    else hitSoundTime -= Time.deltaTime;
+                    else hitSoundTime -= Time.deltaTime;*/
                     break;
                 case State.hitStunned:
                     agent.speed = 0f;
@@ -290,6 +290,7 @@ public class EnemyAI : MonoBehaviour
     }
     public void isAttackingSet()
     {
+        if (!isAttacking) FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
         isAttacking = !isAttacking;
     }
 

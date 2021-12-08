@@ -81,8 +81,6 @@ public class SpellInteraction : MonoBehaviour
                             enemR.GetComponent<NavMeshAgent>().SetDestination(enemR.transform.position);
                             Vector3 stunnedPos = new Vector3(enemR.transform.position.x, enemR.transform.position.y + 2, enemR.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enemR.gameObject.transform);
-                            FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
-                            FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                         }
                     }
                     else
@@ -94,14 +92,16 @@ public class SpellInteraction : MonoBehaviour
                             enem.GetComponent<NavMeshAgent>().SetDestination(enem.transform.position);
                             Vector3 stunnedPos = new Vector3(enem.transform.position.x, enem.transform.position.y + 2, enem.transform.position.z);
                             Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), enem.gameObject.transform);
-                            FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
-                            FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                         }
                     }
                 }
                 else if (hit.gameObject.tag == "Boss" && hit.gameObject.tag != "Particles")
                 {
                     boss.stunTimer = 3f;
+                    Vector3 stunnedPos = new Vector3(boss.transform.position.x, 6, boss.transform.position.z);
+                    GameObject stunpart = Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), boss.gameObject.transform) as GameObject;
+                    stunpart.transform.localScale = new Vector3(2, 2, 2);
+
                 }
                 break;
             case "attack":
@@ -142,11 +142,11 @@ public class SpellInteraction : MonoBehaviour
                         break;
 
                     case "Prop1":
-                        GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position , Quaternion.identity, null);
+                        GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position, Quaternion.identity, null);
                         soundChoice = UnityEngine.Random.Range(0, 2);
-                        if(soundChoice < 1)FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
+                        if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                         else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                        frac.transform.localScale = hit.gameObject.transform.localScale/100;
+                        frac.transform.localScale = hit.gameObject.transform.localScale / 100;
                         foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -167,7 +167,7 @@ public class SpellInteraction : MonoBehaviour
                         soundChoice = UnityEngine.Random.Range(0, 2);
                         if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                         else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                        frac2.transform.localScale = hit.gameObject.transform.localScale/100;
+                        frac2.transform.localScale = hit.gameObject.transform.localScale / 100;
                         foreach (Rigidbody rb in frac2.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -188,7 +188,7 @@ public class SpellInteraction : MonoBehaviour
                         soundChoice = UnityEngine.Random.Range(0, 2);
                         if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                         else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                        frac3.transform.localScale = hit.gameObject.transform.localScale/100;
+                        frac3.transform.localScale = hit.gameObject.transform.localScale / 100;
                         foreach (Rigidbody rb in frac3.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -212,11 +212,9 @@ public class SpellInteraction : MonoBehaviour
                 if (hit.gameObject.tag == "Ground")
                 {
                     FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
-                    Debug.Log("Light burst");
                     Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
                     GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(0, 0, 0)) as GameObject;
                     stun.GetComponent<SpellInteraction>().spellType = "stun";
-                    //print(stun.GetComponent<SpellInteraction>().spellType);
                     Destroy(gameObject);
                 }
                 break;

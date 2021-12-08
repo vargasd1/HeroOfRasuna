@@ -67,8 +67,7 @@ public class PlayerAttack : MonoBehaviour
                 boss = hit.gameObject.GetComponent<SuravAI>();
                 if (!boss.wasHitByPlayer)
                 {
-                    boss.health -= 800;
-                    //boss.health -= 20;
+                    boss.health -= 20;
                     boss.wasHitByPlayer = true;
                     boss.hitDelay = 0.2f;
                 }
@@ -76,7 +75,7 @@ public class PlayerAttack : MonoBehaviour
             else if (hit.tag == "Prop1")
             {
                 GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position, Quaternion.identity, null);
-                frac.transform.localScale = hit.gameObject.transform.localScale/100;
+                frac.transform.localScale = hit.gameObject.transform.localScale / 100;
                 soundChoice = UnityEngine.Random.Range(0, 2);
                 if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                 else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
@@ -102,7 +101,7 @@ public class PlayerAttack : MonoBehaviour
                 soundChoice = UnityEngine.Random.Range(0, 2);
                 if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                 else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                frac.transform.localScale = hit.gameObject.transform.localScale/100;
+                frac.transform.localScale = hit.gameObject.transform.localScale / 100;
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;
@@ -124,7 +123,7 @@ public class PlayerAttack : MonoBehaviour
                 soundChoice = UnityEngine.Random.Range(0, 2);
                 if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                 else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                frac.transform.localScale = hit.gameObject.transform.localScale/100;
+                frac.transform.localScale = hit.gameObject.transform.localScale / 100;
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;

@@ -54,20 +54,20 @@ public class CameraFocusEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            player.overclock = false;
-            player.overclockTransition = false;
-            player.overclockTransitionTime = 2f;
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = Time.timeScale * .02f;
-            player.overclockTime = 5;
-            player.overclockChargedAmt = 0f;
-            /*audioScript.Stop("Overclock");
-            audioScript.ChangePitch("Overclock", 1f);
-            audioScript.ResetSounds();*/
-            AudioManager aud = FindObjectOfType<AudioManager>();
-            aud.Stop("Overclock");
-            aud.ChangePitch("Overclock", 1f);
-            aud.ResetSounds();
+            //if overclocked, reset overclock
+            if (player.overclock || player.overclockTransition)
+            {
+                player.overclockTime = 5f;
+                player.overclockTransitionTime = 2f;
+                player.overclock = false;
+                player.overclockTransition = false;
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = Time.timeScale * .02f;
+                AudioManager aud = FindObjectOfType<AudioManager>();
+                aud.Stop("Overclock");
+                aud.ChangePitch("Overclock", 1f);
+                aud.ResetSounds();
+            }
 
             if (!doOnce) StartCoroutine(panBack());
         }

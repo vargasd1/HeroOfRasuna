@@ -20,7 +20,7 @@ public class EnemySpellInteraction : MonoBehaviour
         player = FindObjectOfType<PlayerManager>();
         playerMove = player.GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody>();
-        if (SceneManager.GetActiveScene().name == "ThirdFloor") surav = FindObjectOfType<SuravAI>().gameObject;
+        if(SceneManager.GetActiveScene().buildIndex == 3) surav = FindObjectOfType<SuravAI>().gameObject;
     }
 
     private void Update()

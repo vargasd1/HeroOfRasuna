@@ -63,6 +63,21 @@ public class BossCutscene : MonoBehaviour
         {
             if (doOnce)
             {
+                //if overclocked, reset overclock
+                if (playerMove.overclock || playerMove.overclockTransition)
+                {
+                    playerMove.overclockTime = 5f;
+                    playerMove.overclockTransitionTime = 2f;
+                    playerMove.overclock = false;
+                    playerMove.overclockTransition = false;
+                    Time.timeScale = 1f;
+                    Time.fixedDeltaTime = Time.timeScale * .02f;
+                    AudioManager aud = FindObjectOfType<AudioManager>();
+                    aud.Stop("Overclock");
+                    aud.ChangePitch("Overclock", 1f);
+                    aud.ResetSounds();
+                }
+
                 playerMove.isCutScene = true;
                 UI.SetActive(false);
                 bossObstacle.GetComponent<NavMeshObstacle>().enabled = false;

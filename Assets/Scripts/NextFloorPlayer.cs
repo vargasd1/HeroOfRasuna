@@ -34,5 +34,6 @@ public class NextFloorPlayer
         attackSpellCooldown = 0f;
         starBurstCooldown = 0f;
         overclockFill = 0f;
+        loadedValues = true;
     }
 }

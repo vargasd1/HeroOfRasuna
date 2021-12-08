@@ -196,6 +196,7 @@ public class BossEndCutscene : MonoBehaviour
         yield return new WaitForSecondsRealtime(3);
 
         transitionEffect = Instantiate(transition, new Vector3(88.754f, 3.15f, 0), Quaternion.Euler(0, -90, 0), null) as GameObject;
+        FindObjectOfType<AudioManager>().PlayUninterrupted("Transition");
 
         yield return new WaitForSecondsRealtime(4.55f);
 

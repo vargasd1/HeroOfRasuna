@@ -9,21 +9,34 @@ public class SceneSwitcher : MonoBehaviour
 
     public Image loadScreen;
     private bool fadeOut = false;
-    private float alpha = 0;
+    private bool fadeIn = false;
+    private float alpha = 1;
 
     private void Start()
     {
         fadeOut = false;
-        loadScreen.color = new Color(0, 0, 0, 0);
-        alpha = 0;
-        loadScreen.gameObject.SetActive(false);
+        fadeIn = true;
+        alpha = 1;
     }
 
     private void Update()
     {
+        if (fadeIn)
+        {
+            alpha -= Time.fixedDeltaTime * 0.8f;
+
+            loadScreen.color = new Color(0, 0, 0, alpha);
+
+            if (loadScreen.color.a <= 0)
+            {
+                fadeIn = false;
+                loadScreen.gameObject.SetActive(false);
+            }
+        }
+
         if (fadeOut)
         {
-            alpha += Time.unscaledDeltaTime;
+            alpha += Time.fixedDeltaTime;
             loadScreen.color = new Color(0, 0, 0, alpha);
             if (loadScreen.color.a >= 1)
             {

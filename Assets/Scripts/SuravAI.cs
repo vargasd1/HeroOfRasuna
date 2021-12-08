@@ -112,7 +112,7 @@ public class SuravAI : MonoBehaviour
                     aud.ResetSounds();
                 }
                 NextFloorPlayer.ResetValues();
-                if(shockwaveCharge != null) Destroy(shockwaveCharge);
+                if (shockwaveCharge != null) Destroy(shockwaveCharge);
                 aud.Stop("SolarFlare");
                 aud.Stop("ArrowRain");
                 aud.Stop("EnemyProjectile");
@@ -439,7 +439,7 @@ public class SuravAI : MonoBehaviour
     private void SpawnProjectile()
     {
         // Spawn prefab
-        GameObject lightBlast = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity, null) as GameObject;
+        GameObject lightBlast = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z) + transform.forward, Quaternion.identity, null) as GameObject;
         lightBlast.GetComponent<EnemySpellInteraction>().isBossMinigun = true;
 
         // make y same height, so it doesn't fall up or down
@@ -457,9 +457,9 @@ public class SuravAI : MonoBehaviour
     private void SpawnTripleProjectile()
     {
         // Spawn prefab
-        GameObject lightBlast = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity, null) as GameObject;
-        GameObject lightBlast2 = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity, null) as GameObject;
-        GameObject lightBlast3 = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity, null) as GameObject;
+        GameObject lightBlast = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z) + transform.forward, Quaternion.identity, null) as GameObject;
+        GameObject lightBlast2 = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z) + transform.forward, Quaternion.identity, null) as GameObject;
+        GameObject lightBlast3 = Instantiate(spellObj, new Vector3(transform.position.x, 1, transform.position.z) + transform.forward, Quaternion.identity, null) as GameObject;
 
         // make y same height, so it doesn't fall up or down
         pointToLook = new Vector3(player.transform.position.x, 1, player.transform.position.z);

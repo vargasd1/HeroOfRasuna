@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossGate : MonoBehaviour
 {
@@ -13,12 +14,48 @@ public class BossGate : MonoBehaviour
     private bool doOnce = true;
     public bool stopDoor = false;
 
+    private GameObject player;
+    private PlayerManager playerManager;
+    private PlayerMovement playerMove;
+
+    public Camera camMain;
+    public Camera camDoor;
+    public Image UICover;
+    public GameObject mainUI;
+    private bool fadeIn = false;
+    private bool fadeOut = false;
+    private float alpha = 0;
+    private bool startOnce = true;
+
+
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerManager>().gameObject;
+        playerManager = player.GetComponent<PlayerManager>();
+        playerMove = player.GetComponent<PlayerMovement>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (enemiesKilled >= 6 && !closeDoor)
+        if (enemiesKilled >= 6 && !closeDoor && startOnce)
         {
-            openDoor = true;
+            playerMove.isCutScene = true;
+
+            playerMove.overclock = false;
+            playerMove.overclockTransition = false;
+            playerMove.overclockTransitionTime = 2f;
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = Time.timeScale * .02f;
+            playerMove.overclockTime = 5;
+            playerMove.overclockChargedAmt = 0f;
+            AudioManager aud = FindObjectOfType<AudioManager>();
+            aud.Stop("Overclock");
+            aud.ChangePitch("Overclock", 1f);
+            aud.ResetSounds();
+
+            StartCoroutine(StartBossCutscene());
+            startOnce = false;
         }
 
         if (openDoor && openOnce && !stopDoor)
@@ -55,5 +92,65 @@ public class BossGate : MonoBehaviour
                 closeDoor = false;
             }
         }
+
+        if (fadeIn)
+        {
+            if (alpha <= 0.5f) alpha -= Time.unscaledDeltaTime;
+            else alpha -= Time.unscaledDeltaTime * 0.75f;
+
+            if (alpha <= 0) fadeIn = false;
+
+            UICover.color = new Color(0, 0, 0, alpha);
+        }
+
+        if (fadeOut)
+        {
+            alpha += Time.unscaledDeltaTime;
+            UICover.color = new Color(0, 0, 0, alpha);
+        }
+    }
+
+    private IEnumerator StartBossCutscene()
+    {
+        mainUI.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(2);
+
+        fadeOut = true;
+        fadeIn = false;
+
+        yield return new WaitForSecondsRealtime(1);
+
+        transform.rotation = Quaternion.Euler(0, 90, 0);
+        camMain.gameObject.SetActive(false);
+        camDoor.gameObject.SetActive(true);
+
+        fadeOut = false;
+        fadeIn = true;
+
+        yield return new WaitForSecondsRealtime(1);
+
+        openDoor = true;
+        fadeIn = false;
+
+        yield return new WaitForSecondsRealtime(3);
+
+        fadeOut = true;
+
+        yield return new WaitForSecondsRealtime(1);
+
+        transform.rotation = Quaternion.Euler(0, -90, 0);
+        camDoor.gameObject.SetActive(false);
+        camMain.gameObject.SetActive(true);
+
+        fadeOut = false;
+        fadeIn = true;
+
+        yield return new WaitForSecondsRealtime(2);
+
+        mainUI.SetActive(true);
+        playerMove.isCutScene = false;
+
+        yield break;
     }
 }

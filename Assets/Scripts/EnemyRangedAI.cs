@@ -296,7 +296,7 @@ public class EnemyRangedAI : MonoBehaviour
         if (state != State.Stunned)
         {
             // Spawn prefab
-            GameObject lightBlast = Instantiate(spellObj, transform.position, Quaternion.identity, null) as GameObject;
+            GameObject lightBlast = Instantiate(spellObj, transform.position + transform.forward, Quaternion.identity, null) as GameObject;
 
             // make y same height, so it doesn't fall up or down
             pointToLook = new Vector3(player.transform.position.x, transform.position.y + 1, player.transform.position.z);

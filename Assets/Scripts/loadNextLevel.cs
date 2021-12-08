@@ -40,6 +40,22 @@ public class loadNextLevel : MonoBehaviour
             player.isCutScene = true;
             fadeOut = true;
             loadScreen.gameObject.SetActive(true);
+
+            //if overclocked, reset overclock
+            if (player.overclock || player.overclockTransition)
+            {
+                player.overclockTime = 5f;
+                player.overclockTransitionTime = 2f;
+                player.overclock = false;
+                player.overclockTransition = false;
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = Time.timeScale * .02f;
+                AudioManager aud = FindObjectOfType<AudioManager>();
+                aud.Stop("Overclock");
+                aud.ChangePitch("Overclock", 1f);
+                aud.ResetSounds();
+            }
+
             switch (SceneManager.GetActiveScene().buildIndex)//case numbers change by build
             {
                 case 1:
@@ -51,6 +67,7 @@ public class loadNextLevel : MonoBehaviour
                     loadingScreenScript.scene = "ThirdFloor";
                     break;
                 default:
+                    NextFloorPlayer.ResetValues();
                     loadingScreenScript.scene = "MainMenu";
                     break;
             }

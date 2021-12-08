@@ -11,7 +11,7 @@ public class HealthBar : MonoBehaviour
     public PlayerMovement player;
     public GameObject notification;
     //deplete rhombus1 -> rect1 -> rhombus2 -> etc
-    public Image rect1, rect2, rect3, rect4, rect5, rect6, kite1, kite2, kite3, kite4, kite5, kite6, kite7;
+    public Image rect1, rect2, rect3, rect4, rect5, rect6, kite1, kite2, kite3, kite4, kite5, kite6, kite7, healthImg, loadingSceen;
     //Color healthColor;
     //Renderer colorRender;
     //float health;
@@ -23,12 +23,19 @@ public class HealthBar : MonoBehaviour
     {
         player = FindObjectOfType<PlayerMovement>();
         notification = GameObject.Find("/Canvas - UI/Overclock/R");
+        healthImg = GameObject.Find("/Canvas - UI/Overclock_And_Health/Health").GetComponent<Image>();
+        healthImg.fillAmount = NextFloorPlayer.hp / 100f;
+        loadingSceen = GameObject.Find("/Pause Cavnas/loadingScreen").GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //health = player.playerHealth / 100f;
+        if (NextFloorPlayer.loadedValues && loadingSceen.color.a <= .1f)
+        {
+            healthImg.fillAmount = player.gameObject.GetComponent<PlayerManager>().playerHealth / 100f;
+        }
         overclockCharge = Mathf.Clamp(player.overclockChargedAmt / 100f, 0f, 1f);
         runningTotal = 0f;
         if (overclockCharge == 1f) notification.SetActive(true);

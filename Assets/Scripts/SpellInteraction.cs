@@ -70,7 +70,7 @@ public class SpellInteraction : MonoBehaviour
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-                    FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
+                    //FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                     //AudioAnywhere.PlayUninterruptedAnywhere("Stun");
                     if (enemIsRanged)
                     {
@@ -112,7 +112,7 @@ public class SpellInteraction : MonoBehaviour
                 {
                     case "Enemy":
                         print(hit.gameObject);
-                        FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
+                        //FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                         if (enemIsRanged)
                         {
                             enemR.health -= 34;

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class NextFloorPlayer
 {
-    public static float hp = 75f, healCooldown = 0f, attackSpellCooldown = 0f, starBurstCooldown = 0f, overclockFill = 0f;
+    public static float hp = 100f, healCooldown = 0f, attackSpellCooldown = 0f, starBurstCooldown = 0f, overclockFill = 0f;
+    public static bool loadedValues = true;
     
     public static void SaveValues(GameObject player)
     {
@@ -14,6 +15,7 @@ public class NextFloorPlayer
         attackSpellCooldown = player.GetComponent<PlayerManager>().attackSpellCDTime;
         starBurstCooldown = player.GetComponent<PlayerManager>().stunCDTime;
         overclockFill = player.GetComponent<PlayerMovement>().overclockChargedAmt;
+        loadedValues = false;
     }
 
     public static void FillValues(GameObject player)
@@ -24,5 +26,15 @@ public class NextFloorPlayer
         player.GetComponent<PlayerManager>().attackSpellCDTime = attackSpellCooldown;
         player.GetComponent<PlayerManager>().stunCDTime = starBurstCooldown;
         player.GetComponent<PlayerMovement>().overclockChargedAmt = overclockFill;
+        loadedValues = true;
+    }
+
+    public static void ResetValues()
+    {
+        hp = 100f;
+        healCooldown = 0f;
+        attackSpellCooldown = 0f;
+        starBurstCooldown = 0f;
+        overclockFill = 0f;
     }
 }

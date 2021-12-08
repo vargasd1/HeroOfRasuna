@@ -136,6 +136,7 @@ public class pauseMenu : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
+        NextFloorPlayer.ResetValues();
         Debug.Log("Loading main menu");
         SceneManager.LoadScene("MainMenu");
     }

@@ -98,6 +98,7 @@ public class SuravAI : MonoBehaviour
             state = State.Defeated;
             if (!defeatedOnce)
             {
+                AudioManager aud = FindObjectOfType<AudioManager>();
                 if (playerMove.overclock || playerMove.overclockTransition)
                 {
                     playerMove.overclockTime = 5f;
@@ -106,13 +107,17 @@ public class SuravAI : MonoBehaviour
                     playerMove.overclockTransition = false;
                     Time.timeScale = 1f;
                     Time.fixedDeltaTime = Time.timeScale * .02f;
-                    AudioManager aud = FindObjectOfType<AudioManager>();
                     aud.Stop("Overclock");
                     aud.ChangePitch("Overclock", 1f);
                     aud.ResetSounds();
                 }
-                FindObjectOfType<AudioManager>().Stop("Boss Fight");
-                FindObjectOfType<AudioManager>().Play("Exploration3");
+                NextFloorPlayer.ResetValues();
+                if(shockwaveCharge != null) Destroy(shockwaveCharge);
+                aud.Stop("SolarFlare");
+                aud.Stop("ArrowRain");
+                aud.Stop("EnemyProjectile");
+                aud.Stop("Boss Fight");
+                aud.Play("Exploration3");
                 defeatedOnce = true;
             }
         }
@@ -196,7 +201,6 @@ public class SuravAI : MonoBehaviour
                         MeteorAttack();
                         break;
                     case State.Defeated:
-                        FindObjectOfType<AudioManager>().Stop("SolarFlare");
                         break;
                 }
             }

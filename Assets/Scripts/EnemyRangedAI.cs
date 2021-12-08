@@ -62,7 +62,7 @@ public class EnemyRangedAI : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name == "ThirdFloor")
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             thirdLevel = true;
             bossDoor = FindObjectOfType<BossGate>();

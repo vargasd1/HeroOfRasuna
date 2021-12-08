@@ -151,36 +151,39 @@ public class SuravAI : MonoBehaviour
 
             if (stunTimer <= 0)
             {
-                case State.Talking:
-                    if (startFight) state = State.Idle;
-                    break;
-                case State.Idle:
-                    if (attackDelay > 0)
-                    {
-                        attackDelay -= Time.deltaTime;
-                        findNewLocation();
-                    }
-                    else
-                    {
-                        pickAttack();
-                        isWandering = false;
-                    }
-                    break;
-                case State.MinigunAttack:
-                    MinigunAttack();
-                    break;
-                case State.ShotgunAttack:
-                    ShotgunAttack();
-                    break;
-                case State.ShockwaveAttack:
-                    ShockwaveAttack();
-                    break;
-                case State.MeteorShower:
-                    MeteorAttack();
-                    break;
-                case State.Defeated:
-                    FindObjectOfType<AudioManager>().Stop("SolarFlare");
-                    break;
+                switch (state)
+                {
+                    case State.Talking:
+                        if (startFight) state = State.Idle;
+                        break;
+                    case State.Idle:
+                        if (attackDelay > 0)
+                        {
+                            attackDelay -= Time.deltaTime;
+                            findNewLocation();
+                        }
+                        else
+                        {
+                            pickAttack();
+                            isWandering = false;
+                        }
+                        break;
+                    case State.MinigunAttack:
+                        MinigunAttack();
+                        break;
+                    case State.ShotgunAttack:
+                        ShotgunAttack();
+                        break;
+                    case State.ShockwaveAttack:
+                        ShockwaveAttack();
+                        break;
+                    case State.MeteorShower:
+                        MeteorAttack();
+                        break;
+                    case State.Defeated:
+                        FindObjectOfType<AudioManager>().Stop("SolarFlare");
+                        break;
+                }
             }
             else
             {

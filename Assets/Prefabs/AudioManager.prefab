@@ -204,4 +204,20 @@ MonoBehaviour:
     audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
       type: 2}
     source: {fileID: 0}
+  - name: PotteryBreak1
+    clip: {fileID: 8300000, guid: d28f3c5d72f199a4f871b9a385cedfbe, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
+  - name: PotteryBreak2
+    clip: {fileID: 8300000, guid: b69c993981209d94c901f2c3af3936c0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    audioMixerGroup: {fileID: -5961684766573215763, guid: ae1573fff5c5ece4dafc355a210963c0,
+      type: 2}
+    source: {fileID: 0}
   mixer: {fileID: 24100000, guid: ae1573fff5c5ece4dafc355a210963c0, type: 2}

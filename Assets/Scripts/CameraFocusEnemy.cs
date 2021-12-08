@@ -22,6 +22,7 @@ public class CameraFocusEnemy : MonoBehaviour
     private bool moveDoorDown = false;
     private bool moveButtonDown = false;
     private AudioManager audioScript;
+    public GameObject particle;
 
     private void Start()
     {
@@ -57,6 +58,7 @@ public class CameraFocusEnemy : MonoBehaviour
             //if overclocked, reset overclock
             if (player.overclock || player.overclockTransition)
             {
+                
                 player.overclockTime = 5f;
                 player.overclockTransitionTime = 2f;
                 player.overclock = false;
@@ -94,6 +96,7 @@ public class CameraFocusEnemy : MonoBehaviour
         newEnem2.GetComponent<EnemyAI>().state = EnemyAI.State.Wander;
         newEnem2.GetComponent<EnemyAI>().wanderDest = new Vector3(15, 0, -6);
         newEnem2.GetComponent<NavMeshAgent>().SetDestination(new Vector3(15, 0, -6));
+        Destroy(particle);
 
         yield return new WaitForSecondsRealtime(1);
 

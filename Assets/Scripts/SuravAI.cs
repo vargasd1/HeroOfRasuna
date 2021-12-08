@@ -50,6 +50,7 @@ public class SuravAI : MonoBehaviour
     private bool startShotgun = false;
     private GameObject shockwaveCharge;
     public float stunTimer = 0;
+    public PlayerMovement playerMove;
 
     // Other Vars
     private float bounceCounter = 0.8f;
@@ -81,6 +82,7 @@ public class SuravAI : MonoBehaviour
         anim = GetComponent<Animator>();
         state = SuravAI.State.Talking;
         player = FindObjectOfType<PlayerManager>().gameObject.transform;
+        playerMove = FindObjectOfType<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -96,6 +98,19 @@ public class SuravAI : MonoBehaviour
             state = State.Defeated;
             if (!defeatedOnce)
             {
+                if (playerMove.overclock || playerMove.overclockTransition)
+                {
+                    playerMove.overclockTime = 5f;
+                    playerMove.overclockTransitionTime = 2f;
+                    playerMove.overclock = false;
+                    playerMove.overclockTransition = false;
+                    Time.timeScale = 1f;
+                    Time.fixedDeltaTime = Time.timeScale * .02f;
+                    AudioManager aud = FindObjectOfType<AudioManager>();
+                    aud.Stop("Overclock");
+                    aud.ChangePitch("Overclock", 1f);
+                    aud.ResetSounds();
+                }
                 FindObjectOfType<AudioManager>().Stop("Boss Fight");
                 FindObjectOfType<AudioManager>().Play("Exploration3");
                 defeatedOnce = true;

@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private EnemyAI enem;
     private EnemyRangedAI enemR;
     private SuravAI boss;
+    private float soundChoice;
 
     void Start()
     {
@@ -66,20 +67,26 @@ public class PlayerAttack : MonoBehaviour
                 boss = hit.gameObject.GetComponent<SuravAI>();
                 if (!boss.wasHitByPlayer)
                 {
-                    //boss.health -= 800;
-                    boss.health -= 20;
+                    boss.health -= 800;
+                    //boss.health -= 20;
                     boss.wasHitByPlayer = true;
                     boss.hitDelay = 0.2f;
                 }
             }
             else if (hit.tag == "Prop1")
             {
-                GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
+                GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position, Quaternion.identity, null);
+                frac.transform.localScale = hit.gameObject.transform.localScale/100;
+                soundChoice = UnityEngine.Random.Range(0, 2);
+                if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
+                else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                     rb.AddForce(force);
                 }
+
+
                 for (int i = 0; i < Random.Range(2, 4); i++)
                 {
                     GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
@@ -91,12 +98,18 @@ public class PlayerAttack : MonoBehaviour
 
             else if (hit.tag == "Prop2")
             {
-                GameObject frac = Instantiate(fracturedBowl, hit.gameObject.transform.position + new Vector3(0, 1, 0), hit.gameObject.transform.rotation, null);
+                GameObject frac = Instantiate(fracturedBowl, hit.gameObject.transform.position, Quaternion.identity, null);
+                soundChoice = UnityEngine.Random.Range(0, 2);
+                if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
+                else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
+                frac.transform.localScale = hit.gameObject.transform.localScale/100;
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                     rb.AddForce(force);
                 }
+
+
                 for (int i = 0; i < Random.Range(2, 4); i++)
                 {
                     GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
@@ -107,12 +120,18 @@ public class PlayerAttack : MonoBehaviour
             }
             else if (hit.tag == "Prop3")
             {
-                GameObject frac = Instantiate(fractruedVase, hit.gameObject.transform.position + new Vector3(0, 1.25f, 0), hit.gameObject.transform.rotation, null);
+                GameObject frac = Instantiate(fractruedVase, hit.gameObject.transform.position, Quaternion.identity, null);
+                soundChoice = UnityEngine.Random.Range(0, 2);
+                if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
+                else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
+                frac.transform.localScale = hit.gameObject.transform.localScale/100;
                 foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                 {
                     Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                     rb.AddForce(force);
                 }
+
+
                 for (int i = 0; i < Random.Range(2, 4); i++)
                 {
                     GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);

@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
-  outlineColor: {r: 0.5686275, g: 0.7647059, b: 1, a: 1}
+  outlineColor: {r: 0.5686275, g: 0.76470596, b: 1, a: 1}
   outlineWidth: 2
   precomputeOutline: 0
   bakeKeys: []
@@ -182,6 +182,8 @@ MonoBehaviour:
   invincTimer: 0
   isCheckingForClick: 0
   swingPart: {fileID: 6157102515922175020}
+  sword: {fileID: 5192928711588420126}
+  hasSword: 0
   healParticles: {fileID: 7327815876779475571, guid: 48427a172c623ca40afa57fbf5cba2c2,
     type: 3}
   healCD: {fileID: 0}
@@ -241,12 +243,8 @@ MonoBehaviour:
   isCutSceneMoving: 0
   playerSpeed: 6
   swingPart: {fileID: 6157102515922175020}
-  overlay: {fileID: 0}
-  overclockInactive: {fileID: 0}
-  overclockActive: {fileID: 0}
   hourglass: {fileID: 8112623543166573764, guid: b6fa9a674c2cc1245b77bc9f2665572c,
     type: 3}
-  overclockCD: {fileID: 0}
   overclockTime: 5
   overclockTransitionTime: 2
   overclock: 0
@@ -1181,6 +1179,12 @@ PrefabInstance:
 --- !u!4 &5065180638292061737 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9001009990681680721, guid: 6329a03a3be8cae4ca3bbba06547075e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4224693185366422904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5192928711588420126 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8264630022864695142, guid: 6329a03a3be8cae4ca3bbba06547075e,
     type: 3}
   m_PrefabInstance: {fileID: 4224693185366422904}
   m_PrefabAsset: {fileID: 0}

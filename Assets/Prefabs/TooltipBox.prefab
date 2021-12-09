@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8628723105228715920}
   m_Layer: 0
   m_Name: TooltipBox
-  m_TagString: Untagged
+  m_TagString: HitBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VFX_PuzzleStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 4682933923474910300, guid: 7a04b76acf5312e41bd6c468687c911d,
+        type: 3}
+      propertyPath: m_TagString
+      value: HitBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a04b76acf5312e41bd6c468687c911d, type: 3}

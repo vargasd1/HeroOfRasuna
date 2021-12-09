@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class PlayerManager : MonoBehaviour
     public float invincTimer = 0;
     public bool isCheckingForClick = false;
     public GameObject swingPart;
+    public GameObject sword;
+    public bool hasSword = false;
 
     // variables for heal (E)
     public ParticleSystem healParticles;
@@ -56,9 +59,20 @@ public class PlayerManager : MonoBehaviour
     {
         anim = gameObject.GetComponent<Animator>();
         playerMove = gameObject.GetComponent<PlayerMovement>();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            sword.SetActive(false);
+            hasSword = false;
+        }
+        else
+        {
+            sword.SetActive(true);
+            hasSword = true;
+        }
         //audioScript = FindObjectOfType<AudioManager>();
         canAttack = true;
         swingPart.gameObject.SetActive(false);
+        pauseMenu.GamePaused = false;
 
         // Ignore Collision Boxes/Spheres/Etc. of specified Layers
         Physics.IgnoreLayerCollision(10, 11); // Props ignore XP
@@ -171,7 +185,7 @@ public class PlayerManager : MonoBehaviour
                         anim.SetInteger("swingCount", attackNum);
                         swingPart.gameObject.SetActive(true);
                     }
-                    else if (attackNum > 0 && isCheckingForClick && canAttack)
+                    else if (attackNum > 0 && isCheckingForClick && canAttack && hasSword)
                     {
                         swingPart.gameObject.SetActive(true);
                         attackNum++;

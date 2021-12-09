@@ -543,6 +543,7 @@ MonoBehaviour:
   orbsDroppedOnce: 0
   alreadyHitPlayer: 0
   alreadyHitByPlayer: 0
+  hitDelay: 0
   isAttacking: 0
   attackAnimIsPlaying: 0
 --- !u!136 &919132148561356229
@@ -949,6 +950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8420662516495018681}
   - component: {fileID: 6574082645036712690}
+  - component: {fileID: 4190585576596171571}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1043,6 +1045,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000037908554, y: 0.19962978, z: 0.0341985}
     m_Extent: {x: 0.7330756, y: 0.8538189, z: 0.25481427}
   m_DirtyAABB: 0
+--- !u!114 &4190585576596171571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9072145347721688406}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.7882353, g: 0.3882353, b: 0.37254903, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &9121079383446884816
 GameObject:
   m_ObjectHideFlags: 0

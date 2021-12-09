@@ -209,7 +209,27 @@ public class SuravAI : MonoBehaviour
                 state = State.Idle;
                 attackDelay = 2f;
                 stunTimer -= Time.deltaTime;
+                Destroy(shockwaveCharge);
                 agent.SetDestination(transform.position);
+
+                spawnShockOnce = true;
+                spawnChargeOnce = true;
+                spawnMeteorOnce = true;
+
+                if (!phaseTwo) shockwaveWindUpTimer = 3;
+                else shockwaveWindUpTimer = 1f;
+
+                if (!phaseTwo) minigunWindUp = 2f;
+                else minigunWindUp = 0.5f;
+
+                if (!phaseTwo) shotgunWindUp = 2f;
+                else shotgunWindUp = 0.5f;
+
+                shotCount = 0;
+                miniGunTimer = 0.3f;
+                startMinigun = false;
+                shotGunTimer = 0.75f;
+                startShotgun = false;
             }
         }
     }

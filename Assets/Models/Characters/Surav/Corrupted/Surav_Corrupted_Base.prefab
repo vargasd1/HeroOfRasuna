@@ -194,6 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7669064076874503596}
   - component: {fileID: 7150622415943204937}
+  - component: {fileID: 3162489520773599878}
   m_Layer: 0
   m_Name: Surav_corrupted_base
   m_TagString: Untagged
@@ -288,6 +289,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000015497208, y: 0.4616108, z: 0.023100555}
     m_Extent: {x: 0.7445993, y: 1.1241417, z: 0.7003413}
   m_DirtyAABB: 0
+--- !u!114 &3162489520773599878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713169588118549265}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.7882353, g: 0.3882353, b: 0.37254903, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1902625921323449954
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +909,8 @@ MonoBehaviour:
   meteorObj: {fileID: 0}
   wasHitByPlayer: 0
   hitDelay: 0
+  stunTimer: 0
+  playerMove: {fileID: 0}
   health: 400
   attackDelay: 5
   phaseTwo: 0
@@ -1309,15 +1330,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 533622c838fbeee418dea1c00a3799de, type: 3}
---- !u!4 &1846884345700074921 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 533622c838fbeee418dea1c00a3799de,
-    type: 3}
-  m_PrefabInstance: {fileID: 2174054426804986434}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &714488332564905670 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 533622c838fbeee418dea1c00a3799de,
+    type: 3}
+  m_PrefabInstance: {fileID: 2174054426804986434}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1846884345700074921 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 533622c838fbeee418dea1c00a3799de,
     type: 3}
   m_PrefabInstance: {fileID: 2174054426804986434}
   m_PrefabAsset: {fileID: 0}
@@ -1506,15 +1527,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edafb69f17a6e1945931c0f3b148d988, type: 3}
---- !u!4 &8895137455002665784 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: edafb69f17a6e1945931c0f3b148d988,
-    type: 3}
-  m_PrefabInstance: {fileID: 9005889867238450387}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &7726713234197788759 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: edafb69f17a6e1945931c0f3b148d988,
+    type: 3}
+  m_PrefabInstance: {fileID: 9005889867238450387}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8895137455002665784 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: edafb69f17a6e1945931c0f3b148d988,
     type: 3}
   m_PrefabInstance: {fileID: 9005889867238450387}
   m_PrefabAsset: {fileID: 0}

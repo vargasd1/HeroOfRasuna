@@ -11,18 +11,21 @@ public class CameraFocusEnemy : MonoBehaviour
     public NavMeshObstacle navMeshBlock;
     public GameObject enemySpawnPoint;
     private PlayerMovement player;
+    public GameObject playerSword;
     public GameObject enemy;
     public GameObject rangedEnemy;
     public GameObject enemyRagdoll;
-    public GameObject topButtonPart;
     private GameObject enemRag;
     private CameraFollow camFol;
+    public GameObject enemyWallFade;
     private bool doOnce = false;
     private bool moveDoorUp = false;
     private bool moveDoorDown = false;
     private bool moveButtonDown = false;
     private AudioManager audioScript;
     public GameObject particle;
+    private float bounceCounter = 0.8f;
+    private bool pickedUp = false;
 
     private void Start()
     {
@@ -44,11 +47,15 @@ public class CameraFocusEnemy : MonoBehaviour
             enemyDoor.transform.position = Vector3.MoveTowards(enemyDoor.transform.position, new Vector3(23, 0, 0), step);
         }
 
-        if (moveButtonDown)
+        if (!pickedUp)
         {
-            float step = 0.075f * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
-            topButtonPart.transform.position = Vector3.MoveTowards(topButtonPart.transform.position, new Vector3(-5, 0.066f, 0), step);
+            bounceCounter += Time.deltaTime;
+            if (bounceCounter >= Mathf.PI * 2) bounceCounter -= Mathf.PI * 2;
+            transform.position = new Vector3(-5, 1 + Mathf.Sin(bounceCounter) * 0.4f, 0);
+
+            transform.Rotate(0, 1, 0);
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,7 +65,7 @@ public class CameraFocusEnemy : MonoBehaviour
             //if overclocked, reset overclock
             if (player.overclock || player.overclockTransition)
             {
-                
+
                 player.overclockTime = 5f;
                 player.overclockTransitionTime = 2f;
                 player.overclock = false;
@@ -77,12 +84,21 @@ public class CameraFocusEnemy : MonoBehaviour
 
     IEnumerator panBack()
     {
+        pickedUp = true;
+        transform.position = new Vector3(100, 100, 100);
+        Destroy(particle);
+        playerSword.SetActive(true);
+        player.GetComponent<PlayerManager>().hasSword = true;
         doOnce = true;
         camFol = cameraObject.GetComponent<CameraFollow>();
         camFol.cameraMoveSpeed = 10;
         player.isCutScene = true;
-        var newEnem = Instantiate(enemy, enemySpawnPoint.transform.position, new Quaternion(0, 0, 0, 0));
-        var newEnem2 = Instantiate(enemy, enemySpawnPoint.transform.position, new Quaternion(0, 0, 0, 0));
+        GameObject newEnem = Instantiate(enemy, enemySpawnPoint.transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+        GameObject enemWallFade = Instantiate(enemyWallFade, newEnem.transform.position, Quaternion.Euler(-45, 225, 0), null) as GameObject;
+        enemWallFade.GetComponent<EnemyToWallCollision>().targetEnemy = newEnem;
+        GameObject newEnem2 = Instantiate(enemy, enemySpawnPoint.transform.position, new Quaternion(0, 0, 0, 0));
+        GameObject enemWallFade2 = Instantiate(enemyWallFade, newEnem2.transform.position, Quaternion.Euler(-45, 225, 0), null) as GameObject;
+        enemWallFade2.GetComponent<EnemyToWallCollision>().targetEnemy = newEnem2;
 
         yield return new WaitForSecondsRealtime(1);
 
@@ -96,7 +112,6 @@ public class CameraFocusEnemy : MonoBehaviour
         newEnem2.GetComponent<EnemyAI>().state = EnemyAI.State.Wander;
         newEnem2.GetComponent<EnemyAI>().wanderDest = new Vector3(15, 0, -6);
         newEnem2.GetComponent<NavMeshAgent>().SetDestination(new Vector3(15, 0, -6));
-        Destroy(particle);
 
         yield return new WaitForSecondsRealtime(1);
 
@@ -110,8 +125,6 @@ public class CameraFocusEnemy : MonoBehaviour
         moveDoorDown = true;
         moveDoorUp = false;
         navMeshBlock.enabled = true;
-        moveButtonDown = false;
-        topButtonPart.transform.position = new Vector3(-5, 0.066f, 0);
 
         Quaternion rot = Quaternion.Euler(90, -90, 0);
 
@@ -123,10 +136,15 @@ public class CameraFocusEnemy : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1);
 
-        var newEnem3 = Instantiate(rangedEnemy, new Vector3(enemRag.transform.position.x, 0, enemRag.transform.position.z), new Quaternion(0, 0, 0, 0));
+        GameObject newEnem3 = Instantiate(rangedEnemy, new Vector3(enemRag.transform.position.x, 0, enemRag.transform.position.z), new Quaternion(0, 0, 0, 0));
+        GameObject enemWallFade3 = Instantiate(enemyWallFade, newEnem3.transform.position, Quaternion.Euler(-45, 225, 0), null) as GameObject;
+        enemWallFade3.GetComponent<EnemyToWallCollision>().targetEnemy = newEnem3;
+
         newEnem3.GetComponent<EnemyRangedAI>().state = EnemyRangedAI.State.Idle;
+
         Destroy(enemRag);
         player.isCutScene = false;
         moveDoorDown = false;
+        Destroy(gameObject);
     }
 }

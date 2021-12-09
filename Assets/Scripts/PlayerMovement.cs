@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         playerMan = gameObject.GetComponent<PlayerManager>();
         anim.updateMode = AnimatorUpdateMode.UnscaledTime;
+        
     }
 
     void Update()

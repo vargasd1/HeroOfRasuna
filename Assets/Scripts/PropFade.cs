@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script fades out the fractured props after some time.
+/// 
+/// ATTATCHED TO: fracBowl, fracPot, fracVase
+/// </summary>
 public class PropFade : MonoBehaviour
 {
     private List<Material> mats = new List<Material>();

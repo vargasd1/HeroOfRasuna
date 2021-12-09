@@ -42,17 +42,19 @@ public class BossGate : MonoBehaviour
         {
             playerMove.isCutScene = true;
 
-            playerMove.overclock = false;
-            playerMove.overclockTransition = false;
-            playerMove.overclockTransitionTime = 2f;
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = Time.timeScale * .02f;
-            playerMove.overclockTime = 5;
-            playerMove.overclockChargedAmt = 0f;
-            AudioManager aud = FindObjectOfType<AudioManager>();
-            aud.Stop("Overclock");
-            aud.ChangePitch("Overclock", 1f);
-            aud.ResetSounds();
+            if (playerMove.overclock || playerMove.overclockTransition)
+            {
+                playerMove.overclockTime = 5f;
+                playerMove.overclockTransitionTime = 2f;
+                playerMove.overclock = false;
+                playerMove.overclockTransition = false;
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = Time.timeScale * .02f;
+                AudioManager aud = FindObjectOfType<AudioManager>();
+                aud.Stop("Overclock");
+                aud.ChangePitch("Overclock", 1f);
+                aud.ResetSounds();
+            }
 
             StartCoroutine(StartBossCutscene());
             startOnce = false;

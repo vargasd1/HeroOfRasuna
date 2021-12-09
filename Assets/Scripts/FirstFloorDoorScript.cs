@@ -36,21 +36,19 @@ public class FirstFloorDoorScript : MonoBehaviour
         {
             playerMove.isCutScene = true;
 
-            playerMove.overclock = false;
-            playerMove.overclockTransition = false;
-            playerMove.overclockTransitionTime = 2f;
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = Time.timeScale * .02f;
-            //playerMove.overlay.SetActive(false);
-            playerMove.overclockTime = 5;
-            playerMove.overclockChargedAmt = 0f;
-            /*audioScript.Stop("Overclock");
-            audioScript.ChangePitch("Overclock", 1f);
-            audioScript.ResetSounds();*/
-            AudioManager aud = FindObjectOfType<AudioManager>();
-            aud.Stop("Overclock");
-            aud.ChangePitch("Overclock", 1f);
-            aud.ResetSounds();
+            if (playerMove.overclock || playerMove.overclockTransition)
+            {
+                playerMove.overclockTime = 5f;
+                playerMove.overclockTransitionTime = 2f;
+                playerMove.overclock = false;
+                playerMove.overclockTransition = false;
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = Time.timeScale * .02f;
+                AudioManager aud = FindObjectOfType<AudioManager>();
+                aud.Stop("Overclock");
+                aud.ChangePitch("Overclock", 1f);
+                aud.ResetSounds();
+            }
 
             StartCoroutine(doorCutScene());
             doOnce = true;

@@ -115,7 +115,7 @@ public class PlayerManager : MonoBehaviour
         if (!isDead && !pauseMenu.GamePaused && !isCutScene)
         {
             // Lerps health
-            playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.15f);
+            playerHealth = AnimMath.Lerp(playerHealth, playerTargetHealth, 0.17f);
             if (playerHealth > 99.8f) playerHealth = 100;
             else if (playerHealth < 1f)
             {

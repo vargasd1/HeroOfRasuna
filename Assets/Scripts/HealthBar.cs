@@ -17,6 +17,7 @@ public class HealthBar : MonoBehaviour
     //float health;
     float runningTotal = 0f;
     float overclockCharge;
+    float runningTime = 0f;
 
     //https://www.youtube.com/watch?v=ZzkIn41DFFo&ab_channel=MousawiDev
     void Start()
@@ -31,6 +32,13 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        runningTime += Time.deltaTime;
+        if (runningTime > 3f && loadingSceen.color.a < .5f)
+        {
+            Color col = loadingSceen.color;
+            col.a = 0f;
+            loadingSceen.color = col;
+        }
         //health = player.playerHealth / 100f;
         if (NextFloorPlayer.loadedValues && loadingSceen.color.a <= .1f)
         {

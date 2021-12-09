@@ -105,7 +105,7 @@ public class SpellInteraction : MonoBehaviour
                 }
                 break;
             case "attack":
-                if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox")
+                if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox" && hit.gameObject.name != "HOR_Puzzle_Piece1" && hit.gameObject.name != "HOR_Puzzle_Piece2" && hit.gameObject.name != "HOR_Puzzle_Piece3")
                 {
                     Destroy(gameObject);
                     Instantiate(collisionFlash, transform.position, transform.rotation);

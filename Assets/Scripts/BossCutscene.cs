@@ -205,6 +205,8 @@ public class BossCutscene : MonoBehaviour
                         startCutscene = false;
                         FindObjectOfType<AudioManager>().Stop("Exploration3");
                         FindObjectOfType<AudioManager>().Play("Boss Fight");
+                        gameObject.GetComponent<BossCutscene>().enabled = false;
+                        gameObject.GetComponent<BoxCollider>().enabled = false;
                     }
                     else
                     {

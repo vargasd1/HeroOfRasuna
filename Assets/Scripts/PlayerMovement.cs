@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     public bool attackAnimPlaying = false;
     public bool isCutScene = false;
     public bool isCutSceneMoving = false;
+    private Outline playerOut;
+    private Camera mainCam;
+    private bool stopFadeOnce = true;
 
     public float playerSpeed = 5.0f;
     public GameObject swingPart;
@@ -56,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
         anim = gameObject.GetComponent<Animator>();
         playerMan = gameObject.GetComponent<PlayerManager>();
         anim.updateMode = AnimatorUpdateMode.UnscaledTime;
-        
+        playerOut = GetComponentInChildren<Outline>();
     }
 
     void Update()
@@ -67,12 +70,10 @@ public class PlayerMovement : MonoBehaviour
         {
             //////////////////////////////////////////////////////////// Player Grounded & Speed
             groundedPlayer = controller.isGrounded;
+            stopFadeOnce = true;
 
             if (doRotation)
             {
-                //tempRotationX = AnimMath.Slide(0, targetRotationX, .01f);
-                //tempRotationZ = AnimMath.Slide(0, targetRotationZ, .01f);
-
                 transform.LookAt(new Vector3(targetRotationX, transform.position.y, targetRotationZ));
                 doRotation = false;
             }
@@ -162,18 +163,41 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isMoving", false);
             playerSpeed = 0;
             anim.SetFloat("Speed", playerSpeed);
+            playerOut.enabled = false;
+            if (stopFadeOnce)
+            {
+                WallFade[] walls = FindObjectsOfType<WallFade>();
+                foreach (WallFade w in walls)
+                {
+                    w.fadeOut = false;
+                    w.fadeIn = true;
+                }
+                stopFadeOnce = false;
+            }
         }
         else if (!isDead && !pauseMenu.GamePaused && isCutScene && isCutSceneMoving)
         {
             anim.SetBool("isMoving", true);
             playerSpeed = 0;
             anim.SetFloat("Speed", playerSpeed);
+            playerOut.enabled = false;
+            if (stopFadeOnce)
+            {
+                WallFade[] walls = FindObjectsOfType<WallFade>();
+                foreach (WallFade w in walls)
+                {
+                    w.fadeOut = false;
+                    w.fadeIn = true;
+                }
+                stopFadeOnce = false;
+            }
         }
         //(!isDead && !isPaused)
         else
         {
             playerSpeed = 0;
             anim.SetFloat("Speed", playerSpeed);
+            stopFadeOnce = true;
         }
     }//Update()
 

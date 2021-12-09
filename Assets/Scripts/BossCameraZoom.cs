@@ -14,7 +14,7 @@ public class BossCameraZoom : MonoBehaviour
 
     private void Update()
     {
-        if (moveCamera)
+        if (moveCamera && Camera.main != null)
         {
             Camera.main.orthographicSize = AnimMath.Map(player.gameObject.transform.position.x, 22.7f, 32.1f, 8, 12);
         }

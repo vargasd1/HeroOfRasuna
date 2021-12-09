@@ -11,6 +11,7 @@ public class SceneSwitcher : MonoBehaviour
     private bool fadeOut = false;
     private bool fadeIn = false;
     private float alpha = 1;
+    private string sceneName = "FirstFloor";
 
     private void Start()
     {
@@ -40,7 +41,7 @@ public class SceneSwitcher : MonoBehaviour
             loadScreen.color = new Color(0, 0, 0, alpha);
             if (loadScreen.color.a >= 1)
             {
-                loadingScreenScript.scene = "FirstFloor";
+                loadingScreenScript.scene = sceneName;
                 SceneManager.LoadScene(4);//must change depending on included scenes in build
             }
         }
@@ -50,6 +51,14 @@ public class SceneSwitcher : MonoBehaviour
     {
         fadeOut = true;
         loadScreen.gameObject.SetActive(true);
+        sceneName = "FirstFloor";
+    }
+
+    public void switchToCredits()
+    {
+        fadeOut = true;
+        loadScreen.gameObject.SetActive(true);
+        sceneName = "CreditScene";
     }
 
     public void quitGame()

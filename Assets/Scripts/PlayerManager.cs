@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// This script manages the player and his attacks
+/// 
+/// ATTATCHED TO: Player
+/// </summary>
 public class PlayerManager : MonoBehaviour
 {
     // player variables
@@ -52,9 +58,6 @@ public class PlayerManager : MonoBehaviour
     public Image stunCD;
     public LayerMask floorMask;
 
-    //audioManager
-    private AudioManager audioScript;
-
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -69,7 +72,6 @@ public class PlayerManager : MonoBehaviour
             sword.SetActive(true);
             hasSword = true;
         }
-        //audioScript = FindObjectOfType<AudioManager>();
         canAttack = true;
         swingPart.gameObject.SetActive(false);
         pauseMenu.GamePaused = false;
@@ -197,6 +199,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function checks if the player clicked during animation and goes into next attack (animation event)
+    /// </summary>
     public void checkCombo()
     {
         isCheckingForClick = true;

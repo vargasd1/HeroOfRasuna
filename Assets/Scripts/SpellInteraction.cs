@@ -3,22 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// This script controls when the player's spell interactions
+/// 
+/// ATTATCHED TO: VFX_LightBurst, VFX_StunGrenade, VFX_Stun (Prefabs)
+/// </summary>
 public class SpellInteraction : MonoBehaviour
 {
+    // Player and base spell Vars
     public Transform player;
     public GameObject collisionFlash;
     public GameObject stunnedPart;
     public GameObject stunPart;
     public Rigidbody rb;
     public string spellType;
+
+    // Fractured Pots
     public GameObject fracturedBowl;
     public GameObject fracturedPot;
     public GameObject fracturedVase;
     public GameObject xpOrb;
+
+    // Enemies Vars
     private bool enemIsRanged = false;
     private EnemyAI enem;
     private EnemyRangedAI enemR;
     private SuravAI boss;
+
+    // Sound Var
     private float soundChoice;
 
     //Grenade Vars
@@ -43,6 +55,7 @@ public class SpellInteraction : MonoBehaviour
 
     private void Update()
     {
+        // Moves the grenade along the set path
         if (spellType == "grenade")
         {
             tweenTimer += Time.deltaTime;
@@ -55,6 +68,7 @@ public class SpellInteraction : MonoBehaviour
 
     void OnTriggerEnter(Collider hit)
     {
+        // Checks which enemy type was hit
         if (hit.gameObject.GetComponent<EnemyAI>() != null)
         {
             enem = hit.gameObject.GetComponent<EnemyAI>();
@@ -66,12 +80,13 @@ public class SpellInteraction : MonoBehaviour
             enemIsRanged = true;
         }
 
+        // Switch case for what type of spell was spawned
         switch (spellType)
         {
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-
+                    // If it hits an enemy, checks what kind of enemy and stuns them, spawning stunned particles
                     if (enemIsRanged)
                     {
                         if (enemR.state != EnemyRangedAI.State.Stunned)
@@ -97,6 +112,7 @@ public class SpellInteraction : MonoBehaviour
                 }
                 else if (hit.gameObject.tag == "Boss" && hit.gameObject.tag != "Particles")
                 {
+                    // If it hits boss, stun and spawn stunned particles
                     boss.stunTimer = 3f;
                     Vector3 stunnedPos = new Vector3(boss.transform.position.x, 6, boss.transform.position.z);
                     GameObject stunpart = Instantiate(stunnedPart, stunnedPos, Quaternion.Euler(-90, 0, 0), boss.gameObject.transform) as GameObject;
@@ -107,13 +123,14 @@ public class SpellInteraction : MonoBehaviour
             case "attack":
                 if (hit.gameObject.tag != "Player" && hit.gameObject.tag != "Particles" && hit.gameObject.tag != "Ground" && hit.gameObject.tag != "MainCamera" && hit.gameObject.tag != "HitBox" && hit.gameObject.name != "HOR_Puzzle_Piece1" && hit.gameObject.name != "HOR_Puzzle_Piece2" && hit.gameObject.name != "HOR_Puzzle_Piece3")
                 {
+                    // If it hits nothing important, destroy object and spawn impact flash
                     Destroy(gameObject);
                     Instantiate(collisionFlash, transform.position, transform.rotation);
                 }
                 switch (hit.gameObject.tag)
                 {
+                    // Switch Case for what it hits, if it's an enemy deal damage, if it's a pot break it
                     case "Enemy":
-                        //FindObjectOfType<AudioManager>().PlayUninterrupted("Light Burst");
                         if (enemIsRanged)
                         {
                             enemR.health -= 34;
@@ -142,18 +159,23 @@ public class SpellInteraction : MonoBehaviour
                         break;
 
                     case "Prop1":
+                        // Spawn fractured prop
                         GameObject frac = Instantiate(fracturedPot, hit.gameObject.transform.position, Quaternion.identity, null);
+                        frac.transform.localScale = hit.gameObject.transform.localScale / 100;
+
+                        // Play sound
                         soundChoice = UnityEngine.Random.Range(0, 2);
                         if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                         else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                        frac.transform.localScale = hit.gameObject.transform.localScale / 100;
+
+                        // Give some force to pottery
                         foreach (Rigidbody rb in frac.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                             rb.AddForce(force);
                         }
 
-
+                        // Spawn XP
                         for (int i = 0; i < Random.Range(2, 4); i++)
                         {
                             GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
@@ -163,18 +185,23 @@ public class SpellInteraction : MonoBehaviour
                         Destroy(hit.gameObject);
                         break;
                     case "Prop2":
+                        // Spawn fractured prop
                         GameObject frac2 = Instantiate(fracturedBowl, hit.gameObject.transform.position, Quaternion.identity, null);
+                        frac2.transform.localScale = hit.gameObject.transform.localScale / 100;
+
+                        // Play sound
                         soundChoice = UnityEngine.Random.Range(0, 2);
                         if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                         else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                        frac2.transform.localScale = hit.gameObject.transform.localScale / 100;
+
+                        // Give some force to pottery
                         foreach (Rigidbody rb in frac2.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                             rb.AddForce(force);
                         }
 
-
+                        // Spawn XP
                         for (int i = 0; i < Random.Range(2, 4); i++)
                         {
                             GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
@@ -184,18 +211,24 @@ public class SpellInteraction : MonoBehaviour
                         Destroy(hit.gameObject);
                         break;
                     case "Prop3":
+                        // Spawn fractured prop
                         GameObject frac3 = Instantiate(fracturedVase, hit.gameObject.transform.position, Quaternion.identity, null);
+                        frac3.transform.localScale = hit.gameObject.transform.localScale / 100;
+
+                        // Play sound
                         soundChoice = UnityEngine.Random.Range(0, 2);
                         if (soundChoice < 1) FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak1");
                         else FindObjectOfType<AudioManager>().PlayUninterrupted("PotteryBreak2");
-                        frac3.transform.localScale = hit.gameObject.transform.localScale / 100;
+
+
+                        // Give some force to pottery
                         foreach (Rigidbody rb in frac3.GetComponentsInChildren<Rigidbody>())
                         {
                             Vector3 force = (rb.transform.position - transform.position).normalized * 75;
                             rb.AddForce(force);
                         }
 
-
+                        // Spawn XP
                         for (int i = 0; i < Random.Range(2, 4); i++)
                         {
                             GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
@@ -211,6 +244,7 @@ public class SpellInteraction : MonoBehaviour
             case "grenade":
                 if (hit.gameObject.tag == "Ground")
                 {
+                    // If the grenade hits the ground, play sound and spawn stun sphere
                     FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                     Vector3 targetLoc = new Vector3(transform.position.x, transform.position.y + 0.15f, transform.position.z);
                     GameObject stun = Instantiate(stunPart, targetLoc, Quaternion.Euler(0, 0, 0)) as GameObject;
@@ -228,7 +262,6 @@ public class SpellInteraction : MonoBehaviour
             case "stun":
                 if (hit.gameObject.tag == "Enemy" && hit.gameObject.tag != "Particles")
                 {
-                    //FindObjectOfType<AudioManager>().PlayUninterrupted("Stun");
                     if (enemIsRanged)
                     {
                         if (enemR.state != EnemyRangedAI.State.Stunned)
@@ -256,6 +289,9 @@ public class SpellInteraction : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function Lerps the grenade from the player and to the where the player clicked in the arc
+    /// </summary>
     private Vector3 CalcPositionOnCurve(float percent)
     {
         // pC = lerp between pA and handle

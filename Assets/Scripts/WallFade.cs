@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script is used to fade out the walls that the player is behind.
+/// 
+/// ATTATCHED TO: All objects that are meant to fade
+/// </summary>
 public class WallFade : MonoBehaviour
 {
     private List<Material> mats = new List<Material>();

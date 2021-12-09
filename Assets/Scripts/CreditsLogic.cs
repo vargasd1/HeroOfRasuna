@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This script is used to send the player back to the Main Menu when the video is done.
+/// Also if the player clicks during credits, player goes to Main Menu.
+/// 
+/// ATTATCHED TO: Video Player
+/// </summary>
+
 public class CreditsLogic : MonoBehaviour
 {
 
@@ -19,8 +26,7 @@ public class CreditsLogic : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
+        // Timer to not let Player skip right away, as well as lets video start before checking !vid.isPlaying
         if (timer <= 0)
         {
             if (!vid.isPlaying)

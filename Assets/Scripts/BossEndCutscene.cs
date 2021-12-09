@@ -5,25 +5,39 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This script is used to start and update the Boss' outro cutscene.
+/// This stops the fight and fades to the boss' transition, which then fades to the dialouge,
+/// and then fades to black and switches scene to credits.
+/// 
+/// ATTATCHED TO: BossFightCutsceneTrigger
+/// </summary>
+
 public class BossEndCutscene : MonoBehaviour
 {
 
-    // Outro Cutscene
+    // UI Vars
     public Image UICover;
     public GameObject mainUI;
     private bool fadeIn = false;
     private bool fadeOut = false;
+    private float alpha = 0;
+
+    // Boss and Player Vars
     private SuravAI boss;
     private PlayerMovement playerMove;
     private bool doOnce = true;
 
+    // Camera Vars
     public Camera bossPlayerCam;
     public Camera bossCam;
     public Camera playerCam;
     private Camera mainCam;
+
+    // NavMesh Var
     public GameObject bossSeatNav;
 
-    private float alpha = 0;
+    // Boss Transition 
     public GameObject transition;
     public GameObject curedBoss;
     private GameObject transitionEffect;
@@ -54,6 +68,7 @@ public class BossEndCutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If the boss dies, begin the end cutscene
         if (boss.health <= 0)
         {
             if (doOnce)
@@ -63,10 +78,10 @@ public class BossEndCutscene : MonoBehaviour
             }
         }
 
-
-
+        // If the coroutine is finished start the dialogue
         if (isTalking)
         {
+            // Small delay before he starts talking to let the text box pop up
             if (textStartDelay <= 0 && startOnce)
             {
                 readyToSkip = false;
@@ -80,10 +95,12 @@ public class BossEndCutscene : MonoBehaviour
 
             if (readyToSkip)
             {
+                // Check if the player is on their last dialogue or not
                 if (dialogueCount < 7)
                 {
                     nextPrompt.SetActive(true);
 
+                    // If the player clicks when the message is done, move on to next message
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         dialogueCount++;
@@ -99,6 +116,7 @@ public class BossEndCutscene : MonoBehaviour
                 nextPrompt.SetActive(false);
             }
 
+            // Switch case for what Surav says and when
             switch (dialogueCount)
             {
                 case 0:
@@ -129,8 +147,10 @@ public class BossEndCutscene : MonoBehaviour
                     break;
             }
 
+            // If the dialogue is all finsihed
             if (dialogueCount >= 7 && readyToSkip)
             {
+                // Small delay before the screen fades to black
                 if (startFadeDelay <= 0)
                 {
                     isTalking = false;
@@ -143,6 +163,7 @@ public class BossEndCutscene : MonoBehaviour
             }
         }
 
+        // Fades in the UI black screen
         if (fadeIn)
         {
             if (alpha <= 0.5f) alpha -= Time.unscaledDeltaTime;
@@ -153,6 +174,7 @@ public class BossEndCutscene : MonoBehaviour
             UICover.color = new Color(0, 0, 0, alpha);
         }
 
+        // Fades out the UI black screen
         if (fadeOut)
         {
             alpha += Time.unscaledDeltaTime;
@@ -170,6 +192,7 @@ public class BossEndCutscene : MonoBehaviour
 
     private IEnumerator StartDefeatCutscene()
     {
+        // Turn off Character Controller, UI, Boss AI, and NavMeshObstacle near boss' seat
         playerMove.isCutScene = true;
         mainUI.SetActive(false);
         boss.GetComponent<NavMeshAgent>().enabled = false;
@@ -179,15 +202,19 @@ public class BossEndCutscene : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1f);
 
+        // Move player and boss and rotate them to look at each other
         playerMove.gameObject.transform.position = new Vector3(81f, 0, 0);
         boss.gameObject.transform.position = new Vector3(88.754f, 2, 0);
         playerMove.gameObject.transform.LookAt(new Vector3(boss.gameObject.transform.position.x, playerMove.gameObject.transform.position.y, boss.gameObject.transform.position.z));
         boss.gameObject.transform.LookAt(new Vector3(playerMove.gameObject.transform.position.x, boss.gameObject.transform.position.y, playerMove.gameObject.transform.position.z));
+
+        // Turn on boss' AI again to make him bounce and set his destination to where he is moved to
         boss.GetComponent<NavMeshAgent>().enabled = true;
         boss.GetComponent<NavMeshAgent>().SetDestination(boss.gameObject.transform.position);
 
         yield return new WaitForSecondsRealtime(0.5f);
 
+        // Switch cameras and fade screen in
         mainCam.gameObject.SetActive(false);
         bossCam.gameObject.SetActive(true);
         fadeOut = false;
@@ -195,11 +222,13 @@ public class BossEndCutscene : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(3);
 
+        // Begin transition and play sound
         transitionEffect = Instantiate(transition, new Vector3(88.754f, 3.15f, 0), Quaternion.Euler(0, -90, 0), null) as GameObject;
         FindObjectOfType<AudioManager>().PlayUninterrupted("Transition");
 
         yield return new WaitForSecondsRealtime(4.55f);
 
+        // Swap out corrupted and cured Surav
         Instantiate(curedBoss, new Vector3(88.754f, 3.15f, 0), Quaternion.Euler(0, -90, 0), null);
         Destroy(boss.gameObject);
 
@@ -209,11 +238,13 @@ public class BossEndCutscene : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1.5f);
 
+        // Fade Camera Out
         fadeIn = false;
         fadeOut = true;
 
         yield return new WaitForSecondsRealtime(1.5f);
 
+        // Move player forward into shot, switch cameras, and fade in
         playerMove.gameObject.transform.position = new Vector3(83f, 0, 0);
         bossCam.gameObject.SetActive(false);
         bossPlayerCam.gameObject.SetActive(true);
@@ -222,7 +253,7 @@ public class BossEndCutscene : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.5f);
 
-        // Font Stuff
+        // Change Font Properties 
         dialogueUI.txt.font = curedFont;
         dialogueUI.txt.characterSpacing = 0.75f;
         dialogueUI.txt.lineSpacing = -15;

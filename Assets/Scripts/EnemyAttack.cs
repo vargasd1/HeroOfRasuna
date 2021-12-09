@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script is used to turn on the damage hitbox for the enemy and damage player if close enough
+/// 
+/// ATTATCHED TO: HoR_Enemy_Base (AttackHitbox)
+/// </summary>
 public class EnemyAttack : MonoBehaviour
 {
     private GameObject player;
@@ -21,6 +26,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && self.isAttacking && !playerManager.isInvinc && self.state != EnemyAI.State.Stunned)
         {
+            // Damage player and give them invinc and make them do "Hit" animation
             playerManager.playerTargetHealth -= 25;
             playerManager.isInvinc = true;
             playerManager.invincTimer = 2f;

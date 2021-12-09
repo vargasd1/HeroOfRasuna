@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// This script is used to create Surav's AI, letting him decide all his choices.
+/// 
+/// ATTATCHED TO: Surav_Corrupted_Base (Prefab)
+/// </summary>
 public class SuravAI : MonoBehaviour
 {
     // State Machine Variables
@@ -56,11 +61,6 @@ public class SuravAI : MonoBehaviour
     private float bounceCounter = 0.8f;
     public float health = 500;
 
-    private bool lowerWeight = false;
-    private bool raiseWeight = false;
-
-    private float resetLayerAmt = 0;
-    private float resetLayerAlpha = 0;
     public float attackDelay = 5;
 
     public bool phaseTwo = false;
@@ -98,6 +98,7 @@ public class SuravAI : MonoBehaviour
             state = State.Defeated;
             if (!defeatedOnce)
             {
+                // Stops overclock
                 AudioManager aud = FindObjectOfType<AudioManager>();
                 if (playerMove.overclock || playerMove.overclockTransition)
                 {
@@ -123,6 +124,7 @@ public class SuravAI : MonoBehaviour
         }
         else
         {
+            // Start second phase and apply red shader
             if (health <= 400)
             {
                 if (applyTextureOnce)
@@ -140,6 +142,7 @@ public class SuravAI : MonoBehaviour
                 }
             }
 
+            // Always look at player
             if (player)
             {
                 Vector3 lookVector = player.position;
@@ -147,16 +150,7 @@ public class SuravAI : MonoBehaviour
                 transform.LookAt(lookVector);
             }
 
-            if (lowerWeight)
-            {
-                lowerLayerWeight();
-            }
-
-            if (raiseWeight)
-            {
-                raiseLayerWeight();
-            }
-
+            // Hit timer
             if (wasHitByPlayer)
             {
                 if (hitDelay <= 0)
@@ -206,6 +200,7 @@ public class SuravAI : MonoBehaviour
             }
             else
             {
+                // If is stunned, resets vars
                 state = State.Idle;
                 attackDelay = 2f;
                 stunTimer -= Time.deltaTime;
@@ -237,6 +232,7 @@ public class SuravAI : MonoBehaviour
     private void pickAttack()
     {
         int rand = Mathf.FloorToInt(UnityEngine.Random.Range(0, 10));
+
         // If the player is "close"
         if (Vector3.Distance(player.transform.position, transform.position) <= 5)
         {
@@ -312,6 +308,7 @@ public class SuravAI : MonoBehaviour
 
     private void ShockwaveAttack()
     {
+        // Spawn charge up
         if (spawnChargeOnce)
         {
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
@@ -320,6 +317,7 @@ public class SuravAI : MonoBehaviour
             FindObjectOfType<AudioManager>().PlayUninterrupted("SolarFlare");
         }
 
+        // Spawn shockwave
         if (shockwaveWindUpTimer <= 0 && health > 0)
         {
             if (spawnShockOnce)
@@ -341,6 +339,7 @@ public class SuravAI : MonoBehaviour
 
     private void MinigunAttack()
     {
+        // Spawn charge up
         if (spawnChargeOnce)
         {
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
@@ -348,6 +347,7 @@ public class SuravAI : MonoBehaviour
             spawnChargeOnce = false;
         }
 
+        // Wind up before shooting
         if (minigunWindUp <= 0)
         {
             startMinigun = true;
@@ -357,6 +357,7 @@ public class SuravAI : MonoBehaviour
             minigunWindUp -= Time.unscaledDeltaTime;
         }
 
+        // Start spawning projectiles
         if (startMinigun)
         {
             if (miniGunTimer > 0) miniGunTimer -= Time.deltaTime;
@@ -382,6 +383,7 @@ public class SuravAI : MonoBehaviour
 
     private void ShotgunAttack()
     {
+        // Spawn charge up
         if (spawnChargeOnce)
         {
             shockwaveCharge = Instantiate(chargeObj, transform.position, Quaternion.identity, null) as GameObject;
@@ -389,6 +391,7 @@ public class SuravAI : MonoBehaviour
             spawnChargeOnce = false;
         }
 
+        // Wind up before shooting
         if (shotgunWindUp <= 0)
         {
             startShotgun = true;
@@ -398,6 +401,7 @@ public class SuravAI : MonoBehaviour
             shotgunWindUp -= Time.unscaledDeltaTime;
         }
 
+        // Starts spawning projectiles
         if (startShotgun)
         {
             if (shotGunTimer > 0) shotGunTimer -= Time.deltaTime;
@@ -438,11 +442,13 @@ public class SuravAI : MonoBehaviour
 
     private void findNewLocation()
     {
+        // Find random position
         NavMeshHit hit;
         Vector3 randomDir = UnityEngine.Random.insideUnitSphere * 20;
         randomDir += transform.position;
         NavMesh.SamplePosition(randomDir, out hit, 20, 9);
 
+        // Move to position
         if (!isWandering)
         {
             isWandering = true;
@@ -467,9 +473,8 @@ public class SuravAI : MonoBehaviour
 
         // make lightBlast prefab rotate towards player
         lightBlast.transform.LookAt(pointToLook);
+
         // addForce in the forward direction so the lightBlast moved towards click
-        /*if (!phaseTwo) lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 1000);
-        else lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);*/
         if (!phaseTwo) lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f * (2f / 3f));
         else lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f * (8f / 3f));
     }
@@ -495,59 +500,15 @@ public class SuravAI : MonoBehaviour
         // addForce in the forward direction so the lightBlast moved towards click
         if (!phaseTwo)
         {
-            //lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast2.transform.forward * 1500);
             lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f);
             lightBlast2.GetComponent<Rigidbody>().velocity = (lightBlast2.transform.forward * 25f);
             lightBlast3.GetComponent<Rigidbody>().velocity = (lightBlast3.transform.forward * 25f);
         }
         else
         {
-            //lightBlast.GetComponent<Rigidbody>().AddForce(lightBlast.transform.forward * 4000);
             lightBlast.GetComponent<Rigidbody>().velocity = (lightBlast.transform.forward * 25f * (8f / 3f));
             lightBlast2.GetComponent<Rigidbody>().velocity = (lightBlast2.transform.forward * 25f * (8f / 3f));
             lightBlast3.GetComponent<Rigidbody>().velocity = (lightBlast3.transform.forward * 25f * (8f / 3f));
         }
-    }
-
-    void lowerLayerWeight()
-    {
-        resetLayerAlpha += Time.deltaTime;
-        resetLayerAmt = Mathf.Lerp(0.75f, 0, resetLayerAlpha);
-        anim.SetLayerWeight(1, resetLayerAmt);
-
-        if (resetLayerAmt <= 0.05f)
-        {
-            lowerWeight = false;
-            anim.SetLayerWeight(1, 0);
-            resetLayerAlpha = 0;
-        }
-    }
-
-    void raiseLayerWeight()
-    {
-        resetLayerAlpha += Time.deltaTime;
-        resetLayerAmt = Mathf.Lerp(0, 0.75f, resetLayerAlpha);
-        anim.SetLayerWeight(1, resetLayerAmt);
-
-        if (resetLayerAmt >= 0.7f)
-        {
-            raiseWeight = false;
-            anim.SetLayerWeight(1, 0.75f);
-            resetLayerAlpha = 0;
-        }
-    }
-
-    void setRaiseLayerWeight()
-    {
-        lowerWeight = false;
-        raiseWeight = true;
-        resetLayerAlpha = 0;
-    }
-
-    void setLowerLayerWeight()
-    {
-        raiseWeight = false;
-        lowerWeight = true;
-        resetLayerAlpha = 0.75f;
     }
 }

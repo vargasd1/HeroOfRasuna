@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script controls when the player is attacking and the interactions with their attack
+/// 
+/// ATTATCHED TO: Player (AttackHitbox)
+/// </summary>
 public class XpMagnetizeToPlayer : MonoBehaviour
 {
 

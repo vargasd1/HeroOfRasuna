@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This script is used to create the Enemies AI, letting him decide all his choices.
+/// 
+/// ATTATCHED TO: HoR_Enemy_Base
+/// </summary>
 public class EnemyAI : MonoBehaviour
 {
     // State Machine Variables
@@ -45,7 +50,6 @@ public class EnemyAI : MonoBehaviour
     public float hitDelay = 0f;
     public bool isAttacking = false;
     public bool attackAnimIsPlaying = false;
-    float hitSoundTime = 1f;
 
     //Third Floor Variables
     private bool thirdLevel = false;
@@ -70,14 +74,20 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        // If dead, unstun and go to death state
         if (health <= 0)
         {
             anim.SetBool("Stunned", false);
             state = State.Dead;
         }
+
+        // If the player dies, set them to null
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
+
+        // If game isn't paused
         if (!pauseMenu.GamePaused)
         {
+            // If already hit by the player, small delay where they can't take damage again immediatly
             if (alreadyHitByPlayer)
             {
                 if (hitDelay <= 0)
@@ -104,6 +114,8 @@ public class EnemyAI : MonoBehaviour
                     // Reset navMesh && state
                     agent.speed = 6f;
                     anim.SetBool("isMoving", false);
+
+                    // Wander to new location after timer is done, or Chase if Player is in sight, or Attack if close enough
                     if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
                     if (player)
                     {
@@ -125,16 +137,11 @@ public class EnemyAI : MonoBehaviour
                     break;
                 case State.Attacking:
                     AttackPlayer();
-                    /*if (hitSoundTime < 0f)
-                    {
-                        
-                        hitSoundTime = 1f;
-                    }
-                    else if (hitSoundTime > 0.6f) { }//do nothing
-                    else hitSoundTime -= Time.deltaTime;*/
                     break;
                 case State.hitStunned:
+                    // Stop moving
                     agent.speed = 0f;
+                    anim.SetBool("isMoving", false);
                     break;
                 case State.Stunned:
                     // Stops moving instantly
@@ -162,6 +169,7 @@ public class EnemyAI : MonoBehaviour
                     }
                     // STOP MOVING
                     agent.speed = 0f;
+                    // Spawn XP
                     if (!orbsDroppedOnce)
                     {
                         for (int i = 0; i < UnityEngine.Random.Range(3, 5); i++)
@@ -186,12 +194,14 @@ public class EnemyAI : MonoBehaviour
     {
         if (player)
         {
+            // Chase player if close enough
             if (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer)
             {
                 state = State.Chasing;
             }
             else
             {
+                // Find location in circle and set it as it's destination 
                 NavMeshHit hit;
                 anim.SetBool("isMoving", true);
                 Vector3 randomDir = UnityEngine.Random.insideUnitSphere * 10;
@@ -216,6 +226,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
+            // If no player, just stand still
             state = State.Idle;
             agent.SetDestination(transform.position);
         }
@@ -225,6 +236,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (player && health > 0 && (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer))
         {
+            // look at player and set destination to theirs, if close enough, attack, and if the player is far enough away, give up
             hasSeenPlayer = true;
             anim.SetBool("isMoving", true);
             agent.speed = 3.5f;
@@ -247,14 +259,16 @@ public class EnemyAI : MonoBehaviour
         {
             if (timeBetweenAttacks <= 0)
             {
+                // Stop moving and reset alreadyHitPlayer
                 anim.SetBool("isMoving", false);
                 alreadyHitPlayer = false;
+
+                // If the player is still close attack else chase
                 if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance)
                 {
                     anim.SetTrigger("Attack");
                     timeBetweenAttacks = 3f;
                     agent.speed = 0f;
-                    hitSoundTime = 0.6f;
                 }
                 else
                 {
@@ -272,6 +286,9 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function resets the enemy's attack vars (animation event key)
+    /// </summary>
     public void resetAttackEnemy()
     {
         if (stunnedTimer >= 0) state = State.Stunned;
@@ -281,6 +298,9 @@ public class EnemyAI : MonoBehaviour
         attackAnimIsPlaying = false;
     }
 
+    /// <summary>
+    /// This function resets the enemy's damage vars (animation event key)
+    /// </summary>
     public void resetDamageEnemy()
     {
         if (stunnedTimer >= 0) state = State.Stunned;
@@ -288,12 +308,19 @@ public class EnemyAI : MonoBehaviour
         anim.SetBool("HitAgain", false);
         attackAnimIsPlaying = false;
     }
+
+    /// <summary>
+    /// This function plays the hit sound effect and flips isAttacking (animation event key)
+    /// </summary>
     public void isAttackingSet()
     {
         if (!isAttacking) FindObjectOfType<AudioManager>().PlayUninterrupted("Hit 1");
         isAttacking = !isAttacking;
     }
 
+    /// <summary>
+    /// /// This function checks if the attack animation is playing (animation event key)
+    /// </summary>
     public void isAttackPlaying()
     {
         attackAnimIsPlaying = true;

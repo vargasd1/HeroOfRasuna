@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script is used to detect when the player is behind the wall and fade out the wall.
+/// As well as outline the player with blue.
+/// 
+/// ATTATCHED TO: Main Camera
+/// </summary>
+
 public class CameraToWallCollision : MonoBehaviour
 {
     private GameObject playerObject;

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This script opens the door once all the enemies on the first floor have been killed.
+/// 
+/// ATTATCHED TO: HoR_Stairs_Gate (First Floor)
+/// </summary>
 public class FirstFloorDoorScript : MonoBehaviour
 {
     private GameObject player;
@@ -17,8 +22,6 @@ public class FirstFloorDoorScript : MonoBehaviour
     private float alpha = 0;
     private bool openDoor = false;
     private bool doOnce = false;
-    //private AudioManager audioScript;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -26,7 +29,6 @@ public class FirstFloorDoorScript : MonoBehaviour
         player = FindObjectOfType<PlayerManager>().gameObject;
         playerManager = player.GetComponent<PlayerManager>();
         playerMove = player.GetComponent<PlayerMovement>();
-        //audioScript = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -34,8 +36,10 @@ public class FirstFloorDoorScript : MonoBehaviour
     {
         if (playerManager.enemiesKilled >= 3 && !doOnce)
         {
+            // Stops player from moving
             playerMove.isCutScene = true;
 
+            // Stops overclock if player is using it
             if (playerMove.overclock || playerMove.overclockTransition)
             {
                 playerMove.overclockTime = 5f;
@@ -54,6 +58,7 @@ public class FirstFloorDoorScript : MonoBehaviour
             doOnce = true;
         }
 
+        // Checks to fade in or out the Camera
         if (fadeIn)
         {
             if (alpha <= 0.5f) alpha -= Time.unscaledDeltaTime;
@@ -70,24 +75,28 @@ public class FirstFloorDoorScript : MonoBehaviour
             UICover.color = new Color(0, 0, 0, alpha);
         }
 
+        // Opening the door using MoveTowards
         if (openDoor)
         {
-            float step = 1 * Time.fixedUnscaledDeltaTime;// Time.deltaTime;
+            float step = 1 * Time.fixedUnscaledDeltaTime;
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(-11.42f, 5, -17.53f), step);
         }
     }
 
     IEnumerator doorCutScene()
     {
+        // Hide UI
         mainUI.SetActive(false);
 
         yield return new WaitForSecondsRealtime(2);
 
+        // Fade out camera
         fadeOut = true;
         fadeIn = false;
 
         yield return new WaitForSecondsRealtime(1);
 
+        // Swap cameras and fade back in
         camMain.gameObject.SetActive(false);
         camDoor.gameObject.SetActive(true);
 
@@ -96,15 +105,18 @@ public class FirstFloorDoorScript : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1);
 
+        // Open door
         openDoor = true;
         fadeIn = false;
 
         yield return new WaitForSecondsRealtime(3);
 
+        // Fade out camera
         fadeOut = true;
 
         yield return new WaitForSecondsRealtime(1);
 
+        // Switch cameras back and fade back in
         camDoor.gameObject.SetActive(false);
         camMain.gameObject.SetActive(true);
 
@@ -113,6 +125,7 @@ public class FirstFloorDoorScript : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(2);
 
+        // Turn UI back on and let player move
         mainUI.SetActive(true);
         playerMove.isCutScene = false;
     }

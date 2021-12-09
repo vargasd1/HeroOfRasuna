@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script is used to detect when enemies are behind walls and fade out the wall.
+/// As well as outline the enemy with red.
+/// 
+/// ATTATCHED TO: EnemyWallHitBox (Prefab)
+/// </summary>
 public class EnemyToWallCollision : MonoBehaviour
 {
-
     public Outline enemyOutline;
     public GameObject targetEnemy;
     private EnemyAI enemAI;
@@ -21,6 +26,7 @@ public class EnemyToWallCollision : MonoBehaviour
 
     private void Update()
     {
+        // Check which enemy type the wall is attatched to
         if (doOnce)
         {
             if (targetEnemy.GetComponent<EnemyAI>() != null) enemAI = targetEnemy.GetComponent<EnemyAI>();
@@ -29,8 +35,10 @@ public class EnemyToWallCollision : MonoBehaviour
             doOnce = false;
         }
 
+        // Move the hitbox with the enemy
         transform.position = targetEnemy.transform.position + transform.forward * 4;
 
+        // Checks if the enemy died and removes outline, and unfades all walls it had
         if (enemAI != null)
         {
             if (enemAI.health <= 0)

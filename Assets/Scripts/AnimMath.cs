@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class AnimMath 
-{
+/// <summary>
+/// This is a script with a static class so all the functions can be called anywhere in the project.
+/// 
+/// ATTATCHED TO: N/A
+/// </summary>
 
+
+public static class AnimMath
+{
     public static float Map(float input, float min, float max, float min2, float max2)
     {
         return (input - min) * (max2 - min2) / (max - min) + min2;
@@ -17,10 +23,10 @@ public static class AnimMath
             if (p < 0) p = 0;
             if (p > 1) p = 1;
         }
-        return  (max - min) * p + min;
+        return (max - min) * p + min;
     }
 
-    public static Vector3 Lerp(Vector3  min, Vector3  max, float p, bool allowExtrapolation = true)
+    public static Vector3 Lerp(Vector3 min, Vector3 max, float p, bool allowExtrapolation = true)
     {
         if (!allowExtrapolation)
         {
@@ -56,7 +62,7 @@ public static class AnimMath
         return AnimMath.Lerp(current, target, p);
     }
 
-   public static Quaternion Slide(Quaternion current, Quaternion target, float percentLeftAfter1Second= .05f)
+    public static Quaternion Slide(Quaternion current, Quaternion target, float percentLeftAfter1Second = .05f)
     {
         float p = 1 - Mathf.Pow(percentLeftAfter1Second, Time.deltaTime);
         return AnimMath.Lerp(current, target, p);

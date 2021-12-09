@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//ATTACHED TO: player gameobject
+/// <summary>
+/// This script controls the player's movement and animations
+/// 
+/// ATTATCHED TO: Player
+/// </summary>
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     public bool isCutScene = false;
     public bool isCutSceneMoving = false;
     private Outline playerOut;
-    private Camera mainCam;
     private bool stopFadeOnce = true;
 
     public float playerSpeed = 5.0f;
@@ -35,8 +38,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 pointToLook;
     private float targetRotationX;
     private float targetRotationZ;
-    private float tempRotationX;
-    private float tempRotationZ;
     private bool doRotation = false;
 
     //variables for overclock
@@ -44,13 +45,9 @@ public class PlayerMovement : MonoBehaviour
     float slowdownFactor = .05f;
     public float overclockTime = 5f;
     public float overclockTransitionTime = 2f;
-    //float overclockCDTime = 0f;
     public bool overclock = false;
     public bool overclockTransition = false;
     public float overclockChargedAmt = 0f;
-
-    //public Camera mainCam;
-    //private AudioManager audioScript;
 
     private void Start()
     {
@@ -151,8 +148,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!overclock && overclockChargedAmt >= 100f)
                 {
-                    //audioScript.Play("Overclock");
-                    //AudioAnywhere.PlayAnywhere("Overclock");
                     FindObjectOfType<AudioManager>().Play("Overclock");
                     SlowTime();
                 }
@@ -322,6 +317,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void playAttackSound()
     {
+        // Plays attack sound in animator when event is called
         switch (playerMan.attackNum)
         {
             case 1:
@@ -338,6 +334,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void isCastingSet()
     {
+        // Swaps casting back and fourth and resets attack
         isCasting = !isCasting;
         playerMan.canAttack = true;
     }

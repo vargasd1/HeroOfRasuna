@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This script is used to create the Enemies Ranged AI, letting him decide all his choices.
+/// 
+/// ATTATCHED TO: HoR_RangedEnemy_Base
+/// </summary>
 public class EnemyRangedAI : MonoBehaviour
 {
     // State Machine Variables
@@ -71,14 +76,20 @@ public class EnemyRangedAI : MonoBehaviour
 
     void Update()
     {
+        // If dead, unstun and go to death state
         if (health <= 0)
         {
             anim.SetBool("Stunned", false);
             state = State.Dead;
         }
+
+        // If the player dies, set them to null
         if (player && player.GetComponent<PlayerManager>().isDead) player = null;
+
+        // If game isn't paused
         if (!pauseMenu.GamePaused)
         {
+            // If already hit by the player, small delay where they can't take damage again immediatly
             if (alreadyHitByPlayer)
             {
                 if (hitDelay <= 0)
@@ -105,6 +116,8 @@ public class EnemyRangedAI : MonoBehaviour
                     // Reset navMesh && state
                     agent.speed = 6f;
                     anim.SetBool("isMoving", false);
+
+                    // Wander to new location after timer is done, or Chase if Player is in sight, or Attack if close enough
                     if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
                     if (player)
                     {
@@ -158,6 +171,7 @@ public class EnemyRangedAI : MonoBehaviour
                     }
                     // STOP MOVING
                     agent.speed = 0f;
+                    // Spawn XP
                     if (!orbsDroppedOnce)
                     {
                         for (int i = 0; i < UnityEngine.Random.Range(3, 5); i++)
@@ -182,12 +196,14 @@ public class EnemyRangedAI : MonoBehaviour
     {
         if (player)
         {
+            // Chase player if close enough
             if (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer)
             {
                 state = State.Chasing;
             }
             else
             {
+                // Find location in circle and set it as it's destination 
                 NavMeshHit hit;
                 anim.SetBool("isMoving", true);
                 Vector3 randomDir = UnityEngine.Random.insideUnitSphere * 10;
@@ -212,6 +228,7 @@ public class EnemyRangedAI : MonoBehaviour
         }
         else
         {
+            // If no player, just stand still
             state = State.Idle;
             agent.SetDestination(transform.position);
         }
@@ -221,6 +238,7 @@ public class EnemyRangedAI : MonoBehaviour
     {
         if (player && health > 0 && (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer))
         {
+            // look at player and set destination to theirs, if close enough, attack, and if the player is far enough away, give up
             hasSeenPlayer = true;
             anim.SetBool("isMoving", true);
             agent.speed = 3.5f;
@@ -240,10 +258,13 @@ public class EnemyRangedAI : MonoBehaviour
     {
         if (player)
         {
+            // Stop moving
             agent.SetDestination(transform.position);
             anim.SetBool("isMoving", false);
+
             if (timeBetweenAttacks <= 0)
             {
+                // If the player is still close attack else chase
                 if (Vector3.Distance(transform.position, player.position) <= 10)
                 {
                     anim.SetTrigger("Attack");
@@ -268,6 +289,9 @@ public class EnemyRangedAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This function resets the enemy's attack vars (animation event key)
+    /// </summary>
     public void resetAttackEnemy()
     {
         isAttacking = false;
@@ -275,22 +299,35 @@ public class EnemyRangedAI : MonoBehaviour
         attackAnimIsPlaying = false;
     }
 
+    /// <summary>
+    /// This function resets the enemy's damage vars (animation event key)
+    /// </summary>
     public void resetDamageEnemy()
     {
         state = State.Idle;
         anim.SetBool("HitAgain", false);
         attackAnimIsPlaying = false;
     }
+
+    /// <summary>
+    /// This function plays the hit sound effect and flips isAttacking (animation event key)
+    /// </summary>
     public void isAttackingSet()
     {
         isAttacking = !isAttacking;
     }
 
+    /// <summary>
+    /// /// This function checks if the attack animation is playing (animation event key)
+    /// </summary>
     public void isAttackPlaying()
     {
         attackAnimIsPlaying = true;
     }
 
+    /// <summary>
+    /// /// This function spawns a enemy projectile (animation event key)
+    /// </summary>
     public void spawnSpell()
     {
         if (state != State.Stunned)

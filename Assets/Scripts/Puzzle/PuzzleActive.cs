@@ -60,6 +60,8 @@ public class PuzzleActive : MonoBehaviour
                     }
                     ++selectedPiece;
                     if (selectedPiece > 2) selectedPiece = 2;
+                    moveLeft = false;
+                    moveRight = false;
                 }
                 else if (Input.GetKeyDown(KeyCode.S))
                 {
@@ -76,36 +78,27 @@ public class PuzzleActive : MonoBehaviour
                     }
                     --selectedPiece;
                     if (selectedPiece < 0) selectedPiece = 0;
+                    moveLeft = false;
+                    moveRight = false;
+                }
+                else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+                {
+                    moveLeft = false;
+                    moveRight = false;
                 }
                 else if (Input.GetKey(KeyCode.A))
                 {
                     moveLeft = true;
+                    moveRight = false;
                 }
                 else if (Input.GetKey(KeyCode.D))
                 {
                     moveRight = true;
-                }
-                else if (Input.GetKey(KeyCode.T))
-                {
-                    switch (selectedPiece)
-                    {
-                        case 0:
-                            Debug.Log("Inner: " + discInner.transform.eulerAngles.z);
-                            break;
-                        case 1:
-                            Debug.Log("Mid: " + discMid.transform.eulerAngles.z);
-                            break;
-                        case 2:
-                            Debug.Log("Outer: " + discOuter.transform.eulerAngles.z);
-                            break;
-                    }
-                }
-                else if (Input.GetKeyUp(KeyCode.A))
-                {
                     moveLeft = false;
                 }
-                else if (Input.GetKeyUp(KeyCode.D))
+                else
                 {
+                    moveLeft = false;
                     moveRight = false;
                 }
             }//else allow player to move puzzle

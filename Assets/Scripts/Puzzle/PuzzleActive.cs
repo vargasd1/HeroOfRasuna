@@ -47,7 +47,7 @@ public class PuzzleActive : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    switch(selectedPiece)
+                    switch (selectedPiece)
                     {
                         case 0:
                             innerImg.rectTransform.localScale = Vector3.one;
@@ -100,11 +100,11 @@ public class PuzzleActive : MonoBehaviour
                             break;
                     }
                 }
-                else if(Input.GetKeyUp(KeyCode.A))
+                else if (Input.GetKeyUp(KeyCode.A))
                 {
                     moveLeft = false;
                 }
-                else if(Input.GetKeyUp(KeyCode.D))
+                else if (Input.GetKeyUp(KeyCode.D))
                 {
                     moveRight = false;
                 }
@@ -114,7 +114,7 @@ public class PuzzleActive : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!finishPuzzle)
+        if (!finishPuzzle)
         {
             if (moveLeft)
             {
@@ -149,7 +149,7 @@ public class PuzzleActive : MonoBehaviour
             }
         }
 
-        if(finishPuzzle && time < 1f)
+        if (finishPuzzle && time < 1f)
         {
             //make all rotations on puzzles 0
             /*discInner.transform.Rotate(0.0f, 0.0f, startIn, Space.Self);
@@ -241,6 +241,7 @@ public class PuzzleActive : MonoBehaviour
         yield return new WaitForSecondsRealtime(2);
 
         canvasUI.SetActive(true);
+        playerObj.GetComponent<PlayerManager>().isInPuzzle = false;
         playerObj.GetComponent<PlayerMovement>().isCutScene = false;
     }
 }

@@ -101,91 +101,102 @@ public class EnemyAI : MonoBehaviour
                 }
             }
 
-            switch (state)
+            if (player.GetComponent<PlayerManager>().isInPuzzle && state != State.Dead)
             {
-                case State.Spawning:
-                    // Play spawn animation
-                    // When completed, goes to Idle state
-                    spawnTimer -= Time.fixedDeltaTime;
-                    anim.SetBool("isMoving", false);
-                    if (spawnTimer <= 0) state = State.Idle;
-                    break;
-                case State.Idle:
-                    // Reset navMesh && state
-                    agent.speed = 6f;
-                    anim.SetBool("isMoving", false);
+                agent.speed = 0;
+                anim.SetBool("isMoving", false);
+                agent.SetDestination(transform.position);
+                state = State.Idle;
+            }
+            else
+            {
+                switch (state)
+                {
+                    case State.Spawning:
+                        // Play spawn animation
+                        // When completed, goes to Idle state
+                        spawnTimer -= Time.fixedDeltaTime;
+                        anim.SetBool("isMoving", false);
+                        if (spawnTimer <= 0) state = State.Idle;
+                        break;
+                    case State.Idle:
+                        // Reset navMesh && state
+                        agent.speed = 6f;
+                        anim.SetBool("isMoving", false);
 
-                    // Wander to new location after timer is done, or Chase if Player is in sight, or Attack if close enough
-                    if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
-                    if (player)
-                    {
-                        if (Vector3.Distance(transform.position, player.position) > 10 && wanderDelay <= 0)
+                        // Wander to new location after timer is done, or Chase if Player is in sight, or Attack if close enough
+                        if (wanderDelay > 0) wanderDelay -= Time.deltaTime;
+                        if (player)
                         {
-                            state = State.Wander;
+                            if (Vector3.Distance(transform.position, player.position) > 10 && wanderDelay <= 0)
+                            {
+                                state = State.Wander;
+                            }
+                            if (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer) state = State.Chasing;
+                            if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
                         }
-                        if (Vector3.Distance(transform.position, player.position) <= 10 || hasSeenPlayer) state = State.Chasing;
-                        if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
-                    }
-                    break;
-                case State.Wander:
-                    agent.speed = 4f;
-                    WanderToLocation();
-                    break;
-                case State.Chasing:
-                    agent.speed = 5f;
-                    ChasePlayer();
-                    break;
-                case State.Attacking:
-                    AttackPlayer();
-                    break;
-                case State.hitStunned:
-                    // Stop moving
-                    agent.speed = 0f;
-                    anim.SetBool("isMoving", false);
-                    break;
-                case State.Stunned:
-                    // Stops moving instantly
-                    agent.speed = 0f;
-                    anim.SetBool("isMoving", false);
-                    anim.SetBool("Stunned", true);
-                    resetAttackEnemy();
-                    resetDamageEnemy();
-                    // Decrement stun timer
-                    stunnedTimer -= Time.deltaTime;
-                    if (stunnedTimer <= 0)
-                    {
-                        state = State.Idle;
-                        anim.SetBool("Stunned", false);
-                    }
-                    break;
-                case State.Dead:
-                    // Play Death Animation
-                    anim.SetTrigger("Died");
-                    isAttacking = false;
-                    if (!dieSoundOnce)
-                    {
-                        FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyDissolve");
-                        dieSoundOnce = true;
-                    }
-                    // STOP MOVING
-                    agent.speed = 0f;
-                    // Spawn XP
-                    if (!orbsDroppedOnce)
-                    {
-                        for (int i = 0; i < UnityEngine.Random.Range(3, 5); i++)
+                        break;
+                    case State.Wander:
+                        agent.speed = 4f;
+                        WanderToLocation();
+                        break;
+                    case State.Chasing:
+
+                        agent.speed = 5f;
+                        ChasePlayer();
+                        break;
+                    case State.Attacking:
+                        AttackPlayer();
+                        break;
+                    case State.hitStunned:
+                        // Stop moving
+                        agent.speed = 0f;
+                        anim.SetBool("isMoving", false);
+                        break;
+                    case State.Stunned:
+                        // Stops moving instantly
+                        agent.speed = 0f;
+                        anim.SetBool("isMoving", false);
+                        anim.SetBool("Stunned", true);
+                        resetAttackEnemy();
+                        resetDamageEnemy();
+                        // Decrement stun timer
+                        stunnedTimer -= Time.deltaTime;
+                        if (stunnedTimer <= 0)
                         {
-                            GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
-                            Vector3 force = new Vector3(UnityEngine.Random.Range(-10f, 10f), 0f, UnityEngine.Random.Range(-10f, 10f)).normalized * 200;
-                            xp.GetComponent<Rigidbody>().AddForce(force);
+                            state = State.Idle;
+                            anim.SetBool("Stunned", false);
                         }
-                        orbsDroppedOnce = true;
-                        player.gameObject.GetComponent<PlayerManager>().enemiesKilled++;
-                        if (thirdLevel) bossDoor.enemiesKilled++;
-                    }
-                    // Remove Collider
-                    GetComponent<CapsuleCollider>().enabled = false;
-                    GetComponent<NavMeshAgent>().enabled = false;
-                    break;
+                        break;
+                    case State.Dead:
+                        // Play Death Animation
+                        anim.SetTrigger("Died");
+                        isAttacking = false;
+                        if (!dieSoundOnce)
+                        {
+                            FindObjectOfType<AudioManager>().PlayUninterrupted("EnemyDissolve");
+                            dieSoundOnce = true;
+                        }
+                        // STOP MOVING
+                        agent.speed = 0f;
+                        // Spawn XP
+                        if (!orbsDroppedOnce)
+                        {
+                            for (int i = 0; i < UnityEngine.Random.Range(3, 5); i++)
+                            {
+                                GameObject xp = Instantiate(xpOrb, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation, null);
+                                Vector3 force = new Vector3(UnityEngine.Random.Range(-10f, 10f), 0f, UnityEngine.Random.Range(-10f, 10f)).normalized * 200;
+                                xp.GetComponent<Rigidbody>().AddForce(force);
+                            }
+                            orbsDroppedOnce = true;
+                            player.gameObject.GetComponent<PlayerManager>().enemiesKilled++;
+                            if (thirdLevel) bossDoor.enemiesKilled++;
+                        }
+                        // Remove Collider
+                        GetComponent<CapsuleCollider>().enabled = false;
+                        GetComponent<NavMeshAgent>().enabled = false;
+                        break;
+                }
             }
         }
     }
@@ -240,7 +251,9 @@ public class EnemyAI : MonoBehaviour
             hasSeenPlayer = true;
             anim.SetBool("isMoving", true);
             agent.speed = 3.5f;
-            transform.LookAt(player);
+            Vector3 lookVector = player.position;
+            lookVector.y = transform.position.y;
+            transform.LookAt(lookVector);
             if (Vector3.Distance(transform.position, player.position) <= agent.stoppingDistance) state = State.Attacking;
             else agent.SetDestination(player.position);
             if (Vector3.Distance(transform.position, player.position) >= 30) hasSeenPlayer = false;

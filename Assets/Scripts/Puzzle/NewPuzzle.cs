@@ -14,6 +14,7 @@ public class NewPuzzle : Interactable
     //private bool fadeIn = false;
     //private bool fadeOut = false;
     public Image UICover;
+    private bool doOnce = true;
     //private float alpha = 0;
 
     void Start()
@@ -36,7 +37,7 @@ public class NewPuzzle : Interactable
             {
                 //if overclocked, stop overclock
                 PlayerMovement playerMove = FindObjectOfType<PlayerMovement>();
-                if(playerMove.overclock || playerMove.overclockTransition)
+                if (playerMove.overclock || playerMove.overclockTransition)
                 {
                     playerMove.overclockTime = 5f;
                     playerMove.overclockTransitionTime = 2f;
@@ -49,7 +50,11 @@ public class NewPuzzle : Interactable
                     aud.ChangePitch("Overclock", 1f);
                     aud.ResetSounds();
                 }
-                StartCoroutine(switchToPuzzle());
+                if (doOnce)
+                {
+                    StartCoroutine(switchToPuzzle());
+                    doOnce = false;
+                }
             }
             //exit puzzle mode
             else if (camPuzzle.activeSelf)
@@ -90,6 +95,7 @@ public class NewPuzzle : Interactable
     IEnumerator switchToPuzzle()
     {
         playerObj.GetComponent<PlayerMovement>().isCutScene = true;
+        playerObj.GetComponent<PlayerManager>().isInPuzzle = true;
         puzzleScript.fadeOut = true;
         puzzleScript.fadeIn = false;
         canvasUI.SetActive(false);
@@ -106,6 +112,8 @@ public class NewPuzzle : Interactable
         yield return new WaitForSecondsRealtime(1.5f);
 
         puzzleUI.SetActive(true);
+
+        yield break;
     }
 
     IEnumerator exitPuzzle()
@@ -114,13 +122,11 @@ public class NewPuzzle : Interactable
         puzzleScript.fadeIn = false;
         puzzleUI.SetActive(false);
 
-
         yield return new WaitForSecondsRealtime(1);
 
         camMain.SetActive(true);
         camPuzzle.SetActive(false);
         playerObj.SetActive(true);
-        playerObj.GetComponent<PlayerMovement>().isCutScene = true;
 
         puzzleScript.fadeOut = false;
         puzzleScript.fadeIn = true;
@@ -128,6 +134,9 @@ public class NewPuzzle : Interactable
         yield return new WaitForSecondsRealtime(1.5f);
 
         canvasUI.SetActive(true);
+        playerObj.GetComponent<PlayerManager>().isInPuzzle = false;
         playerObj.GetComponent<PlayerMovement>().isCutScene = false;
+
+        yield break;
     }
 }

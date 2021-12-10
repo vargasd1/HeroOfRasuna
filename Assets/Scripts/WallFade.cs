@@ -6,6 +6,7 @@ using UnityEngine;
 /// This script is used to fade out the walls that the player is behind.
 /// 
 /// ATTATCHED TO: All objects that are meant to fade
+/// A
 /// </summary>
 public class WallFade : MonoBehaviour
 {

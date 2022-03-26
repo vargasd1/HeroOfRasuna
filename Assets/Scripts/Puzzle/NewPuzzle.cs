@@ -136,6 +136,7 @@ public class NewPuzzle : Interactable
         canvasUI.SetActive(true);
         playerObj.GetComponent<PlayerManager>().isInPuzzle = false;
         playerObj.GetComponent<PlayerMovement>().isCutScene = false;
+        doOnce = true;
 
         yield break;
     }

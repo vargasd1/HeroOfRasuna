@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 
@@ -15,12 +16,16 @@ public class CreditsLogic : MonoBehaviour
 {
 
     private VideoPlayer vid;
-    private float timer = 0.5f;
+    public RawImage vidMat;
+    private float timer = 1.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         vid = GetComponent<VideoPlayer>();
+
+        vid.url = System.IO.Path.Combine(Application.streamingAssetsPath, "HoR_Credits_Final_Cut.mp4");
+        vid.Play();
     }
 
     // Update is called once per frame

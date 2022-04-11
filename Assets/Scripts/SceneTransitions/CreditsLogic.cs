@@ -24,7 +24,7 @@ public class CreditsLogic : MonoBehaviour
     {
         vid = GetComponent<VideoPlayer>();
 
-        vid.url = System.IO.Path.Combine(Application.streamingAssetsPath, "HoR_Credits_Final_Cut.mp4");
+        vid.url = System.IO.Path.Combine(Application.streamingAssetsPath, "HoR_Credits_Revised.mp4");
         vid.Play();
     }
 

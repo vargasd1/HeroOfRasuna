@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class SceneSwitcher : MonoBehaviour
 {
 
     public Image loadScreen;
+    public GameObject options;
     private bool fadeOut = false;
     private bool fadeIn = false;
+    public AudioMixer audioMixer;
     private float alpha = 1;
     private string sceneName = "FirstFloor";
 
@@ -59,6 +62,30 @@ public class SceneSwitcher : MonoBehaviour
         fadeOut = true;
         loadScreen.gameObject.SetActive(true);
         sceneName = "CreditScene";
+    }
+
+    public void SetVolume(float vol)
+    {
+        audioMixer.SetFloat("MasterVolume", vol);
+    }
+
+    public void SetFullscreen()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+    }
+
+    public void showOptions()
+    {
+        if (options.activeSelf)
+        {
+            options.SetActive(false);
+        }
+        else
+        {
+            options.SetActive(true);
+        }
+
+
     }
 
     public void quitGame()

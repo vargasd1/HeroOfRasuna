@@ -37,7 +37,7 @@ public class pauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (!playerMove.isCutScene)
             {
@@ -101,23 +101,20 @@ public class pauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         NextFloorPlayer.ResetValues();
-        Debug.Log("Loading main menu");
         SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
     {
-        Debug.Log("Quitting game");
         Application.Quit();
     }
 
     public void SetVolume(float vol)
     {
-        Debug.Log(vol);
         audioMixer.SetFloat("MasterVolume", vol);
     }
 
-    public void SetFullscreen(bool f)
+    public void SetFullscreen()
     {
         Screen.fullScreen = !Screen.fullScreen;
     }
